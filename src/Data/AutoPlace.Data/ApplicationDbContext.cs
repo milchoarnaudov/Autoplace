@@ -24,7 +24,21 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Autopart> Autoparts { get; set; }
+
+        public DbSet<AutopartCondition> AutopartConditions { get; set; }
+
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<CarManufacturer> CarManufacturers { get; set; }
+
+        public DbSet<CarModel> CarModels { get; set; }
+
+        public DbSet<CarType> CarTypes { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Image> Images { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
