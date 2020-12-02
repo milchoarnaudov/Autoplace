@@ -13,6 +13,8 @@ namespace AutoPlace.Data.Models
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.CommentsForUser = new HashSet<Comment>();
+            this.CommentsByUser = new HashSet<Comment>();
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
@@ -27,6 +29,10 @@ namespace AutoPlace.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public virtual ICollection<Comment> CommentsForUser { get; set; }
+
+        public virtual ICollection<Comment> CommentsByUser { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
