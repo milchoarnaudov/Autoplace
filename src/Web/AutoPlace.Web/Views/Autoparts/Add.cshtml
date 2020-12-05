@@ -1,0 +1,80 @@
+﻿@model AutoPlace.Web.ViewModels.Autoparts.CreateAutopartInputModel
+@{
+    var categoryItems = this.Model.Categories.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
+    var conditionItems = this.Model.Conditions.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
+    var carManufacturerItems = this.Model.CarManufacturers.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
+
+}
+<h1>Add</h1>
+<br />
+
+<form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CarManufacturerId"></label>
+        <select asp-for="CarManufacturerId" class="form-control" asp-items="carManufacturerItems"></select>
+        <span asp-validation-for="CarManufacturerId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ModelId"></label>
+        <select asp-for="ModelId" class="form-control"></select>
+        <span asp-validation-for="ModelId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MakeDate"></label>
+        <input asp-for="MakeDate" class="form-control" />
+        <span asp-validation-for="MakeDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConditionId"></label>
+        <select asp-for="ConditionId" class="form-control" asp-items="conditionItems"></select>
+        <span asp-validation-for="ConditionId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" class="form-control" asp-items="categoryItems"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Images"></label>
+        <input asp-for="Images" class="form-control" />
+        <span asp-validation-for="Images" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn btn-primary" />
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('CarManufacturerId').addEventListener('change', (e) => {
+            const modelSelectElement = document.getElementById('ModelId');
+            modelSelectElement.innerHTML = "<option disabled value=''>Select Car Model</option>";
+
+            fetch(`/autoparts/getModelsById?Id=${e.target.value}`)
+                .then((response) => {
+                    console.log(response);
+                    return response.json();
+                })
+                .then((data) => {
+                    Array.prototype.forEach.call(data, function (item, i) {
+                        console.log(item);
+                        document.getElementById('ModelId').innerHTML += `<option value="${item.Key}">${item.Value}</option>`
+                    });
+                });
+        });
+    </script>
+}

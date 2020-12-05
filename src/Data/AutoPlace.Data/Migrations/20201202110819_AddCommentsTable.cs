@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace AutoPlace.Data.Migrations
+﻿namespace AutoPlace.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddCommentsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
