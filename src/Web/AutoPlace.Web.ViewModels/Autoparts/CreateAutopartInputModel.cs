@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using AutoPlace.Services.Data.DTO;
+    using AutoPlace.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
-    public class CreateAutopartInputModel
+    public class CreateAutopartInputModel : IMapTo<CreateAutopartDTO>
     {
         public string Name { get; set; }
 
@@ -27,8 +29,6 @@
         public int CategoryId { get; set; }
 
         public int ConditionId { get; set; }
-
-        public string OwnerId { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> CarManufacturers { get; set; }
 
