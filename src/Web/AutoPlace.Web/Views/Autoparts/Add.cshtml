@@ -3,7 +3,7 @@
     var categoryItems = this.Model.Categories.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
     var conditionItems = this.Model.Conditions.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
     var carManufacturerItems = this.Model.CarManufacturers.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
-
+    var carTypes = this.Model.CarTypes.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
 }
 <h1>Add</h1>
 <br />
@@ -34,6 +34,11 @@
         <label asp-for="ModelId"></label>
         <select asp-for="ModelId" class="form-control"></select>
         <span asp-validation-for="ModelId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CarTypeId"></label>
+        <select asp-for="CarTypeId" class="form-control" asp-items="carTypes"></select>
+        <span asp-validation-for="CarTypeId" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="MakeDate"></label>
