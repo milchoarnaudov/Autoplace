@@ -116,5 +116,20 @@
         {
             return this.autopartRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
+
+        public async Task<bool> DeleteById(int id)
+        {
+            var autopart = this.autopartRepository.AllAsNoTracking().Where(x => x.Id == id).FirstOrDefault();
+
+            if (autopart == null)
+            {
+                return false;
+            }
+
+            this.autopartRepository.Delete(autopart);
+            await this.autopartRepository.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

@@ -12,6 +12,6 @@
 <h2>@Model.ConditionName</h2>
 <h2>@Model.CarManufacturerName</h2>
 <h2>@Model.CarModelName</h2>
-<button class="btn btn-danger">Delete</button>
+<a class="btn btn-danger" asp-controller="Autoparts" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
 
 

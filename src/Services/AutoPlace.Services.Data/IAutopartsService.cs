@@ -13,6 +13,8 @@
 
         IEnumerable<T> GetAll<T>();
 
+        Task<bool> DeleteById(int id);
+
         IEnumerable<KeyValuePair<string, string>> GetAllCategoriesAsKeyValuePairs();
 
         IEnumerable<KeyValuePair<string, string>> GetAllConditionsAsKeyValuePairs();

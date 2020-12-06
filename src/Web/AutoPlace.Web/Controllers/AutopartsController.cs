@@ -84,7 +84,39 @@
         {
             var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
 
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(viewModel);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var isSuccessful = await this.autopartsService.DeleteById(id);
+
+            if (!isSuccessful)
+            {
+                return this.NotFound();
+            }
+
+            return this.RedirectToAction("All");
         }
     }
 }
