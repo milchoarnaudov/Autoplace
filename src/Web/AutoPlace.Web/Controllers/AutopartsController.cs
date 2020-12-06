@@ -69,5 +69,22 @@
 
             return this.Json(modelsById);
         }
+
+        public IActionResult All()
+        {
+            var viewModel = new AutopartsListViewModel
+            {
+                Autoparts = this.autopartsService.GetAll<AutopartsListItemViewModel>(),
+            };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+
+            return this.View(viewModel);
+        }
     }
 }

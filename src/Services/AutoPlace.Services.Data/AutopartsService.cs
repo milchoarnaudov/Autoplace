@@ -9,6 +9,7 @@
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.DTO;
+    using AutoPlace.Services.Mapping;
 
     public class AutopartsService : IAutopartsService
     {
@@ -100,6 +101,20 @@
             return this.conditionsRepository.AllAsNoTracking()
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
                 .ToList();
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            var recipes = this.autopartRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.CreatedOn)
+                .To<T>().ToList();
+
+            return recipes;
+        }
+
+        public T GetById<T>(int id)
+        {
+            return this.autopartRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
     }
 }

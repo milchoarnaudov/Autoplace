@@ -9,6 +9,10 @@
     {
         Task CreateAutopartAsync(CreateAutopartDTO autopart, string userId, string imagePath);
 
+        T GetById<T>(int id);
+
+        IEnumerable<T> GetAll<T>();
+
         IEnumerable<KeyValuePair<string, string>> GetAllCategoriesAsKeyValuePairs();
 
         IEnumerable<KeyValuePair<string, string>> GetAllConditionsAsKeyValuePairs();
