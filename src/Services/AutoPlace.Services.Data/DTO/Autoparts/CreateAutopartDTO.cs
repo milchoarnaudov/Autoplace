@@ -1,4 +1,4 @@
-﻿namespace AutoPlace.Services.Data.DTO
+﻿namespace AutoPlace.Services.Data.DTO.Autoparts
 {
     using System;
     using System.Collections.Generic;

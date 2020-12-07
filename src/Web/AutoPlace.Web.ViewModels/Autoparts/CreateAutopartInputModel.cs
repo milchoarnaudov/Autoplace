@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using AutoPlace.Services.Data.DTO;
+    using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 

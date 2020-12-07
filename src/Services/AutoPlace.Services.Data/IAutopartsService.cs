@@ -3,15 +3,17 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using AutoPlace.Services.Data.DTO;
+    using AutoPlace.Services.Data.DTO.Autoparts;
 
     public interface IAutopartsService
     {
-        Task CreateAutopartAsync(CreateAutopartDTO autopart, string userId, string imagePath);
+        Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath);
 
         T GetById<T>(int id);
 
         IEnumerable<T> GetAll<T>();
+
+        Task<bool> Edit(EditAutopartDTO autopart);
 
         Task<bool> DeleteById(int id);
 

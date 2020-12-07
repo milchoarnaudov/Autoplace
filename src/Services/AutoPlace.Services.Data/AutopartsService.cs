@@ -9,6 +9,7 @@
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.DTO;
+    using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Services.Mapping;
 
     public class AutopartsService : IAutopartsService
@@ -31,7 +32,7 @@
             this.autopartRepository = autopartRepository;
         }
 
-        public async Task CreateAutopartAsync(CreateAutopartDTO autopart, string userId, string imagePath)
+        public async Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath)
         {
             var autopartEntity = new Autopart
             {
@@ -127,6 +128,25 @@
             }
 
             this.autopartRepository.Delete(autopart);
+            await this.autopartRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> Edit(EditAutopartDTO autopart)
+        {
+            var autopartEntity = this.autopartRepository.All().Where(x => x.Id == autopart.Id).FirstOrDefault();
+
+            if (autopartEntity == null)
+            {
+                return false;
+            }
+
+            autopartEntity.Name = autopart.Name;
+            autopartEntity.Description = autopart.Description;
+            autopartEntity.Price = autopart.Price;
+
+            this.autopartRepository.Update(autopartEntity);
             await this.autopartRepository.SaveChangesAsync();
 
             return true;

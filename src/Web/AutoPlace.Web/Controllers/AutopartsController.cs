@@ -5,6 +5,7 @@
 
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.DTO;
+    using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Web.ViewModels.Autoparts;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -58,7 +59,7 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var imagePath = $"{this.env.WebRootPath}/Images";
 
-            await this.autopartsService.CreateAutopartAsync(autopart, userId, imagePath);
+            await this.autopartsService.CreateAsync(autopart, userId, imagePath);
 
             return this.Redirect("/");
         }
@@ -110,6 +111,38 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var isSuccessful = await this.autopartsService.DeleteById(id);
+
+            if (!isSuccessful)
+            {
+                return this.NotFound();
+            }
+
+            return this.RedirectToAction("All");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Id,Name,Price,Description")] AutopartDetailsViewModel autopart)
+        {
+            var isSuccessful = await this.autopartsService.Edit(new EditAutopartDTO
+            {
+                Id = autopart.Id,
+                Description = autopart.Description,
+                Name = autopart.Name,
+                Price = autopart.Price,
+            });
 
             if (!isSuccessful)
             {
