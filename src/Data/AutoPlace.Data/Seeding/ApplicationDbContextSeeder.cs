@@ -28,7 +28,7 @@
                               new RolesSeeder(),
                               new CarModelsSeeder(),
                               new CarTypesSeeder(),
-                              new CategoriesSeeder(),
+                              new AutopartCategoriesSeeder(),
                               new AutopartConditionsSeeder(),
                           };
 

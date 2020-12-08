@@ -36,7 +36,7 @@
 
         public DbSet<CarType> CarTypes { get; set; }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<AutopartCategory> AutopartCategories { get; set; }
 
         public DbSet<Image> Images { get; set; }
 

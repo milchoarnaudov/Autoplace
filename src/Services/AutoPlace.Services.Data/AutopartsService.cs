@@ -15,13 +15,13 @@
     public class AutopartsService : IAutopartsService
     {
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
-        private readonly IDeletableEntityRepository<Category> categoriesRepository;
+        private readonly IDeletableEntityRepository<AutopartCategory> categoriesRepository;
         private readonly IDeletableEntityRepository<AutopartCondition> conditionsRepository;
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IDeletableEntityRepository<Autopart> autopartRepository;
 
         public AutopartsService(
-            IDeletableEntityRepository<Category> categoriesRepository,
+            IDeletableEntityRepository<AutopartCategory> categoriesRepository,
             IDeletableEntityRepository<AutopartCondition> conditionsRepository,
             IDeletableEntityRepository<Car> carRepository,
             IDeletableEntityRepository<Autopart> autopartRepository)

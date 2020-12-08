@@ -21,7 +21,7 @@
 
         public int CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }
+        public virtual AutopartCategory Category { get; set; }
 
         public int ConditionId { get; set; }
 

@@ -4,9 +4,9 @@
 
     using AutoPlace.Data.Common.Models;
 
-    public class Category : BaseDeletableModel<int>
+    public class AutopartCategory : BaseDeletableModel<int>
     {
-        public Category()
+        public AutopartCategory()
         {
             this.Autoparts = new HashSet<Autopart>();
         }
