@@ -1,4 +1,4 @@
-﻿@model AutoPlace.Web.ViewModels.Autoparts.CreateAutopartInputModel
+﻿@model CreateAutopartInputModel
 @{
     var categoryItems = this.Model.Categories.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
     var conditionItems = this.Model.Conditions.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
