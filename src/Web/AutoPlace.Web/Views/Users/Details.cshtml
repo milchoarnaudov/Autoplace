@@ -1,0 +1,24 @@
+﻿@model UserDetailsViewModel
+
+<h1>@Model.Username</h1>
+
+<div>
+    <div>
+        @foreach (var comment in Model.CommentsForUser)
+        {
+        <div>
+            <h2>By @comment.CommentatorUsername</h2>
+            <h2>@comment.Content</h2>
+        </div>
+        }
+    </div>
+    <div>
+        @foreach (var autopart in Model.Autoparts)
+        {
+            <div>
+                <h2>@autopart.Name</h2>
+                <h2>@autopart.Price</h2>
+            </div>
+        }
+    </div>
+</div>

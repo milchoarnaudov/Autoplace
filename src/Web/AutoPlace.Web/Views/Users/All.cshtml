@@ -1,0 +1,11 @@
+﻿@model UsersListViewModel
+
+<h1>Users</h1>
+
+@foreach (var user in Model.Users)
+{
+    <div>
+        <h2>@user.Username</h2>
+        <a asp-controller="Users" asp-action="Details" asp-route-username="@user.Username" class="btn btn-primary">Details</a>
+    </div>
+}

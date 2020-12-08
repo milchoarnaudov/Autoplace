@@ -582,7 +582,7 @@ namespace AutoPlace.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AutoPlace.Data.Models.ApplicationUser", "Owner")
-                        .WithMany()
+                        .WithMany("Autoparts")
                         .HasForeignKey("OwnerId");
                 });
 
