@@ -1,0 +1,99 @@
+﻿@{
+    var itemTypes = new String[]
+    {
+        "Autopart Categories",
+        "Autopart Conditions",
+        "Car Manufacturer",
+        "Car Model",
+        "Car Type"
+    };
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card" width="50px">
+            @foreach (var itemType in itemTypes)
+            {
+                <button onclick="selectItemType('@itemType')">@itemType</button>
+            }
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div id="itemsList" class="card" width="50px">
+
+        </div>
+        <div id="createForm">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        function selectItemType(itemType) {
+            let controllerName = itemType.replace(/\s/g, '');
+            let itemsList = document.getElementById("itemsList");
+            let createForm = document.getElementById("createForm");
+            itemsList.innerHTML = "";
+
+            fetch(`/api/administration/${controllerName}`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    Array.prototype.forEach.call(data, function (item, i) {
+                        itemsList.innerHTML += (`<div><p>${item.Value}</p><button onclick="deleteItem('${controllerName}', '${item.Key}')">Delete</button></div>`);
+                    });
+                });
+
+            createForm.innerHTML =
+                `<label>Add Item</label>
+                                    <input id="itemName"/>
+                                    <button onclick="addItem('${controllerName}')">Add</button>`
+        }
+
+        function addItem(controllerName) {
+            let name = document.getElementById("itemName");
+            name.style.borderColor = "";
+
+            if (!/^[a-zA-Z\s]*$/.test(name.value) || name.value.length < 3) {
+                name.style.borderColor = 'Red';
+
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("name", name.value);
+
+            fetch(`/api/administration/${controllerName}`,
+                {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json; charset=utf-8',
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify({ name: name.value })
+                })
+                .then((response) => {
+                    return response.text();
+                })
+                .then((result) => {
+                    console.log(result);
+                });
+        }
+
+        function deleteItem(controllerName, id) {
+            fetch(`/api/administration/${controllerName}/${id}`,
+                {
+                    method: "DELETE"
+                })
+                .then((response) => {
+                    return response.text();
+                })
+                .then((result) => {
+                    console.log(result);
+                });
+        }
+    </script>
+} 
