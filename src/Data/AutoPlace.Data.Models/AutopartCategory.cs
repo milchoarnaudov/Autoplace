@@ -4,7 +4,7 @@
 
     using AutoPlace.Data.Common.Models;
 
-    public class AutopartCategory : BaseDeletableModel<int>
+    public class AutopartCategory : BaseDeletableModel<int>, IItemEntity
     {
         public AutopartCategory()
         {

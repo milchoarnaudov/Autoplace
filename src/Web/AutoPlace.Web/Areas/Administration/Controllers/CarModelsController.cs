@@ -11,26 +11,26 @@
 
     [Route("api/administration/[controller]")]
     [ApiController]
-    public class AutopartCategoriesController : ControllerBase
+    public class CarModelsController : ControllerBase
     {
-        private readonly IItemsService<AutopartCategory> autopartCategoriesService;
+        private readonly IItemsService<CarModel> carModelsService;
 
-        public AutopartCategoriesController(IItemsService<AutopartCategory> autopartCategoriesService)
+        public CarModelsController(IItemsService<CarModel> carModelsService)
         {
-            this.autopartCategoriesService = autopartCategoriesService;
+            this.carModelsService = carModelsService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<KeyValuePair<int, string>>> All()
         {
-            return this.autopartCategoriesService.GetAllAsKeyValuePairs().ToList();
+            return this.carModelsService.GetAllAsKeyValuePairs().ToList();
         }
 
         [IgnoreAntiforgeryToken]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var isSuccessful = await this.autopartCategoriesService.Delete(id);
+            var isSuccessful = await this.carModelsService.Delete(id);
 
             if (isSuccessful)
             {
@@ -44,7 +44,7 @@
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] ItemViewModel item)
         {
-            var isSuccessful = await this.autopartCategoriesService.Add(item.Name);
+            var isSuccessful = await this.carModelsService.Add(item.Name);
 
             if (isSuccessful)
             {

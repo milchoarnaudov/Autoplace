@@ -10,19 +10,20 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
+    // TODO 
     public class AutopartsController : Controller
     {
         private readonly IAutopartsService autopartsService;
-        private readonly ICarService carService;
+        private readonly ICarService carsService;
         private readonly IWebHostEnvironment env;
 
         public AutopartsController(
             IAutopartsService autopartsService,
-            ICarService carService,
+            ICarService carsService,
             IWebHostEnvironment env)
         {
             this.autopartsService = autopartsService;
-            this.carService = carService;
+            this.carsService = carsService;
             this.env = env;
         }
 
@@ -30,8 +31,8 @@
         {
             var viewModel = new CreateAutopartInputModel
             {
-                CarManufacturers = this.carService.GetAllCarManufacturersAsKeyValuePairs(),
-                CarTypes = this.carService.GetAllCarTypesAsKeyValuePairs(),
+                CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
+                CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
                 Categories = this.autopartsService.GetAllCategoriesAsKeyValuePairs(),
                 Conditions = this.autopartsService.GetAllConditionsAsKeyValuePairs(),
             };
@@ -66,7 +67,7 @@
 
         public IActionResult GetModelsById(int id)
         {
-            var modelsById = this.carService.GetAllCarModelsAsKeyValuePairsById(id);
+            var modelsById = this.carsService.GetAllCarModelsAsKeyValuePairsById(id);
 
             return this.Json(modelsById);
         }

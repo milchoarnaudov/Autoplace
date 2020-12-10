@@ -9,7 +9,8 @@
     using AutoPlace.Data.Repositories;
     using AutoPlace.Data.Seeding;
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.Contracts;
+    using AutoPlace.Services.Data.AdministrationServices;
+    using AutoPlace.Services.Data.AdministrationServices.Contracts;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Services.Messaging;
     using AutoPlace.Web.ViewModels;
@@ -67,7 +68,7 @@
             services.AddTransient<IAutopartsService, AutopartsService>();
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IAutopartCategoriesService, AutopartCategoriesService>();
+            services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

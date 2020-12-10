@@ -1,9 +1,12 @@
-﻿namespace AutoPlace.Services.Data.Contracts
+﻿namespace AutoPlace.Services.Data.AdministrationServices.Contracts
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IAutopartCategoriesService
+    using AutoPlace.Data.Common.Models;
+
+    public interface IItemsService<TEntity>
+        where TEntity : class, IDeletableEntity, IItemEntity, new()
     {
         IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs();
 

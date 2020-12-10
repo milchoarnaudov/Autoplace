@@ -4,7 +4,7 @@
 
     using AutoPlace.Data.Common.Models;
 
-    public class AutopartCondition : BaseDeletableModel<int>
+    public class AutopartCondition : BaseDeletableModel<int>, IItemEntity
     {
         public AutopartCondition()
         {

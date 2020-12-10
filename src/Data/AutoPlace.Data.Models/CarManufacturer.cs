@@ -4,7 +4,7 @@
 
     using AutoPlace.Data.Common.Models;
 
-    public class CarManufacturer : BaseDeletableModel<int>
+    public class CarManufacturer : BaseDeletableModel<int>, IItemEntity
     {
         public CarManufacturer()
         {

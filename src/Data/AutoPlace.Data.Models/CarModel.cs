@@ -2,7 +2,7 @@
 {
     using AutoPlace.Data.Common.Models;
 
-    public class CarModel : BaseDeletableModel<int>
+    public class CarModel : BaseDeletableModel<int>, IItemEntity
     {
         public string Name { get; set; }
 
