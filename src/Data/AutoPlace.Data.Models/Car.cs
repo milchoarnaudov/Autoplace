@@ -1,13 +1,12 @@
 ﻿namespace AutoPlace.Data.Models
 {
-    using System;
     using System.Collections.Generic;
 
     using AutoPlace.Data.Common.Models;
 
     public class Car : BaseDeletableModel<int>
     {
-        public virtual DateTime MakeDate { get; set; }
+        public int MakeYear { get; set; }
 
         public int ModelId { get; set; }
 

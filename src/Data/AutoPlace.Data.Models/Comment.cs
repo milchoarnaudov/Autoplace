@@ -1,11 +1,14 @@
 ﻿namespace AutoPlace.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using AutoPlace.Data.Common.Models;
 
     public class Comment : BaseDeletableModel<int>
     {
+        [MaxLength(300)]
+        [Required]
         public string Content { get; set; }
 
         public string CommentatorId { get; set; }

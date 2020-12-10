@@ -24,6 +24,8 @@
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         public DbSet<Autopart> Autoparts { get; set; }
 
         public DbSet<AutopartCondition> AutopartConditions { get; set; }

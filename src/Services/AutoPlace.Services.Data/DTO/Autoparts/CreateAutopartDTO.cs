@@ -13,7 +13,7 @@
 
         public string Description { get; set; }
 
-        public DateTime MakeDate { get; set; }
+        public int MakeYear { get; set; }
 
         public int CarManufacturerId { get; set; }
 

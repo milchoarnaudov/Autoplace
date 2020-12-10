@@ -10,7 +10,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
-    // TODO 
+    // TODO
     public class AutopartsController : Controller
     {
         private readonly IAutopartsService autopartsService;
@@ -53,7 +53,7 @@
                 CarTypeId = input.CarTypeId,
                 CategoryId = input.CategoryId,
                 ConditionId = input.ConditionId,
-                MakeDate = input.MakeDate,
+                MakeYear = input.MakeYear,
                 Images = input.Images,
             };
 

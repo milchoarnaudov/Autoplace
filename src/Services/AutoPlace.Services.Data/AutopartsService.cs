@@ -48,7 +48,7 @@
                 .FirstOrDefault(x =>
                 x.ModelId == autopart.ModelId
                 && x.CarTypeId == autopart.CarTypeId
-                && x.MakeDate == autopart.MakeDate);
+                && x.MakeYear == autopart.MakeYear);
 
             if (carEntity == null)
             {
@@ -56,7 +56,7 @@
                 {
                     ModelId = autopart.ModelId,
                     CarTypeId = autopart.CarTypeId,
-                    MakeDate = autopart.MakeDate,
+                    MakeYear = autopart.MakeYear,
                 };
             }
 

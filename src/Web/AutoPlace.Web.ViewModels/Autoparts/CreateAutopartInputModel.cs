@@ -18,7 +18,7 @@
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
-        public DateTime MakeDate { get; set; }
+        public int MakeYear { get; set; }
 
         public int CarManufacturerId { get; set; }
 

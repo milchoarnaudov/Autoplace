@@ -11,13 +11,13 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public int AutopartId { get; set; }
-
-        public virtual Autopart Autopart { get; set; }
-
         public string Extension { get; set; }
 
         public string RemoteImageUrl { get; set; }
+
+        public int AutopartId { get; set; }
+
+        public virtual Autopart Autopart { get; set; }
 
         public string OwnerId { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿namespace AutoPlace.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using AutoPlace.Data.Common.Models;
 
@@ -11,10 +12,14 @@
             this.Images = new HashSet<Image>();
         }
 
+        [MaxLength(100)]
+        [Required]
         public string Name { get; set; }
 
         public decimal Price { get; set; }
 
+        [MaxLength(500)]
+        [Required]
         public string Description { get; set; }
 
         public int CountViews { get; set; }
