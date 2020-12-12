@@ -68,6 +68,7 @@
             services.AddTransient<IAutopartsService, AutopartsService>();
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IContactFormService, ContactFormService>();
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
         }
 

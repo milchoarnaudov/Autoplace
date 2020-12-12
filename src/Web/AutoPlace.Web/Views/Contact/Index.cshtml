@@ -1,0 +1,27 @@
+﻿@model CreateContactFormInputModel
+<h1>Contact Us</h1>
+
+<form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Topic"></label>
+        <textarea asp-for="Topic" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Topic" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Message"></label>
+        <textarea asp-for="Message" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn btn-primary" />
+</form>

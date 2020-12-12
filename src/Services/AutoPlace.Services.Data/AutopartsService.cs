@@ -8,7 +8,6 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO;
     using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Services.Mapping;
 
