@@ -21,23 +21,27 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="All">All Users</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Autoparts" asp-action="All">All Autoparts</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Autoparts" asp-action="Add">Add Autopart</a>
-                        </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Autoparts" asp-action="Add">Add Autopart</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact Us</a>
                         </li>
+                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-area="Administration" asp-controller="Configuration" asp-action="Index">Admin Configurations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-area="" asp-controller="Users" asp-action="All">All Users</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
