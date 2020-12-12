@@ -150,5 +150,22 @@
 
             return true;
         }
+
+        public bool IsUserAutopartOwner(string userId, int autopartId)
+        {
+            if (userId == default || autopartId == default)
+            {
+                return false;
+            }
+
+            var autopart = this.autopartRepository.AllAsNoTracking().Where(x => x.Id == autopartId).FirstOrDefault();
+
+            if (autopart.OwnerId == userId)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

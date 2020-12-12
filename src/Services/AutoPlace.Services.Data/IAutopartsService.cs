@@ -20,5 +20,7 @@
         IEnumerable<KeyValuePair<string, string>> GetAllCategoriesAsKeyValuePairs();
 
         IEnumerable<KeyValuePair<string, string>> GetAllConditionsAsKeyValuePairs();
+
+        bool IsUserAutopartOwner(string userId, int autopartId);
     }
 }

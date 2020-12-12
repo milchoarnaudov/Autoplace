@@ -1,17 +1,56 @@
 ﻿@model AutopartDetailsViewModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+@inject IAutopartsService autopartService
+
 @{
+    string userId = null;
+
+    if (this.User.Identity.IsAuthenticated)
+    {
+        userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    }
 }
 
-<img width="100" src="@Model.ImageUrl" />
-<h2>@Model.Name</h2>
-<h2>@Model.Price</h2>
-<h2>@Model.Description</h2>
-<h2>@Model.ConditionName</h2>
-<h2>@Model.CarManufacturerName</h2>
-<h2>@Model.CarModelName</h2>
-<a class="btn btn-danger" asp-controller="Autoparts" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-
-
+<div class="container col-10">
+    <div class="d-flex justify-content-between">
+        <h1>@Model.Name</h1>
+        <span class="align-text-bottom">@Model.CreatedOn.ToString("dd/MM/yyyy")</span>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-between">
+        <h2>@Model.ConditionName</h2>
+        <h3 class="font-italic align-text-bottom">&euro; @Model.Price</h3>
+    </div>
+    <br />
+    <div class="d-flex justify-content-between">
+        <img width="400" height="400" src="@Model.ImageUrl" />
+        <div>
+            <h2>@Model.CarManufacturerName - @Model.CarModelName @Model.MakeYear</h2>
+            <h3 class="font-italic">@Model.CategoryName</h3>
+            <hr />
+            <div class="card border-light">
+                <div class="card-header">
+                    <h5 class="card-title">Description:</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.Description</p>
+                </div>
+            </div>
+            <div class="card border-light">
+                <div class="card-header">
+                    <h5 class="card-title">Contact the seller:</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.OwnerEmail</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    @if (this.autopartService.IsUserAutopartOwner(userId, Model.Id))
+    {
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-info" style="width: 18rem;" asp-controller="Autoparts" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a class="btn btn-danger" style="width: 18rem;" asp-controller="Autoparts" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        </div>
+    }
+</div>

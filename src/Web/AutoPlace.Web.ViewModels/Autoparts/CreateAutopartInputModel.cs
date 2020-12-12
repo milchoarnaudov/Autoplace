@@ -8,26 +8,21 @@
     using AutoPlace.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
-    public class CreateAutopartInputModel : IMapTo<CreateAutopartDTO>
+    public class CreateAutopartInputModel : BaseAutopartsViewModel, IMapTo<CreateAutopartDTO>
     {
-        public string Name { get; set; }
-
-        public decimal Price { get; set; }
-
-        public string Description { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        [DataType(DataType.Date)]
-        public int MakeYear { get; set; }
-
+        [Required]
         public int CarManufacturerId { get; set; }
 
+        [Required]
         public int ModelId { get; set; }
 
+        [Required]
         public int CarTypeId { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
+        [Required]
         public int ConditionId { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> CarManufacturers { get; set; }
@@ -38,6 +33,7 @@
 
         public IEnumerable<KeyValuePair<string, string>> Categories { get; set; }
 
+        [Required]
         public IEnumerable<IFormFile> Images { get; set; }
     }
 }

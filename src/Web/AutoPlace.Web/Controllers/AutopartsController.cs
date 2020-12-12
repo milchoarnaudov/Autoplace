@@ -4,13 +4,13 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.DTO;
     using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Web.ViewModels.Autoparts;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
-    // TODO
+    [Authorize]
     public class AutopartsController : Controller
     {
         private readonly IAutopartsService autopartsService;
@@ -41,6 +41,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(CreateAutopartInputModel input)
         {
             var autopart = new CreateAutopartDTO
@@ -65,6 +66,7 @@
             return this.Redirect("/");
         }
 
+        [AllowAnonymous]
         public IActionResult GetModelsById(int id)
         {
             var modelsById = this.carsService.GetAllCarModelsAsKeyValuePairsById(id);
@@ -72,16 +74,15 @@
             return this.Json(modelsById);
         }
 
+        [AllowAnonymous]
         public IActionResult All()
         {
-            var viewModel = new AutopartsListViewModel
-            {
-                Autoparts = this.autopartsService.GetAll<AutopartsListItemViewModel>(),
-            };
+            var viewModels = this.autopartsService.GetAll<AutopartsListItemViewModel>();
 
-            return this.View(viewModel);
+            return this.View(viewModels);
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
@@ -97,10 +98,16 @@
         public IActionResult Delete(int id)
         {
             var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (viewModel == null)
             {
                 return this.NotFound();
+            }
+
+            if (!this.autopartsService.IsUserAutopartOwner(userId, id))
+            {
+                return this.Forbid();
             }
 
             return this.View(viewModel);
@@ -111,6 +118,13 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (!this.autopartsService.IsUserAutopartOwner(userId, id))
+            {
+                return this.Forbid();
+            }
+
             var isSuccessful = await this.autopartsService.DeleteById(id);
 
             if (!isSuccessful)
@@ -124,10 +138,16 @@
         public IActionResult Edit(int id)
         {
             var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (viewModel == null)
             {
                 return this.NotFound();
+            }
+
+            if (!this.autopartsService.IsUserAutopartOwner(userId, id))
+            {
+                return this.Forbid();
             }
 
             return this.View(viewModel);
@@ -137,6 +157,13 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("Id,Name,Price,Description")] AutopartDetailsViewModel autopart)
         {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (!this.autopartsService.IsUserAutopartOwner(userId, autopart.Id))
+            {
+                return this.Forbid();
+            }
+
             var isSuccessful = await this.autopartsService.Edit(new EditAutopartDTO
             {
                 Id = autopart.Id,

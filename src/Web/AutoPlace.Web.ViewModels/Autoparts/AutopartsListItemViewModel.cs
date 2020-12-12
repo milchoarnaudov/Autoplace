@@ -6,15 +6,9 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Mapping;
 
-    public class AutopartsListItemViewModel : IMapFrom<Autopart>, IHaveCustomMappings
+    public class AutopartsListItemViewModel : BaseAutopartsViewModel, IMapFrom<Autopart>, IHaveCustomMappings
     {
         public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public decimal Price { get; set; }
-
-        public string Description { get; set; }
 
         public string ImageUrl { get; set; }
 

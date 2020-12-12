@@ -1,20 +1,15 @@
 ﻿namespace AutoPlace.Web.ViewModels.Autoparts
 {
+    using System;
     using System.Linq;
 
     using AutoMapper;
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Mapping;
 
-    public class AutopartDetailsViewModel : IMapFrom<Autopart>, IHaveCustomMappings
+    public class AutopartDetailsViewModel : BaseAutopartsViewModel, IMapFrom<Autopart>, IHaveCustomMappings
     {
         public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public decimal Price { get; set; }
-
-        public string Description { get; set; }
 
         public int CountViews { get; set; }
 
@@ -24,9 +19,13 @@
 
         public string CarModelName { get; set; }
 
-        public string OwnerName { get; set; }
+        public string CategoryName { get; set; }
+
+        public string OwnerEmail { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
