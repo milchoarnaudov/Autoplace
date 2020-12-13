@@ -12,5 +12,7 @@
         public IEnumerable<T> GetAllByUser<T>(string userId);
 
         public Task Create(CreateMessageDTO message);
+
+        T GetMessageById<T>(int id);
     }
 }

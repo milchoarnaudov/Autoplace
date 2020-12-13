@@ -8,6 +8,9 @@
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="All">Messages</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
         </li>
         <li class="nav-item">

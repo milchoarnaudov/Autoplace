@@ -8,6 +8,7 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Data.Repositories;
     using AutoPlace.Data.Seeding;
+    using AutoPlace.Services;
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.AdministrationServices;
     using AutoPlace.Services.Data.AdministrationServices.Contracts;
@@ -71,6 +72,7 @@
             services.AddTransient<IContactFormsService, ContactFormsService>();
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
             services.AddTransient<IMessagesService, MessagesService>();
+            services.AddTransient<ITextService, TextService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

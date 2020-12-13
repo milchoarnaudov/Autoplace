@@ -1,0 +1,21 @@
+﻿@model CreateMessageInputModel
+
+<h1>Message</h1>
+<h3>@Model.AutopartName</h3>
+
+<form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Topic"></label>
+        <input asp-for="Topic" class="form-control" />
+        <span asp-validation-for="Topic" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Content"></label>
+        <textarea asp-for="Content" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <input hidden asp-for="ReceiverUsername" class="form-control" />
+    <input hidden asp-for="AutopartId" class="form-control" />
+    <input type="submit" class="btn btn-primary" />
+</form>

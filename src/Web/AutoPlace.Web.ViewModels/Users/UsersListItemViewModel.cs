@@ -5,6 +5,8 @@
 
     public class UsersListItemViewModel : IMapFrom<ApplicationUser>
     {
+        public string Id { get; set; }
+
         public string Username { get; set; }
     }
 }

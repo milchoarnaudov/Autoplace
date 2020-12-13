@@ -30,6 +30,7 @@
             };
 
             await this.messagesRepository.AddAsync(messageEntity);
+            await this.messagesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAllByUser<T>(string userId)
@@ -40,6 +41,11 @@
         public IEnumerable<T> GetAllForUser<T>(string userId)
         {
             return this.messagesRepository.AllAsNoTracking().Where(x => x.ReceiverId == userId).To<T>();
+        }
+
+        public T GetMessageById<T>(int id)
+        {
+            return this.messagesRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
     }
 }
