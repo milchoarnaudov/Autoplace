@@ -7,11 +7,11 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Mapping;
 
-    public class Userservice : IUsersService
+    public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public Userservice(IDeletableEntityRepository<ApplicationUser> usersRepository)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.usersRepository = usersRepository;
         }
