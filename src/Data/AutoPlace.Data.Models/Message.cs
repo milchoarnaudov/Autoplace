@@ -15,6 +15,8 @@
         [Required]
         public string Content { get; set; }
 
+        public bool IsRead { get; set; }
+
         public int? AutopartId { get; set; }
 
         public Autopart Autopart { get; set; }
