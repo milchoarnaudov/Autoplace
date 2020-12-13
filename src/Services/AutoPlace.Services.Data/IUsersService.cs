@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IUserService
+    public interface IUsersService
     {
         T GetById<T>(string id);
 

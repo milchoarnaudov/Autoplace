@@ -6,13 +6,13 @@
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
 
-    public class CarService : ICarService
+    public class CarsService : ICarsService
     {
         private readonly IDeletableEntityRepository<CarModel> carModelRepository;
         private readonly IDeletableEntityRepository<CarManufacturer> carManufacturerRepository;
         private readonly IDeletableEntityRepository<CarType> carTypeRepository;
 
-        public CarService(
+        public CarsService(
             IDeletableEntityRepository<CarModel> carModelRepository,
             IDeletableEntityRepository<CarManufacturer> carManufactureRepository,
             IDeletableEntityRepository<CarType> carTypeRepository)

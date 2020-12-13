@@ -9,9 +9,9 @@
 
     public class ContactController : BaseController
     {
-        private readonly IContactFormService contactFormService;
+        private readonly IContactFormsService contactFormService;
 
-        public ContactController(IContactFormService contactFormService)
+        public ContactController(IContactFormsService contactFormService)
         {
             this.contactFormService = contactFormService;
         }

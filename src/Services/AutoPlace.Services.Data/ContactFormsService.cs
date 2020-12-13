@@ -6,11 +6,11 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.DTO.ContactForm;
 
-    public class ContactFormService : IContactFormService
+    public class ContactFormsService : IContactFormsService
     {
         private readonly IDeletableEntityRepository<ContactForm> contactFormRepository;
 
-        public ContactFormService(IDeletableEntityRepository<ContactForm> contactFormRepository)
+        public ContactFormsService(IDeletableEntityRepository<ContactForm> contactFormRepository)
         {
             this.contactFormRepository = contactFormRepository;
         }

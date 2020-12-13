@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface ICarService
+    public interface ICarsService
     {
         IEnumerable<KeyValuePair<string, string>> GetAllCarModelsAsKeyValuePairsById(int id);
 

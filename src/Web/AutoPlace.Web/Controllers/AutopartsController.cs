@@ -14,12 +14,12 @@
     public class AutopartsController : Controller
     {
         private readonly IAutopartsService autopartsService;
-        private readonly ICarService carsService;
+        private readonly ICarsService carsService;
         private readonly IWebHostEnvironment env;
 
         public AutopartsController(
             IAutopartsService autopartsService,
-            ICarService carsService,
+            ICarsService carsService,
             IWebHostEnvironment env)
         {
             this.autopartsService = autopartsService;

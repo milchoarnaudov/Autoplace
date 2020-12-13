@@ -66,9 +66,9 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IAutopartsService, AutopartsService>();
-            services.AddTransient<ICarService, CarService>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IContactFormService, ContactFormService>();
+            services.AddTransient<ICarsService, CarsService>();
+            services.AddTransient<IUsersService, Userservice>();
+            services.AddTransient<IContactFormsService, ContactFormsService>();
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
         }
 

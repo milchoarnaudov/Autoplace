@@ -4,7 +4,7 @@
 
     using AutoPlace.Services.Data.DTO.ContactForm;
 
-    public interface IContactFormService
+    public interface IContactFormsService
     {
         Task Create(ContactFormDTO contactForm);
     }
