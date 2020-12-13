@@ -16,6 +16,8 @@ namespace AutoPlace.Data.Models
             this.Autoparts = new HashSet<Autopart>();
             this.CommentsForUser = new HashSet<Comment>();
             this.CommentsByUser = new HashSet<Comment>();
+            this.MessagesReceived = new HashSet<Message>();
+            this.MessagesSent = new HashSet<Message>();
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
@@ -36,6 +38,10 @@ namespace AutoPlace.Data.Models
         public virtual ICollection<Comment> CommentsForUser { get; set; }
 
         public virtual ICollection<Comment> CommentsByUser { get; set; }
+
+        public virtual ICollection<Message> MessagesReceived { get; set; }
+
+        public virtual ICollection<Message> MessagesSent { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

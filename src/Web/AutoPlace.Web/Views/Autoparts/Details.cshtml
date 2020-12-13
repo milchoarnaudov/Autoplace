@@ -49,6 +49,11 @@
                 <div class="card-body">
                     <p class="card-text">@Model.OwnerEmail</p>
                 </div>
+                <br />
+                <div class="row d-flex justify-content-around">
+                    <a class="btn btn-info col-sm-5 text">Send a Message</a>
+                    <a class="btn btn-info  col-sm-5" asp-controller="Users" asp-action="Details" asp-route-username="@Model.OwnerUserName">View Profile</a>
+                </div>
             </div>
         </div>
     </div>

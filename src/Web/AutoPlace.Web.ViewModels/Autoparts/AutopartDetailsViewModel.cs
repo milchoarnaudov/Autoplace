@@ -23,6 +23,8 @@
 
         public string OwnerEmail { get; set; }
 
+        public string OwnerUserName { get; set; }
+
         public string ImageUrl { get; set; }
 
         public DateTime CreatedOn { get; set; }
