@@ -4,11 +4,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using AutoPlace.Common;
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.AdministrationServices.Contracts;
     using AutoPlace.Web.ViewModels.Common;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Route("api/administration/[controller]")]
     [ApiController]
     public class CarManufacturersController : ControllerBase
@@ -26,7 +29,6 @@
             return this.carManufacturersService.GetAllAsKeyValuePairs().ToList();
         }
 
-        [IgnoreAntiforgeryToken]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -40,7 +42,6 @@
             return this.NotFound();
         }
 
-        [IgnoreAntiforgeryToken]
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] ItemViewModel item)
         {

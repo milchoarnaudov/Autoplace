@@ -6,7 +6,7 @@
         "Car Manufacturers",
         "Car Models",
         "Car Types"
-    };
+            };
 }
 
 <div class="row">
@@ -31,12 +31,17 @@
 @section Scripts
 {
     <script>
+        function gettoken() {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+        }
+
         function selectItemType(itemType) {
             let controllerName = itemType.replace(/\s/g, '');
             let itemsList = document.getElementById("itemsList");
             let createForm = document.getElementById("createForm");
             itemsList.innerHTML = "";
-
             fetch(`/api/administration/${controllerName}`)
                 .then((response) => {
                     return response.json();
@@ -46,34 +51,29 @@
                         itemsList.innerHTML += (`<div><p>${item.Value}</p><button onclick="deleteItem('${controllerName}', '${item.Key}')">Delete</button></div>`);
                     });
                 });
-
             createForm.innerHTML =
                 `<label>Add Item</label>
-                                    <input id="itemName"/>
-                                    <button onclick="addItem('${controllerName}')">Add</button>`
+                                        <input id="itemName"/>
+                                        <button onclick="addItem('${controllerName}')">Add</button>`
         }
-
         function addItem(controllerName) {
             let name = document.getElementById("itemName");
             name.style.borderColor = "";
-
             if (!/^[a-zA-Z\s]*$/.test(name.value) || name.value.length < 3) {
                 name.style.borderColor = 'Red';
-
                 return;
             }
-
             const formData = new FormData();
             formData.append("name", name.value);
-
             fetch(`/api/administration/${controllerName}`,
                 {
                     method: "POST",
                     headers: {
                         'Accept': 'application/json; charset=utf-8',
-                        'Content-Type': 'application/json;charset=UTF-8'
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'RequestVerificationToken': gettoken()
                     },
-                    body: JSON.stringify({ name: name.value })
+                    body: JSON.stringify({ name: name.value, __RequestVerificationToken: gettoken(),})
                 })
                 .then((response) => {
                     return response.text();
@@ -82,11 +82,14 @@
                     console.log(result);
                 });
         }
-
         function deleteItem(controllerName, id) {
             fetch(`/api/administration/${controllerName}/${id}`,
                 {
-                    method: "DELETE"
+                    method: "DELETE",
+                    headers: {
+                        'RequestVerificationToken': gettoken()
+                    },
+                    body: JSON.stringify({ __RequestVerificationToken: gettoken(), })
                 })
                 .then((response) => {
                     return response.text();
@@ -96,4 +99,4 @@
                 });
         }
     </script>
-} 
+}
