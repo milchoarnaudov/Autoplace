@@ -1,10 +1,11 @@
 ﻿namespace AutoPlace.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.DTO.ContactForm;
     using AutoPlace.Web.ViewModels.ContactForm;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     public class ContactController : BaseController
     {

@@ -16,7 +16,8 @@
         [Required]
         public string Description { get; set; }
 
+        [Display(Name = "Car Model Year")]
         [Range(1960, 2020)]
-        public int MakeYear { get; set; }
+        public int CarMakeYear { get; set; }
     }
 }

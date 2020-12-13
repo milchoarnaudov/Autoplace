@@ -17,6 +17,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Price"></label>
+        <span class="input-group-addon">&euro;</span>
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
@@ -24,6 +25,16 @@
         <label asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control" rows="6"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConditionId"></label>
+        <select asp-for="ConditionId" class="form-control" asp-items="conditionItems"></select>
+        <span asp-validation-for="ConditionId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" class="form-control" asp-items="categoryItems"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="CarManufacturerId"></label>
@@ -41,19 +52,9 @@
         <span asp-validation-for="CarTypeId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="MakeYear"></label>
-        <input asp-for="MakeYear" class="form-control" />
-        <span asp-validation-for="MakeYear" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConditionId"></label>
-        <select asp-for="ConditionId" class="form-control" asp-items="conditionItems"></select>
-        <span asp-validation-for="ConditionId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CategoryId"></label>
-        <select asp-for="CategoryId" class="form-control" asp-items="categoryItems"></select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
+        <label asp-for="CarMakeYear"></label>
+        <input asp-for="CarMakeYear" class="form-control" />
+        <span asp-validation-for="CarMakeYear" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Images"></label>
@@ -65,21 +66,27 @@
 
 @section Scripts {
     <script>
-        document.getElementById('CarManufacturerId').addEventListener('change', (e) => {
-            const modelSelectElement = document.getElementById('ModelId');
-            modelSelectElement.innerHTML = "<option disabled value=''>Select Car Model</option>";
+        let carManufacturer = document.getElementById('CarManufacturerId');
+        let carModel = document.getElementById('ModelId');
+        carModel.innerHTML = "<option disabled selected value=''>Select Car Model</option>";
 
-            fetch(`/autoparts/getModelsById?Id=${e.target.value}`)
+        fetchData(carManufacturer.value);
+
+        carManufacturer.addEventListener('change', (e) => {
+            carModel.innerHTML = "<option disabled selected value=''>Select Car Model</option>";
+            fetchData(e.target.value);
+        });
+
+        function fetchData(target) {
+            fetch(`/autoparts/getModelsById?Id=${target}`)
                 .then((response) => {
-                    console.log(response);
                     return response.json();
                 })
                 .then((data) => {
                     Array.prototype.forEach.call(data, function (item, i) {
-                        console.log(item);
-                        document.getElementById('ModelId').innerHTML += `<option value="${item.Key}">${item.Value}</option>`
+                        carModel.innerHTML += `<option value="${item.Key}">${item.Value}</option>`
                     });
                 });
-        });
+        }
     </script>
 }

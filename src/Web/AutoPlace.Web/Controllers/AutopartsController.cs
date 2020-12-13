@@ -54,7 +54,7 @@
                 CarTypeId = input.CarTypeId,
                 CategoryId = input.CategoryId,
                 ConditionId = input.ConditionId,
-                MakeYear = input.MakeYear,
+                MakeYear = input.CarMakeYear,
                 Images = input.Images,
             };
 
@@ -83,7 +83,7 @@
         }
 
         [AllowAnonymous]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
 
@@ -91,6 +91,8 @@
             {
                 return this.NotFound();
             }
+
+            await this.autopartsService.IncreaseCount(viewModel.Id);
 
             return this.View(viewModel);
         }

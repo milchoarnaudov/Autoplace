@@ -10,18 +10,23 @@
 
     public class CreateAutopartInputModel : BaseAutopartsViewModel, IMapTo<CreateAutopartDTO>
     {
+        [Display(Name = "Car Manufacturer")]
         [Required]
         public int CarManufacturerId { get; set; }
 
+        [Display(Name = "Car Model")]
         [Required]
         public int ModelId { get; set; }
 
+        [Display(Name = "Car Type")]
         [Required]
         public int CarTypeId { get; set; }
 
+        [Display(Name = "Autopart Category")]
         [Required]
         public int CategoryId { get; set; }
 
+        [Display(Name = "Autopart Condition")]
         [Required]
         public int ConditionId { get; set; }
 

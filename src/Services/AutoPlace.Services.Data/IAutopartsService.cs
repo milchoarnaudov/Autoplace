@@ -22,5 +22,7 @@
         IEnumerable<KeyValuePair<string, string>> GetAllConditionsAsKeyValuePairs();
 
         bool IsUserAutopartOwner(string userId, int autopartId);
+
+        Task IncreaseCount(int id);
     }
 }

@@ -17,11 +17,11 @@
         <div class="row">
             @foreach (var autopart in Model)
             {
-                <div class="card">
-                    <img class="card-img-top" src="@autopart.ImageUrl" style="width: 18rem; height: 200px; image-rendering: auto" />
+                <div class="card" style="margin:5px">
+                    <img class="card-img-top" src="@autopart.ImageUrl" style="width: 15rem; height: 200px; image-rendering: auto" />
                     <div class="card-body text-lg-center">
                         <h3 class="card-title">@autopart.Name</h3>
-                        <h4  class="card-title">@autopart.Price</h4>
+                        <h4 class="card-title">@autopart.Price</h4>
                         <p class="card-text">@autopart.Description</p>
                         <a class="btn btn-primary w-100" asp-controller="Autoparts" asp-action="Details" asp-route-id="@autopart.Id">View</a>
                     </div>

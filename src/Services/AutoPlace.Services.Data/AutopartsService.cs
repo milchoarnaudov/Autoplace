@@ -167,5 +167,15 @@
 
             return false;
         }
+
+        public async Task IncreaseCount(int id)
+        {
+            var autopart = this.autopartRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            autopart.CountViews++;
+
+            this.autopartRepository.Update(autopart);
+            await this.autopartRepository.SaveChangesAsync();
+        }
     }
 }
