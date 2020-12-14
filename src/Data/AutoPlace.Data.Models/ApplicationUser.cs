@@ -21,6 +21,7 @@ namespace AutoPlace.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.FavouriteAutoparts = new HashSet<Favorite>();
         }
 
         // Audit info
@@ -34,6 +35,8 @@ namespace AutoPlace.Data.Models
         public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<Autopart> Autoparts { get; set; }
+
+        public virtual ICollection<Favorite> FavouriteAutoparts { get; set; }
 
         public virtual ICollection<Comment> CommentsForUser { get; set; }
 

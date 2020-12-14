@@ -10,6 +10,7 @@
         public Autopart()
         {
             this.Images = new HashSet<Image>();
+            this.AddedToFavoritesBy = new HashSet<Favorite>();
         }
 
         [MaxLength(100)]
@@ -41,5 +42,7 @@
         public virtual ApplicationUser Owner { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
+
+        public virtual ICollection<Favorite> AddedToFavoritesBy { get; set; }
     }
 }
