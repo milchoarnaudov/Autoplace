@@ -16,15 +16,18 @@
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;
         private readonly IWebHostEnvironment env;
+        private readonly IFavoritesService favoritesService;
 
         public AutopartsController(
             IAutopartsService autopartsService,
             ICarsService carsService,
-            IWebHostEnvironment env)
+            IWebHostEnvironment env,
+            IFavoritesService favoritesService)
         {
             this.autopartsService = autopartsService;
             this.carsService = carsService;
             this.env = env;
+            this.favoritesService = favoritesService;
         }
 
         public IActionResult Add()
@@ -180,6 +183,15 @@
             }
 
             return this.RedirectToAction("All");
+        }
+
+        public IActionResult Favorites()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var viewModels = this.favoritesService.GetAllFavoritesAutopartByUserId<AutopartsListItemViewModel>(userId);
+
+            return this.View(viewModels);
         }
     }
 }
