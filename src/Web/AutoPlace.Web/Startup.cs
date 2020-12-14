@@ -73,6 +73,7 @@
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<ITextService, TextService>();
+            services.AddTransient<IFavoritesService, FavoritesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
