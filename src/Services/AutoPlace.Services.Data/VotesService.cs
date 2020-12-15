@@ -50,5 +50,10 @@
         {
             return this.votesRepository.AllAsNoTracking().Where(x => x.ForUser.UserName == username).To<T>().ToList();
         }
+
+        public T GetVote<T>(string forUserId, string voterId)
+        {
+            return this.votesRepository.AllAsNoTracking().Where(x => x.ForUserId == forUserId && x.VoterId == voterId).To<T>().FirstOrDefault();
+        }
     }
 }

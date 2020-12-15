@@ -36,11 +36,11 @@
         public async Task<IActionResult> Add([FromBody] CreateVoteInputModel vote)
         {
             var voterId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var forUser = this.usersService.GetByUsername<UsersListItemViewModel>(vote.ForUserUserName);
+            var forUserId = this.usersService.GetUserIdByUsername(vote.ForUserUserName);
 
             var voteDTO = new CreateVoteDTO
             {
-                ForUserId = forUser.Id,
+                ForUserId = forUserId,
                 VoterId = voterId,
                 VoteValue = vote.VoteValue,
             };

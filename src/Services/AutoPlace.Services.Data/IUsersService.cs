@@ -9,5 +9,7 @@
         T GetByUsername<T>(string username);
 
         IEnumerable<T> GetAll<T>();
+
+        string GetUserIdByUsername(string username);
     }
 }

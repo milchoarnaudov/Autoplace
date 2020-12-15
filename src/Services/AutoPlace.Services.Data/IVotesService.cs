@@ -10,5 +10,7 @@
         Task AddVote(CreateVoteDTO vote);
 
         IEnumerable<T> GetAllByUsername<T>(string username);
+
+        T GetVote<T>(string forUserId, string voterId);
     }
 }

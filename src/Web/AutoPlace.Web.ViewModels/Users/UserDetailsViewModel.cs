@@ -20,6 +20,10 @@
 
         public int NegativeVotes { get; set; }
 
+        public bool IsCurrentUserVotedNegative { get; set; }
+
+        public bool IsCurrentUserVotedPositive { get; set; }
+
         public IEnumerable<AutopartsListItemViewModel> Autoparts { get; set; }
 
         public IEnumerable<CommentListItemViewModel> CommentsForUser { get; set; }

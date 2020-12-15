@@ -30,5 +30,10 @@
         {
             return this.usersRepository.AllAsNoTracking().Where(x => x.UserName == username).To<T>().FirstOrDefault();
         }
+
+        public string GetUserIdByUsername(string username)
+        {
+            return this.usersRepository.AllAsNoTracking().Where(x => x.UserName == username).FirstOrDefault()?.Id;
+        }
     }
 }
