@@ -19,18 +19,23 @@
 
         public async Task AddToFavorite(string userId, int autopartId)
         {
-            if (this.favoritesRepository.AllAsNoTracking().Any(x => x.UserId == userId && x.AutopartId == autopartId))
+            var alreadyAdded = this.favoritesRepository.AllAsNoTracking().Where(x => x.UserId == userId && x.AutopartId == autopartId).FirstOrDefault();
+
+            if (alreadyAdded != null)
             {
-                return;
+                this.favoritesRepository.HardDelete(alreadyAdded);
+            }
+            else
+            {
+                var favoriteEntity = new Favorite
+                {
+                    UserId = userId,
+                    AutopartId = autopartId,
+                };
+
+                await this.favoritesRepository.AddAsync(favoriteEntity);
             }
 
-            var favoriteEntity = new Favorite
-            {
-                UserId = userId,
-                AutopartId = autopartId,
-            };
-
-            await this.favoritesRepository.AddAsync(favoriteEntity);
             await this.favoritesRepository.SaveChangesAsync();
         }
 
