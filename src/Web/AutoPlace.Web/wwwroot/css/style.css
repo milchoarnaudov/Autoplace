@@ -1,0 +1,17 @@
+﻿/*User Details*/
+
+.votes-container {
+    margin-top: 10px;
+}
+
+.stroke {
+    width: 1px;
+    height: 50px;
+    background-color: black;
+}
+
+.votes-value {
+    font-size: 1.5rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}

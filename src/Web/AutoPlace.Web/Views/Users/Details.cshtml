@@ -3,6 +3,17 @@
 <div class="container w-100">
     <div class="d-flex justify-content-between">
         <h1>@Model.Username</h1>
+        <div class="votes-container d-flex justify-content-between">
+            <div>
+                <i id="upVote" class="fa fa-2x fa-thumbs-o-up"></i>
+                <span class="votes-value">@Model.PositiveVotes</span>
+            </div>
+            <div class="stroke" ></div>
+            <div>
+                <span class="votes-value" >@Model.NegativeVotes</span>
+                <i id="downVote" class="fa fa-2x fa-thumbs-o-down"></i>
+            </div>
+        </div>
     </div>
     <div class="d-flex justify-content-between">
         <span>Join Date @Model.CreatedOn.ToString("dd/MM/yyyy")</span>
@@ -75,5 +86,41 @@
                     console.log(result);
                 });
         });
+
+        document.getElementById("downVote").addEventListener('click', function (e) {
+            fetch(`/api/Votes/`,
+                {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'RequestVerificationToken': gettoken()
+                    },
+                    body: JSON.stringify({ ForUserUserName: '@Model.Username', VoteValue: false })
+                 })
+                .then((response) => {
+                    return response.text();
+                })
+                .then((result) => {
+                    console.log(result);
+                });
+        });
+
+         document.getElementById("upVote").addEventListener('click', function (e) {
+             fetch(`/api/Votes/`,
+                {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'RequestVerificationToken': gettoken()
+                    },
+                    body: JSON.stringify({ ForUserUserName: '@Model.Username', VoteValue: true })
+                 })
+                .then((response) => {
+                    return response.text();
+                })
+                .then((result) => {
+                    console.log(result);
+                });
+         });
     </script>
 }
