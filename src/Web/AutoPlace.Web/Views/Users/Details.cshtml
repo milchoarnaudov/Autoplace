@@ -88,6 +88,15 @@
         });
 
         document.getElementById("downVote").addEventListener('click', function (e) {
+            const colorBtnClass = "votes-negative-btn";
+
+            if (e.target.className.includes(colorBtnClass)) {
+                e.target.className = e.target.className.replace(colorBtnClass, "");
+            }
+            else {
+                e.target.className = `${e.target.className} ${colorBtnClass}`;
+            }
+
             fetch(`/api/Votes/`,
                 {
                     method: "POST",
@@ -105,7 +114,16 @@
                 });
         });
 
-         document.getElementById("upVote").addEventListener('click', function (e) {
+        document.getElementById("upVote").addEventListener('click', function (e) {
+            const colorBtnClass = "votes-positive-btn";
+
+            if (e.target.className.includes(colorBtnClass)) {
+                e.target.className = e.target.className.replace(colorBtnClass, "");
+            }
+            else {
+                e.target.className = `${e.target.className} ${colorBtnClass}`;
+            }
+
              fetch(`/api/Votes/`,
                 {
                     method: "POST",
