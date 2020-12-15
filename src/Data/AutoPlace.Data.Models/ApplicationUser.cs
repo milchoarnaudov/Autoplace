@@ -22,6 +22,8 @@ namespace AutoPlace.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.FavouriteAutoparts = new HashSet<Favorite>();
+            this.VotesForUser = new HashSet<Vote>();
+            this.VotesByUser = new HashSet<Vote>();
         }
 
         // Audit info
@@ -45,6 +47,10 @@ namespace AutoPlace.Data.Models
         public virtual ICollection<Message> MessagesReceived { get; set; }
 
         public virtual ICollection<Message> MessagesSent { get; set; }
+
+        public virtual ICollection<Vote> VotesForUser { get; set; }
+
+        public virtual ICollection<Vote> VotesByUser { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
