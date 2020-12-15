@@ -18,7 +18,7 @@
     <div class="form-group">
         <label asp-for="Price"></label>
         <span class="input-group-addon">&euro;</span>
-        <input asp-for="Price" class="form-control" />
+        <input asp-for="Price" asp-format="{0}" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -66,27 +66,6 @@
 
 @section Scripts {
     <script>
-        let carManufacturer = document.getElementById('CarManufacturerId');
-        let carModel = document.getElementById('ModelId');
-        carModel.innerHTML = "<option disabled selected value=''>Select Car Model</option>";
-
-        fetchData(carManufacturer.value);
-
-        carManufacturer.addEventListener('change', (e) => {
-            carModel.innerHTML = "<option disabled selected value=''>Select Car Model</option>";
-            fetchData(e.target.value);
-        });
-
-        function fetchData(target) {
-            fetch(`/autoparts/getModelsById?Id=${target}`)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    Array.prototype.forEach.call(data, function (item, i) {
-                        carModel.innerHTML += `<option value="${item.Key}">${item.Value}</option>`
-                    });
-                });
-        }
+        getCarModelsOnChange();
     </script>
 }

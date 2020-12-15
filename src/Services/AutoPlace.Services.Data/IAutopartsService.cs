@@ -24,5 +24,7 @@
         bool IsUserAutopartOwner(string userId, int autopartId);
 
         Task IncreaseCount(int id);
+
+        IEnumerable<T> GetByFilters<T>(SearchFiltersDTO searchFiltersDTO);
     }
 }

@@ -177,5 +177,17 @@
             this.autopartRepository.Update(autopart);
             await this.autopartRepository.SaveChangesAsync();
         }
+
+        public IEnumerable<T> GetByFilters<T>(SearchFiltersDTO searchFiltersDTO)
+        {
+            return this.autopartRepository.AllAsNoTracking()
+                .Where(x => x.ConditionId == searchFiltersDTO.ConditionId
+                && x.CategoryId == searchFiltersDTO.CategoryId
+                && x.Car.ModelId == searchFiltersDTO.ModelId
+                && x.Car.CarTypeId == searchFiltersDTO.CarTypeId
+                && (searchFiltersDTO.CarMakeYear == null || x.Car.MakeYear == searchFiltersDTO.CarMakeYear)
+                && (searchFiltersDTO.MaxPrice == null || x.Price > searchFiltersDTO.MaxPrice))
+                .To<T>().ToList();
+        }
     }
 }

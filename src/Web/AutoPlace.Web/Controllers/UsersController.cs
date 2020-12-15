@@ -1,12 +1,13 @@
 ﻿namespace AutoPlace.Web.Controllers
 {
+    using System.Security.Claims;
+
     using AutoPlace.Common;
     using AutoPlace.Services.Data;
     using AutoPlace.Web.ViewModels.Users;
     using AutoPlace.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Security.Claims;
 
     public class UsersController : BaseController
     {
