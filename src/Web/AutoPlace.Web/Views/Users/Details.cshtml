@@ -6,11 +6,11 @@
         <div class="votes-container d-flex justify-content-between">
             <div>
                 <i id="upVote" class="fa fa-2x fa-thumbs-o-up"></i>
-                <span class="votes-value">@Model.PositiveVotes</span>
+                <span id="upVotesCount"class="votes-value">@Model.PositiveVotes</span>
             </div>
             <div class="stroke" ></div>
             <div>
-                <span class="votes-value" >@Model.NegativeVotes</span>
+                <span id="downVotesCount" class="votes-value">@Model.NegativeVotes</span>
                 <i id="downVote" class="fa fa-2x fa-thumbs-o-down"></i>
             </div>
         </div>
@@ -66,6 +66,20 @@
             return token;
         }
 
+        function getVotes() {
+            fetch(`/api/Votes?username=${'@Model.Username'}`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    let upVoteElement = document.getElementById("upVotesCount");
+                    let downVoteElement = document.getElementById("downVotesCount");
+
+                    upVoteElement.innerText = data.filter(x => x.voteValue).length;
+                    downVoteElement.innerText = data.filter(x => !x.voteValue).length;
+                });
+        }
+
         document.getElementById("commentSubmitBtn").addEventListener('click', function (e) {
             var content = document.getElementById("commentContent").value;
             console.log(content);
@@ -88,14 +102,7 @@
         });
 
         document.getElementById("downVote").addEventListener('click', function (e) {
-            const colorBtnClass = "votes-negative-btn";
-
-            if (e.target.className.includes(colorBtnClass)) {
-                e.target.className = e.target.className.replace(colorBtnClass, "");
-            }
-            else {
-                e.target.className = `${e.target.className} ${colorBtnClass}`;
-            }
+            changeBtnColors(e.target, false);
 
             fetch(`/api/Votes/`,
                 {
@@ -109,20 +116,13 @@
                 .then((response) => {
                     return response.text();
                 })
-                .then((result) => {
-                    console.log(result);
+                .then((data) => {
+                    getVotes();
                 });
         });
 
         document.getElementById("upVote").addEventListener('click', function (e) {
-            const colorBtnClass = "votes-positive-btn";
-
-            if (e.target.className.includes(colorBtnClass)) {
-                e.target.className = e.target.className.replace(colorBtnClass, "");
-            }
-            else {
-                e.target.className = `${e.target.className} ${colorBtnClass}`;
-            }
+            changeBtnColors(e.target, true);
 
              fetch(`/api/Votes/`,
                 {
@@ -137,8 +137,44 @@
                     return response.text();
                 })
                 .then((result) => {
-                    console.log(result);
+                    fetch(`/api/Votes/`)
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((data) => {
+                            getVotes();
+                        });
                 });
-         });
+        });
+
+        function changeBtnColors(target, voteType) {
+            const upVote = document.getElementById("upVote");
+            const downVote = document.getElementById("downVote");
+            const upVoteBtnColor = "votes-positive-btn";
+            const downVoteBtnClass = "votes-negative-btn";
+
+
+            function clearBtnsColors() {
+                upVote.className = upVote.className.replace(upVoteBtnColor, "");
+                downVote.className = downVote.className.replace(downVoteBtnClass, "");
+            }
+
+            if (downVote.className.includes(downVoteBtnClass) || upVote.className.includes(upVoteBtnColor)) {
+                let oneOftheBtnsPressed = false;
+
+                if (!target.className.includes(upVoteBtnColor) && !target.className.includes(downVoteBtnClass)) {
+                    oneOftheBtnsPressed = true;
+                }
+
+                clearBtnsColors();
+
+                if (oneOftheBtnsPressed) {
+                    target.className = `${target.className} ${voteType ? upVoteBtnColor : downVoteBtnClass}`;
+                }
+            }
+            else {
+                target.className = `${target.className} ${voteType ? upVoteBtnColor : downVoteBtnClass}`;
+            }
+        }
     </script>
 }

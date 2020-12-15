@@ -43,7 +43,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] ItemViewModel item)
+        public async Task<IActionResult> Add([FromBody] NameViewModel item)
         {
             var isSuccessful = await this.carTypesService.Add(item.Name);
 

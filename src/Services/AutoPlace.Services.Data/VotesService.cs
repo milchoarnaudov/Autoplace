@@ -1,11 +1,13 @@
 ﻿namespace AutoPlace.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.DTO.Votes;
+    using AutoPlace.Services.Mapping;
 
     public class VotesService : IVotesService
     {
@@ -42,6 +44,11 @@
             }
 
             await this.votesRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAllByUsername<T>(string username)
+        {
+            return this.votesRepository.AllAsNoTracking().Where(x => x.ForUser.UserName == username).To<T>().ToList();
         }
     }
 }

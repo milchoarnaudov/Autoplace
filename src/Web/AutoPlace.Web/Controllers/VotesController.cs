@@ -1,10 +1,12 @@
 ﻿namespace AutoPlace.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.DTO.Votes;
+    using AutoPlace.Web.ViewModels.Common;
     using AutoPlace.Web.ViewModels.Users;
     using AutoPlace.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Mvc;
@@ -22,6 +24,12 @@
         {
             this.votesService = votesService;
             this.usersService = usersService;
+        }
+
+        [HttpGet]
+        public IEnumerable<VotesViewModel> All(string username)
+        {
+            return this.votesService.GetAllByUsername<VotesViewModel>(username);
         }
 
         [HttpPost]

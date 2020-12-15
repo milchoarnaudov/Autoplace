@@ -1,6 +1,6 @@
 ﻿namespace AutoPlace.Web.ViewModels.Common
 {
-    public class ItemViewModel
+    public class NameViewModel
     {
         public string Name { get; set; }
     }
