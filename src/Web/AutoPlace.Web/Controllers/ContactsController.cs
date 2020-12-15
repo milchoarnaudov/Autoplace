@@ -7,11 +7,11 @@
     using AutoPlace.Web.ViewModels.ContactForm;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ContactController : BaseController
+    public class ContactsController : BaseController
     {
         private readonly IContactFormsService contactFormService;
 
-        public ContactController(IContactFormsService contactFormService)
+        public ContactsController(IContactFormsService contactFormService)
         {
             this.contactFormService = contactFormService;
         }
