@@ -15,7 +15,7 @@
     using AutoPlace.Services.Mapping;
     using AutoPlace.Services.Messaging;
     using AutoPlace.Web.ViewModels;
-
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -58,6 +58,7 @@
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
+            services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));

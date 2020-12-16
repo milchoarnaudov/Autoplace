@@ -8,6 +8,7 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.AdministrationServices.Contracts;
     using AutoPlace.Web.ViewModels.Common;
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,12 @@
     public class AutopartConditionsController : ControllerBase
     {
         private readonly IItemsService<AutopartCondition> autopartConditionService;
+        private readonly IHtmlSanitizer htmlSanitizer;
 
-        public AutopartConditionsController(IItemsService<AutopartCondition> autopartConditionService)
+        public AutopartConditionsController(IItemsService<AutopartCondition> autopartConditionService, IHtmlSanitizer htmlSanitizer)
         {
             this.autopartConditionService = autopartConditionService;
+            this.htmlSanitizer = htmlSanitizer;
         }
 
         [HttpGet]
@@ -43,9 +46,9 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] NameViewModel item)
+        public async Task<IActionResult> Add([FromBody] NameInputModel item)
         {
-            var isSuccessful = await this.autopartConditionService.Add(item.Name);
+            var isSuccessful = await this.autopartConditionService.Add(this.htmlSanitizer.Sanitize(item.Name));
 
             if (isSuccessful)
             {

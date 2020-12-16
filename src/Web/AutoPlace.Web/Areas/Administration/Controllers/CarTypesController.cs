@@ -8,6 +8,7 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.AdministrationServices.Contracts;
     using AutoPlace.Web.ViewModels.Common;
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,12 @@
     public class CarTypesController : ControllerBase
     {
         private readonly IItemsService<CarType> carTypesService;
+        private readonly IHtmlSanitizer htmlSanitizer;
 
-        public CarTypesController(IItemsService<CarType> carTypesService)
+        public CarTypesController(IItemsService<CarType> carTypesService, IHtmlSanitizer htmlSanitizer)
         {
             this.carTypesService = carTypesService;
+            this.htmlSanitizer = htmlSanitizer;
         }
 
         [HttpGet]
@@ -43,9 +46,9 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] NameViewModel item)
+        public async Task<IActionResult> Add([FromBody] NameInputModel item)
         {
-            var isSuccessful = await this.carTypesService.Add(item.Name);
+            var isSuccessful = await this.carTypesService.Add(this.htmlSanitizer.Sanitize(item.Name));
 
             if (isSuccessful)
             {

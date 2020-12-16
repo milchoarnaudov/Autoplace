@@ -7,6 +7,7 @@
     using AutoPlace.Services.Data.DTO.Comments;
     using AutoPlace.Web.ViewModels.Comments;
     using AutoPlace.Web.ViewModels.Users;
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +18,16 @@
     {
         private readonly ICommentsService commentsService;
         private readonly IUsersService usersService;
+        private readonly IHtmlSanitizer htmlSanitizer;
 
         public CommentsController(
             ICommentsService commentsService,
-            IUsersService usersService)
+            IUsersService usersService,
+            IHtmlSanitizer htmlSanitizer)
         {
             this.commentsService = commentsService;
             this.usersService = usersService;
+            this.htmlSanitizer = htmlSanitizer;
         }
 
         [HttpPost]
@@ -31,12 +35,13 @@
         {
             var commentatorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var commentedUserId = this.usersService.GetByUsername<UsersListItemViewModel>(comment.CommentedUserUserName).Id;
+            var sanitizedCommentContent = this.htmlSanitizer.Sanitize(comment.Content);
 
             var commentDTO = new CreateCommentDTO
             {
                 CommentatorId = commentatorId,
                 CommentedUserId = commentedUserId,
-                Content = comment.Content,
+                Content = sanitizedCommentContent,
             };
 
             await this.commentsService.Create(commentDTO);
