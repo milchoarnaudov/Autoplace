@@ -4,18 +4,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using AutoPlace.Common;
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.AdministrationServices.Contracts;
     using AutoPlace.Web.ViewModels.Common;
     using Ganss.XSS;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    [Route("api/administration/[controller]")]
     [ApiController]
-    public class CarModelsController : ControllerBase
+    public class CarModelsController : AdministrationController
     {
         private readonly IItemsService<CarModel> carModelsService;
         private readonly IHtmlSanitizer htmlSanitizer;

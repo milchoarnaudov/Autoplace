@@ -1,9 +1,12 @@
 ﻿namespace AutoPlace.Web.Areas.Administration.Controllers
 {
-    using AutoPlace.Web.Controllers;
+    using AutoPlace.Common;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ConfigurationController : AdministrationController
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Area("Administration")]
+    public class ConfigurationController : Controller
     {
         public IActionResult Index()
         {
