@@ -27,14 +27,14 @@
             })
             .then((data) => {
                 Array.prototype.forEach.call(data, function (item, i) {
-                    itemsList.innerHTML += (`<div><p>${item.Value}</p><button class="deleteItemsBtn"  value="${controllerName}, ${item.Key}">Delete</button></div>`);
+                    itemsList.innerHTML += (`<div class="list-group-item d-flex justify-content-between text-color-black"><span>${item.Value}</span><button class="deleteItemsBtn"  value="${controllerName}, ${item.Key}">Delete</button></div>`);
                     addEventListenerByClassName("deleteItemsBtn", deleteItem);
                 });
             });
         createForm.innerHTML =
-            `<label>Add Item</label>
-                                        <input id="itemName"/>
-                                        <button class="addItemBtn" value="${controllerName}">Add</button>`
+            `<label>Add Item Value</label>
+                                        <div><input id="itemName"/>
+                                        <button class="addItemBtn btn-add" value="${controllerName}">Add</button></div>`;
         addEventListenerByClassName("addItemBtn", addItem);
     }
 

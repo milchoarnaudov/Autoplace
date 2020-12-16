@@ -6,27 +6,42 @@
         "Car Manufacturers",
         "Car Models",
         "Car Types"
-                    };
+                            };
+}
+
+@section css
+{
+    <link href="~/css/administration.css" rel="stylesheet" />
 }
 
 <div class="row">
     <div class="col-sm-6">
         <div class="card" width="50px">
-            @foreach (var itemType in itemTypes)
-            {
-                <button class="selectItemBtn" value="@itemType">@itemType</button>
-            }
+            <div class="card-header">
+                <span>Item Types</span>
+            </div>
+            <div class="list-group list-group-flush">
+                @foreach (var itemType in itemTypes)
+                {
+                    <button class="list-group-item btn btn-light text-color-black selectItemBtn" value="@itemType">@itemType</button>
+                }
+            </div>
         </div>
     </div>
     <div class="col-sm-6">
-        <div id="itemsList" class="card" width="50px">
+        <div class="card" width="50px">
+            <div class="card-header">
+                <span>Item Type Values</span>
+            </div>
+            <div id="itemsList" class="list-group list-group-flush">
 
+            </div>
+            <div id="createForm" class="list-group-item d-flex justify-content-between">
+
+            </div>
         </div>
-        <div id="createForm">
-
         </div>
     </div>
-</div>
 
 @section Scripts
 {
