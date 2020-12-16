@@ -44,7 +44,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(CreateAutopartInputModel input)
         {
             var autopart = new CreateAutopartDTO
@@ -120,7 +119,6 @@
 
         [HttpPost]
         [ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -159,7 +157,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("Id,Name,Price,Description")] AutopartDetailsViewModel autopart)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
