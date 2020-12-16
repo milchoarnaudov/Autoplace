@@ -57,7 +57,10 @@
                     'RequestVerificationToken': token
                 },
                 body: JSON.stringify({ name: name.value, __RequestVerificationToken: token, })
+            }).then((response) => {
+                selectItemType(controllerName);
             })
+           
     }
     function deleteItem(values) {
         fetch(`/api/administration/${values[0]}/${values[1]}`,
@@ -67,6 +70,8 @@
                     'RequestVerificationToken': token
                 },
                 body: JSON.stringify({ __RequestVerificationToken: token, })
+            }).then((response) => {
+                selectItemType(values[0]);
             })
     }
 }
