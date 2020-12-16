@@ -37,6 +37,11 @@
             var commentedUserId = this.usersService.GetByUsername<UsersListItemViewModel>(comment.CommentedUserUserName).Id;
             var sanitizedCommentContent = this.htmlSanitizer.Sanitize(comment.Content);
 
+            if (sanitizedCommentContent.Length < 5)
+            {
+                return this.BadRequest();
+            }
+
             var commentDTO = new CreateCommentDTO
             {
                 CommentatorId = commentatorId,
