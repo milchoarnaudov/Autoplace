@@ -37,8 +37,7 @@
         {
             var viewModel = this.usersService.GetByUsername<UserDetailsViewModel>(username);
             var forUserId = this.usersService.GetUserIdByUsername(username);
-            var voterId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
+            var voterId = this.User.Identity.IsAuthenticated ? this.User.FindFirst(ClaimTypes.NameIdentifier).Value : string.Empty;
             var currentUserVote = this.votesService.GetVote<VotesViewModel>(forUserId, voterId);
 
             if (currentUserVote != null)

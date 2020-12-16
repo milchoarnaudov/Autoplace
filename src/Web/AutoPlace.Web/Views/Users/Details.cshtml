@@ -5,13 +5,13 @@
         <h1>@Model.Username</h1>
         <div class="votes-container d-flex justify-content-between">
             <div>
-                <i id="upVote" class="fa fa-2x fa-thumbs-o-up @if (Model.IsCurrentUserVotedPositive) { <text>votes-positive-btn</text>}"></i>
+                <i @if (this.User.Identity.IsAuthenticated) { <text> id="upVote" </text> } class="fa fa-2x fa-thumbs-o-up @if (Model.IsCurrentUserVotedPositive) { <text>votes-positive-btn</text>}"></i>
                 <span id="upVotesCount"class="votes-value">@Model.PositiveVotes</span>
             </div>
             <div class="stroke" ></div>
             <div>
                 <span id="downVotesCount" class="votes-value">@Model.NegativeVotes</span>
-                <i id="downVote" class="fa fa-2x fa-thumbs-o-down @if (Model.IsCurrentUserVotedNegative) { <text>votes-negative-btn</text>}"></i>
+                <i @if (this.User.Identity.IsAuthenticated) { <text> id="downVote" </text> }  class="fa fa-2x fa-thumbs-o-down @if (Model.IsCurrentUserVotedNegative) { <text>votes-negative-btn</text>}"></i>
             </div>
         </div>
     </div>

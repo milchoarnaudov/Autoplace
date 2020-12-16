@@ -6,9 +6,8 @@
 
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.DTO.Votes;
-    using AutoPlace.Web.ViewModels.Common;
-    using AutoPlace.Web.ViewModels.Users;
     using AutoPlace.Web.ViewModels.Votes;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
@@ -32,6 +31,7 @@
             return this.votesService.GetAllByUsername<VotesViewModel>(username);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateVoteInputModel vote)
         {
