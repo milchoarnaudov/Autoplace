@@ -38,14 +38,16 @@
                         }
                         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" asp-area="Administration" asp-controller="Configuration" asp-action="Index">Admin Configurations</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" asp-area="" asp-controller="Users" asp-action="All">All Users</a>
+                            <li class="btn-group">
+                                <a type="button" class="nav-link text-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administration
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Administration" asp-controller="Configuration" asp-action="Index">Items Configuration</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="All">All Users</a>
+                                </div>
                             </li>
                         }
-
                     </ul>
                 </div>
             </div>
