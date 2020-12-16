@@ -45,6 +45,11 @@
                 return this.NotFound();
             }
 
+            if (autopart.OwnerUserName == this.User.FindFirstValue(ClaimTypes.Name))
+            {
+                return this.Forbid();
+            }
+
             var viewModel = new CreateMessageInputModel
             {
                 AutopartName = autopart.Name,

@@ -49,20 +49,21 @@
                 </div>
                 <br />
                 <div class="row d-flex justify-content-around">
-                    <a class="btn btn-info col-sm-5 text" asp-controller="Messages" asp-action="Create" asp-route-id="@Model.Id">Send a Message</a>
-                    <a class="btn btn-info  col-sm-5" asp-controller="Users" asp-action="Details" asp-route-username="@Model.OwnerUserName">View Profile</a>
+                    @if (this.User.FindFirstValue(ClaimTypes.Name) != @Model.OwnerUserName)
+                    {
+                        <a class="btn btn-info col-sm-5 text" asp-controller="Messages" asp-action="Create" asp-route-id="@Model.Id">Send a Message</a>
+                        <a class="btn btn-info  col-sm-5" asp-controller="Users" asp-action="Details" asp-route-username="@Model.OwnerUserName">View Profile</a>
+                    }
+                    @if (this.AutopartService.IsUserAutopartOwner(userId, Model.Id))
+                    {
+                        <a class="btn btn-info col-sm-5 text" asp-controller="Autoparts" asp-action="Edit" asp-route-id="@Model.Id">Edit <i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger  col-sm-5" asp-controller="Autoparts" asp-action="Delete" asp-route-id="@Model.Id">Delete <i class="fa fa-trash"></i></a>
+                    }
                 </div>
             </div>
         </div>
     </div>
     <hr />
-    @if (this.AutopartService.IsUserAutopartOwner(userId, Model.Id))
-    {
-        <div class="d-flex justify-content-between">
-            <a class="btn btn-info" style="width: 18rem;" asp-controller="Autoparts" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-            <a class="btn btn-danger" style="width: 18rem;" asp-controller="Autoparts" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-        </div>
-    }
 </div>
 
 @section Scripts{
