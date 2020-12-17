@@ -23,3 +23,13 @@
 .votes-positive-btn {
     color: blue;
 }
+
+/*Home Icon*/
+.home-icon {
+    width: 45px;
+    height: 45px;
+}
+
+.blue-color {
+    background-color: #003296;
+}

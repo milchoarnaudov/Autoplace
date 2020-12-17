@@ -9,6 +9,7 @@
     });
 
     function fetchData(target) {
+        carModel.innerHTML = "";
         fetch(`/autoparts/getModelsById?Id=${target}`)
             .then((response) => {
                 return response.json();
