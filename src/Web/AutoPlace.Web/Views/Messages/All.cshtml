@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<MessageListItemViewModel>
 
+@{
+    this.ViewData["Title"] = "All Messages";
+}
+
 <h1>All Messages</h1>
 
 <div>
@@ -12,7 +16,7 @@
         <div class="row">
             @foreach (var message in Model)
             {
-               <partial name="_MessagePartial" model="message" />
+                <partial name="_MessagePartial" model="message" />
             }
         </div>
     }

@@ -1,8 +1,13 @@
 ﻿@model IEnumerable<UsersListItemViewModel>
 
+@{
+    this.ViewData["Title"] = "All Users";
+}
+
+
 <h1>Users</h1>
 
 @foreach (var user in Model)
 {
-   <partial name="_UserPartial" model="user"/>
+    <partial name="_UserPartial" model="user" />
 }

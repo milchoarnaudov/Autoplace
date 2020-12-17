@@ -1,6 +1,7 @@
 ﻿@model SearchFiltersInputModel
 
 @{
+    this.ViewData["Title"] = "Search";
     var categoryItems = this.Model.Categories.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
     var conditionItems = this.Model.Conditions.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
     var carManufacturerItems = this.Model.CarManufacturers.Select(x => new SelectListItem(x.Value, x.Key.ToString()));

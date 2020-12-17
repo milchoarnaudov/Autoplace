@@ -1,4 +1,9 @@
 ﻿@model CreateContactFormInputModel
+
+@{
+    this.ViewData["Title"] = "Contacts";
+}
+
 <h1>Contact Us</h1>
 
 <form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
@@ -15,7 +20,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Topic"></label>
-        <input asp-for="Topic" class="form-control" rows="6"></input>
+        <input asp-for="Topic" class="form-control" rows="6"/>
         <span asp-validation-for="Topic" class="text-danger"></span>
     </div>
     <div class="form-group">

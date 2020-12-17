@@ -2,6 +2,7 @@
 @inject IAutopartsService AutopartService
 
 @{
+    this.ViewData["Title"] = "Details";
     string userId = null;
 
     if (this.User.Identity.IsAuthenticated)
