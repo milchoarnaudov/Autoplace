@@ -3,8 +3,6 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using AutoPlace.Web.Infrastructure.ValidationAttributes;
-
     public class BaseAutopartsViewModel
     {
         [StringLength(maximumLength: 100, MinimumLength = 5)]
@@ -20,7 +18,7 @@
         public string Description { get; set; }
 
         [Display(Name = "Car Model Year")]
-        [ValidateYear(1960)]
-        public int CarMakeYear { get; set; }
+        [Required]
+        public virtual int CarMakeYear { get; set; }
     }
 }
