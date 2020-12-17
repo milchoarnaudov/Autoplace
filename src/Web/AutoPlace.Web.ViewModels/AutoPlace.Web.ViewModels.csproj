@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Data\AutoPlace.Data.Models\AutoPlace.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\AutoPlace.Services.Data\AutoPlace.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\AutoPlace.Services.Mapping\AutoPlace.Services.Mapping.csproj" />
+    <ProjectReference Include="..\AutoPlace.Web.Infrastructure\AutoPlace.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

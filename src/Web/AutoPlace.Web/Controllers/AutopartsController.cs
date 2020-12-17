@@ -46,6 +46,19 @@
         [HttpPost]
         public async Task<IActionResult> Add(CreateAutopartInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                var viewModel = new CreateAutopartInputModel
+                {
+                    CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
+                    CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
+                    Categories = this.autopartsService.GetAllCategoriesAsKeyValuePairs(),
+                    Conditions = this.autopartsService.GetAllConditionsAsKeyValuePairs(),
+                };
+
+                return this.View(viewModel);
+            }
+
             var autopart = new CreateAutopartDTO
             {
                 Name = input.Name,
