@@ -27,11 +27,8 @@
                 body: JSON.stringify({ CommentedUserUserName: `${username}`, content: content })
             })
             .then((response) => {
-                return response.text();
+                location.reload();
             })
-            .then((result) => {
-                console.log(result);
-            });
     });
 
     document.getElementById("downVote").addEventListener('click', function (e) {
