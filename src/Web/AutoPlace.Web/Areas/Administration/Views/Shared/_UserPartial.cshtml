@@ -1,0 +1,10 @@
+﻿@model UsersListItemViewModel 
+
+<div style="margin: 6px" class="card">
+    <div class="card-body">
+        <div>
+            <h2 class="card-title">@Model.Username</h2>
+        </div>
+        <a asp-area="" asp-controller="Users" asp-action="Details" asp-route-username="@Model.Username" class="btn btn-primary">View Profile</a>
+    </div>
+</div>

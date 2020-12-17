@@ -22,17 +22,6 @@
             this.votesService = votesService;
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public IActionResult All()
-        {
-            var viewModel = new UsersListViewModel
-            {
-                Users = this.usersService.GetAll<UsersListItemViewModel>(),
-            };
-
-            return this.View(viewModel);
-        }
-
         public IActionResult Details(string username)
         {
             var viewModel = this.usersService.GetByUsername<UserDetailsViewModel>(username);
