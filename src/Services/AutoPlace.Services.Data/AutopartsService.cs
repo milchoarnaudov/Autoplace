@@ -196,7 +196,7 @@
                 && x.Car.ModelId == searchFiltersDTO.ModelId
                 && x.Car.CarTypeId == searchFiltersDTO.CarTypeId
                 && (searchFiltersDTO.CarMakeYear == null || x.Car.MakeYear == searchFiltersDTO.CarMakeYear)
-                && (searchFiltersDTO.MaxPrice == null || x.Price > searchFiltersDTO.MaxPrice))
+                && (searchFiltersDTO.MaxPrice == null || x.Price <= searchFiltersDTO.MaxPrice))
                 .To<T>().ToList();
         }
     }
