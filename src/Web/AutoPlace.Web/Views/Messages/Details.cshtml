@@ -2,20 +2,20 @@
 
 <div class="container w-100">
     <div class="d-flex justify-content-between">
-        <h1>@Model.Topic</h1>
+        <h2>@Model.Topic</h2>
     </div>
     <div>
         <h2><a asp-controller="Autoparts" asp-action="Details" asp-route-id="@Model.AutopartId">@Model.AutopartName</a></h2>
     </div>
+    <hr />
     <div class="d-flex justify-content-between">
-        <span>Sent on @Model.CreatedOn.ToString("dd/MM/yyyy")</span>
-        <br />
+        <span>Sent on @Model.CreatedOn.ToString("dd.MM.yyyy")</span>
         <div>
             <span>Sent by</span>
             <a class="btn-link" asp-controller="Users" asp-action="Details" asp-route-username="@Model.SenderUserName">@Model.SenderUserName</a>
         </div>
     </div>
-    <hr />
+    <hr /> <br />
     <div>
         <p>@Model.Content</p>
     </div>

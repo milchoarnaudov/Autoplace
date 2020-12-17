@@ -36,7 +36,7 @@
             return this.View(all);
         }
 
-        public IActionResult Create(int id)
+        public IActionResult Add(int id)
         {
             var autopart = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
 
@@ -61,7 +61,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateMessageInputModel input)
+        public async Task<IActionResult> Add(CreateMessageInputModel input)
         {
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var receiver = this.usersService.GetByUsername<UsersListItemViewModel>(input.ReceiverUsername);

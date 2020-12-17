@@ -51,7 +51,7 @@
                 <div class="row d-flex justify-content-around">
                     @if (this.User.FindFirstValue(ClaimTypes.Name) != @Model.OwnerUserName)
                     {
-                        <a class="btn btn-info col-sm-5 text" asp-controller="Messages" asp-action="Create" asp-route-id="@Model.Id">Send a Message</a>
+                        <a class="btn btn-info col-sm-5 text" asp-controller="Messages" asp-action="Add" asp-route-id="@Model.Id">Send a Message</a>
                         <a class="btn btn-info  col-sm-5" asp-controller="Users" asp-action="Details" asp-route-username="@Model.OwnerUserName">View Profile</a>
                     }
                     @if (this.AutopartService.IsUserAutopartOwner(userId, Model.Id))

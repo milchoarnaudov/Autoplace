@@ -56,9 +56,7 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
-
             services.AddSingleton(this.configuration);
-            services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -66,6 +64,9 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
+            services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
+            services.AddSingleton<ITextService, TextService>();
+
             services.AddScoped<IFavoritesService, FavoritesService>();
             services.AddScoped<IUsersService, UsersService>();
 
@@ -75,7 +76,6 @@
             services.AddTransient<IContactFormsService, ContactFormsService>();
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
             services.AddTransient<IMessagesService, MessagesService>();
-            services.AddTransient<ITextService, TextService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IVotesService, VotesService>();
         }

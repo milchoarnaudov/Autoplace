@@ -1,0 +1,16 @@
+﻿@model MessageListItemViewModel
+@inject ITextService TextService
+
+<div class="card w-75" style="margin: 5px">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5 class="card-title">@Model.Topic</h5>
+            <p class="card-text">@Model.CreatedOn.ToString("dd.MM.yyyy HH:mm")</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <p class="card-text">@this.TextService.ShortenText(Model.Content)</p>
+            <a class="btn-link" asp-controller="Users" asp-action="Details" asp-route-username="@Model.SenderUserName">@Model.SenderUserName</a>
+        </div>
+        <a asp-controller="Messages" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Read</a>
+    </div>
+</div>

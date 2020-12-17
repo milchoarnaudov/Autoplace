@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<MessageListItemViewModel>
-@inject ITextService TextService
 
 <h1>All Messages</h1>
 
@@ -13,13 +12,7 @@
         <div class="row">
             @foreach (var message in Model)
             {
-                <div class="card w-75">
-                    <div class="card-body">
-                        <h5 class="card-title">@message.Topic</h5>
-                        <p class="card-text">@this.TextService.ShortenText(message.Content)</p>
-                        <a asp-controller="Messages" asp-action="Details" asp-route-id="@message.Id" class="btn btn-primary">Read</a>
-                    </div>
-                </div>
+               <partial name="_MessagePartial" model="message" />
             }
         </div>
     }
