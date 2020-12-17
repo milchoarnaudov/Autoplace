@@ -22,7 +22,7 @@
                 My Profile
             </a>
             <div class="dropdown-menu">
-                <a class="nav-link text-dark" asp-controller="Users" asp-action="Details" asp-route-username="@username">View My Profile</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Details" asp-route-username="@username">View My Profile</a>
                 <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="All">Messages</a>
                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
