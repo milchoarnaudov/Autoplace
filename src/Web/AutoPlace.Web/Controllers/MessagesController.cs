@@ -63,6 +63,11 @@
         [HttpPost]
         public async Task<IActionResult> Add(CreateMessageInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var receiver = this.usersService.GetByUsername<UsersListItemViewModel>(input.ReceiverUsername);
 

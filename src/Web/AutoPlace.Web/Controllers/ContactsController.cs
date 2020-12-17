@@ -24,6 +24,11 @@
         [HttpPost]
         public async Task<IActionResult> Index(CreateContactFormInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             await this.contactFormService.Create(new ContactFormDTO
             {
                 FullName = input.FullName,

@@ -48,15 +48,12 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var viewModel = new CreateAutopartInputModel
-                {
-                    CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
-                    CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                    Categories = this.autopartsService.GetAllCategoriesAsKeyValuePairs(),
-                    Conditions = this.autopartsService.GetAllConditionsAsKeyValuePairs(),
-                };
+                input.CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs();
+                input.CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs();
+                input.Categories = this.autopartsService.GetAllCategoriesAsKeyValuePairs();
+                input.Conditions = this.autopartsService.GetAllConditionsAsKeyValuePairs();
 
-                return this.View(viewModel);
+                return this.View(input);
             }
 
             var autopart = new CreateAutopartDTO
@@ -170,21 +167,33 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([Bind("Id,Name,Price,Description")] AutopartDetailsViewModel autopart)
+        public async Task<IActionResult> Edit([Bind("Id,Name,Price,Description")] AutopartDetailsViewModel input)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            if (!this.autopartsService.IsUserAutopartOwner(userId, autopart.Id))
+            if (!this.ModelState.IsValid)
+            {
+                var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(input.Id);
+
+                if (viewModel == null)
+                {
+                    return this.NotFound();
+                }
+
+                return this.View(input);
+            }
+
+            if (!this.autopartsService.IsUserAutopartOwner(userId, input.Id))
             {
                 return this.Forbid();
             }
 
             var isSuccessful = await this.autopartsService.Edit(new EditAutopartDTO
             {
-                Id = autopart.Id,
-                Description = autopart.Description,
-                Name = autopart.Name,
-                Price = autopart.Price,
+                Id = input.Id,
+                Description = input.Description,
+                Name = input.Name,
+                Price = input.Price,
             });
 
             if (!isSuccessful)

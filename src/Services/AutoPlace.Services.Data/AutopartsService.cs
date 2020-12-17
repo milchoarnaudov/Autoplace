@@ -134,6 +134,11 @@
 
         public async Task<bool> Edit(EditAutopartDTO autopart)
         {
+            if (autopart == null)
+            {
+                return false;
+            }
+
             var autopartEntity = this.autopartRepository.All().Where(x => x.Id == autopart.Id).FirstOrDefault();
 
             if (autopartEntity == null)
@@ -180,6 +185,11 @@
 
         public IEnumerable<T> GetByFilters<T>(SearchFiltersDTO searchFiltersDTO)
         {
+            if (searchFiltersDTO == null)
+            {
+                return new List<T>();
+            }
+
             return this.autopartRepository.AllAsNoTracking()
                 .Where(x => x.ConditionId == searchFiltersDTO.ConditionId
                 && x.CategoryId == searchFiltersDTO.CategoryId
