@@ -40,13 +40,7 @@
         <div class="col-6 border-light bg-light rounded">
             @foreach (var comment in Model.CommentsForUser)
             {
-                <div class="card w-100" style="margin:5px">
-                    <div class="card-body">
-                        <h5 class="card-title">@comment.CommentatorUsername</h5>
-                        <p class="card-subtitle">@comment.CreatedOn</p>
-                        <p class="card-text">@comment.Content</p>
-                    </div>
-                </div>
+                <partial name="_CommentPartial" model="comment" />
             }
             <br />
             <div class="bg-light">

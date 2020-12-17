@@ -15,7 +15,6 @@
 
     document.getElementById("commentSubmitBtn").addEventListener('click', function (e) {
         var content = document.getElementById("commentContent").value;
-        console.log(content);
 
         fetch(`/api/Comments/`,
             {
@@ -27,7 +26,9 @@
                 body: JSON.stringify({ CommentedUserUserName: `${username}`, content: content })
             })
             .then((response) => {
-                location.reload();
+                if (response.ok) {
+                    location.reload();
+                }
             })
     });
 
@@ -42,9 +43,6 @@
                     'RequestVerificationToken': token
                 },
                 body: JSON.stringify({ ForUserUserName: `${username}`, VoteValue: false })
-            })
-            .then((response) => {
-                return response.text();
             })
             .then((data) => {
                 getVotes();
@@ -69,11 +67,8 @@
             .then((result) => {
                 fetch(`/api/Votes/`)
                     .then((response) => {
-                        return response.json();
-                    })
-                    .then((data) => {
                         getVotes();
-                    });
+                    })
             });
     });
 
