@@ -5,5 +5,16 @@
 
 <div class="text-center">
     <img class="w-100 d-xl-block" src="~/Images/home/home_superbanner.png" />
-    <h1>Login now</h1>
+    <br />
+    <hr />
+    <h1> <a class="text-primary" asp-area="Identity" asp-page="/Account/Register">Register</a> to begin</h1>
+    <h1>Or</h1>
+    <h1><a class="text-primary" asp-area="Identity" asp-page="/Account/Login">Login</a> if you already have an Account</h1>
 </div>
+
+@section Scripts{
+    <script src="~/js/homepage/homepageLib.js"></script>
+    <script>
+        setupHomePage();
+    </script>
+}

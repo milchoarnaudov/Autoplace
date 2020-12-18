@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light blue-color border-bottom box-shadow mb-3">
+        <nav id="masterNavbar" class="navbar navbar-expand-sm navbar-light blue-color border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand home-icon" asp-area="" asp-controller="Home" asp-action="Index">
                     <img class="home-icon" src="~/home_icon_white.png" />
@@ -55,8 +55,8 @@
             </div>
         </nav>
     </header>
-
-    <div class="container">
+  
+    <div id="masterContainer" class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
