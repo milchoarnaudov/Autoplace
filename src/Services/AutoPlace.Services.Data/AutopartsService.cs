@@ -18,23 +18,20 @@
         private readonly IDeletableEntityRepository<AutopartCondition> conditionsRepository;
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IDeletableEntityRepository<Autopart> autopartRepository;
-        private readonly IDeletableEntityRepository<Favorite> favoritesRepository;
 
         public AutopartsService(
             IDeletableEntityRepository<AutopartCategory> categoriesRepository,
             IDeletableEntityRepository<AutopartCondition> conditionsRepository,
             IDeletableEntityRepository<Car> carRepository,
-            IDeletableEntityRepository<Autopart> autopartRepository,
-            IDeletableEntityRepository<Favorite> favoritesRepository)
+            IDeletableEntityRepository<Autopart> autopartRepository)
         {
             this.categoriesRepository = categoriesRepository;
             this.conditionsRepository = conditionsRepository;
             this.carRepository = carRepository;
             this.autopartRepository = autopartRepository;
-            this.favoritesRepository = favoritesRepository;
         }
 
-        public async Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath)
+        public async Task CreateAutopartAsync(CreateAutopartDTO autopart, string userId, string imagePath)
         {
             var autopartEntity = new Autopart
             {
@@ -92,21 +89,21 @@
             await this.autopartRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllCategoriesAsKeyValuePairs()
+        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartCategoriesAsKeyValuePairs()
         {
             return this.categoriesRepository.AllAsNoTracking()
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
                 .ToList();
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllConditionsAsKeyValuePairs()
+        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartConditionsAsKeyValuePairs()
         {
             return this.conditionsRepository.AllAsNoTracking()
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
                 .ToList();
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAllAutoparts<T>()
         {
             var recipes = this.autopartRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
@@ -115,12 +112,12 @@
             return recipes;
         }
 
-        public T GetById<T>(int id)
+        public T GetAutopartById<T>(int id)
         {
             return this.autopartRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
-        public async Task<bool> DeleteById(int id)
+        public async Task<bool> DeleteAutopartByIdAsync(int id)
         {
             var autopart = this.autopartRepository.AllAsNoTracking().Where(x => x.Id == id).FirstOrDefault();
 
@@ -135,7 +132,7 @@
             return true;
         }
 
-        public async Task<bool> Edit(EditAutopartDTO autopart)
+        public async Task<bool> EditAutopart(EditAutopartDTO autopart)
         {
             if (autopart == null)
             {
@@ -176,7 +173,7 @@
             return false;
         }
 
-        public async Task IncreaseViewsCountByAutopartId(int id)
+        public async Task IncreaseAutopartViewsCount(int id)
         {
             var autopart = this.autopartRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
@@ -186,7 +183,7 @@
             await this.autopartRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetByFilters<T>(SearchFiltersDTO searchFiltersDTO)
+        public IEnumerable<T> GetAutopartsByFilters<T>(SearchFiltersDTO searchFiltersDTO)
         {
             if (searchFiltersDTO == null)
             {
@@ -201,15 +198,6 @@
                 && (searchFiltersDTO.CarMakeYear == null || x.Car.MakeYear == searchFiltersDTO.CarMakeYear)
                 && (searchFiltersDTO.MaxPrice == null || x.Price <= searchFiltersDTO.MaxPrice))
                 .To<T>().ToList();
-        }
-
-        public IEnumerable<T> GetAllFavoriteAutopartsByUserId<T>(string userId)
-        {
-            return this.favoritesRepository.AllAsNoTracking()
-                .Where(x => x.UserId == userId)
-                .Select(x => x.Autopart)
-                .To<T>()
-                .ToList();
         }
     }
 }

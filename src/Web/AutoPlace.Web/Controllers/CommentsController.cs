@@ -49,7 +49,7 @@
                 Content = sanitizedCommentContent,
             };
 
-            await this.commentsService.Create(commentDTO);
+            await this.commentsService.CreateAsync(commentDTO);
 
             return this.Ok();
         }

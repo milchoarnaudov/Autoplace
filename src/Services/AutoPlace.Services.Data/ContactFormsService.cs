@@ -1,5 +1,6 @@
 ﻿namespace AutoPlace.Services.Data
 {
+    using System;
     using System.Threading.Tasks;
 
     using AutoPlace.Data.Common.Repositories;
@@ -15,8 +16,13 @@
             this.contactFormRepository = contactFormRepository;
         }
 
-        public async Task Create(ContactFormDTO contactForm)
+        public async Task CreateAsync(ContactFormDTO contactForm)
         {
+            if (contactForm == null)
+            {
+                return;
+            }
+
             await this.contactFormRepository.AddAsync(new ContactForm
             {
                  FullName = contactForm.Email,

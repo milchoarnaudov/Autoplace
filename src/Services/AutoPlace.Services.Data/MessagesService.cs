@@ -1,5 +1,6 @@
 ﻿namespace AutoPlace.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -18,8 +19,13 @@
             this.messagesRepository = messagesRepository;
         }
 
-        public async Task Create(CreateMessageDTO message)
+        public async Task CreateAsync(CreateMessageDTO message)
         {
+            if (message.ReceiverId == null || message.SenderId == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var messageEntity = new Message
             {
                 Topic = message.Topic,

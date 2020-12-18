@@ -15,7 +15,7 @@
             this.commentRepository = commentRepository;
         }
 
-        public async Task Create(CreateCommentDTO comment)
+        public async Task CreateAsync(CreateCommentDTO comment)
         {
             var commentEntity = new Comment
             {

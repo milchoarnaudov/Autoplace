@@ -6,6 +6,6 @@
 
     public interface ICommentsService
     {
-        Task Create(CreateCommentDTO comment);
+        Task CreateAsync(CreateCommentDTO comment);
     }
 }

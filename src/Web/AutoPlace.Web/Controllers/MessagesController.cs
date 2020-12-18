@@ -38,7 +38,7 @@
 
         public IActionResult Add(int id)
         {
-            var autopart = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+            var autopart = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
 
             if (autopart == null)
             {
@@ -80,7 +80,7 @@
                 ReceiverId = receiver.Id,
             };
 
-            await this.messagesService.Create(message);
+            await this.messagesService.CreateAsync(message);
 
             return this.Redirect("/");
         }

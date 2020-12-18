@@ -6,6 +6,8 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
+    using AutoPlace.Services.Mapping;
+    using AutoPlace.Web.ViewModels.Autoparts;
     using Moq;
     using Xunit;
 
@@ -85,6 +87,139 @@
             await service.AddToFavorite("x", 3);
 
             Assert.Equal(7, list.Count());
+        }
+
+        [Fact]
+        public void GetAllFavoritesAutopartByUserIdListShouldHaveCorrectCount()
+        {
+            var list = new List<Favorite>()
+            {
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "b",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "b",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "b",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "z",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "q",
+                },
+            };
+
+            var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
+            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
+            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
+                (Favorite favorite) => list.Add(favorite));
+            mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
+               (Favorite favorite) => list.Remove(favorite));
+            var service = new FavoritesService(mockRepository.Object);
+            AutoMapperConfig.RegisterMappings(typeof(AutopartsMapItem).Assembly);
+
+            Assert.Equal(3, service.GetAllFavoritesAutopartByUserId<AutopartsMapItem>("b").Count());
+        }
+
+        [Fact]
+        public void GetAllFavoritesAutopartByUserIdListShouldReturnEmtpyListWhenThereAreNoMatches()
+        {
+            var list = new List<Favorite>()
+            {
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "b",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "b",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "b",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "z",
+                },
+                new Favorite
+                {
+                     Autopart = new Autopart
+                     {
+                         Id = 1,
+                         OwnerId = "a",
+                     },
+                     UserId = "q",
+                },
+            };
+
+            var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
+            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
+            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
+                (Favorite favorite) => list.Add(favorite));
+            mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
+               (Favorite favorite) => list.Remove(favorite));
+            var service = new FavoritesService(mockRepository.Object);
+            AutoMapperConfig.RegisterMappings(typeof(AutopartsMapItem).Assembly);
+
+            Assert.Empty(service.GetAllFavoritesAutopartByUserId<AutopartsMapItem>("no"));
+        }
+
+        public class AutopartsMapItem : IMapFrom<Autopart>
+        {
+            public int Id { get; set; }
         }
     }
 }

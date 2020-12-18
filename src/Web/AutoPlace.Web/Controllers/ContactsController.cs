@@ -29,7 +29,7 @@
                 return this.View(input);
             }
 
-            await this.contactFormService.Create(new ContactFormDTO
+            await this.contactFormService.CreateAsync(new ContactFormDTO
             {
                 FullName = input.FullName,
                 Email = input.Email,

@@ -16,15 +16,18 @@
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;
         private readonly IWebHostEnvironment env;
+        private readonly IFavoritesService favoritesService;
 
         public AutopartsController(
             IAutopartsService autopartsService,
             ICarsService carsService,
-            IWebHostEnvironment env)
+            IWebHostEnvironment env,
+            IFavoritesService favoritesService)
         {
             this.autopartsService = autopartsService;
             this.carsService = carsService;
             this.env = env;
+            this.favoritesService = favoritesService;
         }
 
         public IActionResult Add()
@@ -33,8 +36,8 @@
             {
                 CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
                 CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsService.GetAllCategoriesAsKeyValuePairs(),
-                Conditions = this.autopartsService.GetAllConditionsAsKeyValuePairs(),
+                Categories = this.autopartsService.GetAllAutopartCategoriesAsKeyValuePairs(),
+                Conditions = this.autopartsService.GetAllAutopartConditionsAsKeyValuePairs(),
             };
 
             return this.View(viewModel);
@@ -47,8 +50,8 @@
             {
                 input.CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs();
                 input.CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs();
-                input.Categories = this.autopartsService.GetAllCategoriesAsKeyValuePairs();
-                input.Conditions = this.autopartsService.GetAllConditionsAsKeyValuePairs();
+                input.Categories = this.autopartsService.GetAllAutopartCategoriesAsKeyValuePairs();
+                input.Conditions = this.autopartsService.GetAllAutopartConditionsAsKeyValuePairs();
 
                 return this.View(input);
             }
@@ -70,7 +73,7 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var imagePath = $"{this.env.WebRootPath}/Images";
 
-            await this.autopartsService.CreateAsync(autopart, userId, imagePath);
+            await this.autopartsService.CreateAutopartAsync(autopart, userId, imagePath);
 
             return this.Redirect("/");
         }
@@ -86,7 +89,7 @@
         [AllowAnonymous]
         public IActionResult All()
         {
-            var viewModels = this.autopartsService.GetAll<AutopartsListItemViewModel>();
+            var viewModels = this.autopartsService.GetAllAutoparts<AutopartsListItemViewModel>();
 
             return this.View(viewModels);
         }
@@ -94,21 +97,21 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+            var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
 
             if (viewModel == null)
             {
                 return this.NotFound();
             }
 
-            await this.autopartsService.IncreaseViewsCountByAutopartId(viewModel.Id);
+            await this.autopartsService.IncreaseAutopartViewsCount(viewModel.Id);
 
             return this.View(viewModel);
         }
 
         public IActionResult Delete(int id)
         {
-            var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+            var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (viewModel == null)
@@ -135,7 +138,7 @@
                 return this.Forbid();
             }
 
-            var isSuccessful = await this.autopartsService.DeleteById(id);
+            var isSuccessful = await this.autopartsService.DeleteAutopartByIdAsync(id);
 
             if (!isSuccessful)
             {
@@ -147,7 +150,7 @@
 
         public IActionResult Edit(int id)
         {
-            var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
+            var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (viewModel == null)
@@ -170,7 +173,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(input.Id);
+                var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(input.Id);
 
                 if (viewModel == null)
                 {
@@ -185,7 +188,7 @@
                 return this.Forbid();
             }
 
-            var isSuccessful = await this.autopartsService.Edit(new EditAutopartDTO
+            var isSuccessful = await this.autopartsService.EditAutopart(new EditAutopartDTO
             {
                 Id = input.Id,
                 Description = input.Description,
@@ -205,7 +208,7 @@
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var viewModels = this.autopartsService.GetAllFavoriteAutopartsByUserId<AutopartsListItemViewModel>(userId);
+            var viewModels = this.favoritesService.GetAllFavoritesAutopartByUserId<AutopartsListItemViewModel>(userId);
 
             return this.View(viewModels);
         }

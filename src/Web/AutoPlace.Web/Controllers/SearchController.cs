@@ -25,8 +25,8 @@
             {
                 CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
                 CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsService.GetAllCategoriesAsKeyValuePairs(),
-                Conditions = this.autopartsService.GetAllConditionsAsKeyValuePairs(),
+                Categories = this.autopartsService.GetAllAutopartCategoriesAsKeyValuePairs(),
+                Conditions = this.autopartsService.GetAllAutopartConditionsAsKeyValuePairs(),
             };
 
             return this.View(viewModel);
@@ -45,7 +45,7 @@
                 CarMakeYear = searchFilters.CarMakeYear,
             };
 
-            var results = this.autopartsService.GetByFilters<AutopartsListItemViewModel>(searchFiltersDTO);
+            var results = this.autopartsService.GetAutopartsByFilters<AutopartsListItemViewModel>(searchFiltersDTO);
 
             return this.View(results);
         }
