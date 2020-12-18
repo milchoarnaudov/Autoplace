@@ -13,6 +13,11 @@
 
     public class FavoritesServiceTests
     {
+        public FavoritesServiceTests()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(AutopartsMapItem).Assembly);
+        }
+
         [Fact]
         public async Task AddToFavoritesListShouldHaveCount1WhenDoneOnce()
         {
@@ -148,7 +153,6 @@
             mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
                (Favorite favorite) => list.Remove(favorite));
             var service = new FavoritesService(mockRepository.Object);
-            AutoMapperConfig.RegisterMappings(typeof(AutopartsMapItem).Assembly);
 
             Assert.Equal(3, service.GetAllFavoritesAutopartByUserId<AutopartsMapItem>("b").Count());
         }
@@ -212,7 +216,6 @@
             mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
                (Favorite favorite) => list.Remove(favorite));
             var service = new FavoritesService(mockRepository.Object);
-            AutoMapperConfig.RegisterMappings(typeof(AutopartsMapItem).Assembly);
 
             Assert.Empty(service.GetAllFavoritesAutopartByUserId<AutopartsMapItem>("no"));
         }

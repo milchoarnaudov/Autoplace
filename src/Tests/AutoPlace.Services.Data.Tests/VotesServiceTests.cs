@@ -14,6 +14,11 @@
 
     public class VotesServiceTests
     {
+        public VotesServiceTests()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
+        }
+
         [Fact]
         public async Task WhenUserVoteOnceTheVoteIsAdded()
         {
@@ -124,7 +129,6 @@
             mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
                 (Vote vote) => list.Add(vote));
             var service = new VotesService(mockRepository.Object);
-            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
 
             await service.AddVote(new CreateVoteDTO
             {
@@ -152,7 +156,6 @@
             mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
                 (Vote vote) => list.Add(vote));
             var service = new VotesService(mockRepository.Object);
-            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
 
             await service.AddVote(new CreateVoteDTO
             {

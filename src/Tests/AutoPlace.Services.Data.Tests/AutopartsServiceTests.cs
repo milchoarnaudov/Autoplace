@@ -26,6 +26,8 @@
             this.conditionsRepository = new Mock<IDeletableEntityRepository<AutopartCondition>>();
             this.carRepository = new Mock<IDeletableEntityRepository<Car>>();
             this.autopartRepository = new Mock<IDeletableEntityRepository<Autopart>>();
+
+            AutoMapperConfig.RegisterMappings(typeof(AutopartMap).Assembly);
         }
 
         [Fact]
@@ -127,7 +129,6 @@
                 CarTypeId = 2,
                 ModelId = 2,
             };
-            AutoMapperConfig.RegisterMappings(typeof(AutopartMap).Assembly);
             await service.CreateAutopartAsync(autopartA, "a", "testA");
             await service.CreateAutopartAsync(autopartB, "a", "testB");
 
@@ -212,7 +213,6 @@
                 this.carRepository.Object,
                 this.autopartRepository.Object);
 
-            AutoMapperConfig.RegisterMappings(typeof(AutopartMap).Assembly);
 
             Assert.Equal("A", service.GetAutopartById<AutopartMap>(1).Name);
         }
@@ -244,7 +244,6 @@
                 this.carRepository.Object,
                 this.autopartRepository.Object);
 
-            AutoMapperConfig.RegisterMappings(typeof(AutopartMap).Assembly);
 
             await service.DeleteAutopartByIdAsync(1);
 
