@@ -7,9 +7,16 @@
     <img class="w-100 d-xl-block" src="~/Images/home/home_superbanner.png" />
     <br />
     <hr />
-    <h1> <a class="text-primary" asp-area="Identity" asp-page="/Account/Register">Register</a> to begin</h1>
-    <h1>Or</h1>
-    <h1><a class="text-primary" asp-area="Identity" asp-page="/Account/Login">Login</a> if you already have an Account</h1>
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <h1><a class="text-primary" asp-area="" asp-controller="Search" asp-action="Index">Search</a> among large amount of Autoparts</h1>
+    }
+    else
+    {
+        <h1> <a class="text-primary" asp-area="Identity" asp-page="/Account/Register">Register</a> to begin</h1>
+        <h1>Or</h1>
+        <h1><a class="text-primary" asp-area="Identity" asp-page="/Account/Login">Login</a> if you already have an Account</h1>
+    }
 </div>
 
 @section Scripts{
