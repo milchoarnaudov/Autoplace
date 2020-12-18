@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\AutoPlace.Data\AutoPlace.Data.csproj" />
     <ProjectReference Include="..\..\Services\AutoPlace.Services.Data\AutoPlace.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\AutoPlace.Web.ViewModels\AutoPlace.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

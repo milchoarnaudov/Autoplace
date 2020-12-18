@@ -18,17 +18,20 @@
         private readonly IDeletableEntityRepository<AutopartCondition> conditionsRepository;
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IDeletableEntityRepository<Autopart> autopartRepository;
+        private readonly IDeletableEntityRepository<Favorite> favoritesRepository;
 
         public AutopartsService(
             IDeletableEntityRepository<AutopartCategory> categoriesRepository,
             IDeletableEntityRepository<AutopartCondition> conditionsRepository,
             IDeletableEntityRepository<Car> carRepository,
-            IDeletableEntityRepository<Autopart> autopartRepository)
+            IDeletableEntityRepository<Autopart> autopartRepository,
+            IDeletableEntityRepository<Favorite> favoritesRepository)
         {
             this.categoriesRepository = categoriesRepository;
             this.conditionsRepository = conditionsRepository;
             this.carRepository = carRepository;
             this.autopartRepository = autopartRepository;
+            this.favoritesRepository = favoritesRepository;
         }
 
         public async Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath)
@@ -173,7 +176,7 @@
             return false;
         }
 
-        public async Task IncreaseCount(int id)
+        public async Task IncreaseViewsCountByAutopartId(int id)
         {
             var autopart = this.autopartRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
@@ -198,6 +201,15 @@
                 && (searchFiltersDTO.CarMakeYear == null || x.Car.MakeYear == searchFiltersDTO.CarMakeYear)
                 && (searchFiltersDTO.MaxPrice == null || x.Price <= searchFiltersDTO.MaxPrice))
                 .To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetAllFavoriteAutopartsByUserId<T>(string userId)
+        {
+            return this.favoritesRepository.AllAsNoTracking()
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Autopart)
+                .To<T>()
+                .ToList();
         }
     }
 }

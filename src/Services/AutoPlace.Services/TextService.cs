@@ -6,7 +6,7 @@
         {
             if (string.IsNullOrEmpty(text))
             {
-                return null;
+                return "";
             }
 
             if (text.Length <= maxLength)

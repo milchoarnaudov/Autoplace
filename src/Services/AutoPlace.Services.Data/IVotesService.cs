@@ -9,7 +9,7 @@
     {
         Task AddVote(CreateVoteDTO vote);
 
-        IEnumerable<T> GetAllByUsername<T>(string username);
+        IEnumerable<T> GetAllByUserId<T>(string userId);
 
         T GetVote<T>(string forUserId, string voterId);
     }

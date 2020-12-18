@@ -46,9 +46,9 @@
             await this.votesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllByUsername<T>(string username)
+        public IEnumerable<T> GetAllByUserId<T>(string id)
         {
-            return this.votesRepository.AllAsNoTracking().Where(x => x.ForUser.UserName == username).To<T>().ToList();
+            return this.votesRepository.AllAsNoTracking().Where(x => x.ForUserId == id).To<T>().ToList();
         }
 
         public T GetVote<T>(string forUserId, string voterId)

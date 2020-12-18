@@ -28,7 +28,8 @@
         [HttpGet]
         public IEnumerable<VotesViewModel> All(string username)
         {
-            return this.votesService.GetAllByUsername<VotesViewModel>(username);
+            var forUserId = this.usersService.GetUserIdByUsername(username);
+            return this.votesService.GetAllByUserId<VotesViewModel>(forUserId);
         }
 
         [Authorize]

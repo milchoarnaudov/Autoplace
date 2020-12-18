@@ -23,8 +23,10 @@
 
         bool IsUserAutopartOwner(string userId, int autopartId);
 
-        Task IncreaseCount(int id);
+        Task IncreaseViewsCountByAutopartId(int id);
 
         IEnumerable<T> GetByFilters<T>(SearchFiltersDTO searchFiltersDTO);
+
+        IEnumerable<T> GetAllFavoriteAutopartsByUserId<T>(string userId);
     }
 }
