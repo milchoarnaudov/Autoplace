@@ -48,14 +48,17 @@
                 <partial name="_CommentPartial" model="comment" />
             }
             <br />
-            <div class="bg-light">
-                <div class="text-center">
-                    <textarea placeholder="Leave a comment..." id="commentContent" class="w-75 border rounded"></textarea>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                <div class="bg-light">
+                    <div class="text-center">
+                        <textarea placeholder="Leave a comment..." id="commentContent" class="w-75 border rounded"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button id="commentSubmitBtn" class="btn btn-primary w-75">Submit</button>
+                    </div>
                 </div>
-                <div class="text-center">
-                    <button id="commentSubmitBtn" class="btn btn-primary w-75">Submit</button>
-                </div>
-            </div>
+            }
         </div>
     </div>
 
