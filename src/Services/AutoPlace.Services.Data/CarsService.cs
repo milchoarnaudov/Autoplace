@@ -22,29 +22,18 @@
             this.carTypeRepository = carTypeRepository;
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllCarModelsAsKeyValuePairsById(int id)
-        {
-            return this.carModelRepository.AllAsNoTracking()
+        public IEnumerable<KeyValuePair<string, string>> GetAllCarModelsAsKeyValuePairsById(int id) =>
+            this.carModelRepository.AllAsNoTracking()
                 .Where(x => x.ManufacturerId == id)
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
-        }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllCarTypesAsKeyValuePairs()
-        {
-            return this.carTypeRepository.AllAsNoTracking()
+        public IEnumerable<KeyValuePair<string, string>> GetAllCarTypesAsKeyValuePairs() =>
+            this.carTypeRepository.AllAsNoTracking()
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
-        }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllCarManufacturersAsKeyValuePairs()
-        {
-            return this.carManufacturerRepository.AllAsNoTracking()
-             .Select(x => new
-             {
-                 x.Id,
-                 x.Name,
-             })
+        public IEnumerable<KeyValuePair<string, string>> GetAllCarManufacturersAsKeyValuePairs() =>
+            this.carManufacturerRepository.AllAsNoTracking()
                 .OrderBy(x => x.Name)
-                .ToList().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
-        }
+                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
     }
 }
