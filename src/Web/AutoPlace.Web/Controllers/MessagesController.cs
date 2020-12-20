@@ -70,7 +70,6 @@
 
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var receiver = this.usersService.GetByUsername<UsersListItemViewModel>(input.ReceiverUsername);
-
             var message = new CreateMessageDTO
             {
                 Topic = input.Topic,

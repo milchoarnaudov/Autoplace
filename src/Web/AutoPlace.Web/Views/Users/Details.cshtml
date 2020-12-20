@@ -29,8 +29,16 @@
     <br />
 
     <div class="d-flex justify-content-around">
-        <h2>Added Autoparts:</h2>
-        <h2>Comments For User:</h2>
+        @if (this.User.Identity.Name == Model.Username)
+        {
+            <h2>My auto parts:</h2>
+            <h2>Comments for me:</h2>
+        }
+        else
+        {
+            <h2>Added Autoparts:</h2>
+            <h2>Comments For User:</h2>
+        }
     </div>
 
     <br />
@@ -61,7 +69,6 @@
             }
         </div>
     </div>
-
     <hr />
 </div>
 

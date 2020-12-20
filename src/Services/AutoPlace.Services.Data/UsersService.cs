@@ -21,9 +21,9 @@
 
         public T GetById<T>(string id) =>
             this.usersRepository.AllAsNoTracking()
-            .Where(x => x.Id == id)
-            .To<T>()
-            .FirstOrDefault();
+               .Where(x => x.Id == id)
+               .To<T>()
+               .FirstOrDefault();
 
         public T GetByUsername<T>(string username) =>
             this.usersRepository.AllAsNoTracking()
@@ -33,8 +33,10 @@
 
         public string GetUserIdByUsername(string username) =>
             this.usersRepository.AllAsNoTracking()
-            .Where(x => x.UserName == username)
-            .FirstOrDefault()?
-            .Id;
+               .Where(x => x.UserName == username)
+               .FirstOrDefault()?
+               .Id;
+
+
     }
 }

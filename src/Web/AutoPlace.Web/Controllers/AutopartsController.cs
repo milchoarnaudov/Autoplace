@@ -74,7 +74,6 @@
             var imagePath = $"{this.env.WebRootPath}/Images";
 
             await this.autopartsService.CreateAutopartAsync(autopart, userId, imagePath);
-
             return this.Redirect("/");
         }
 
@@ -207,7 +206,6 @@
         public IActionResult Favorites()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
             var viewModels = this.favoritesService.GetAllFavoritesAutopartByUserId<AutopartsListItemViewModel>(userId);
 
             return this.View(viewModels);

@@ -26,7 +26,6 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             await this.favoritesService.AddToFavorite(userId, autopart.Id);
-
             return this.Ok();
         }
     }
