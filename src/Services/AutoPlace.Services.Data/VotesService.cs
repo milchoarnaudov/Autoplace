@@ -21,7 +21,8 @@
         public async Task AddVote(CreateVoteDTO vote)
         {
             var existingVote = this.votesRepository.All()
-                .Where(x => x.ForUserId == vote.ForUserId && x.VoterId == vote.VoterId).FirstOrDefault();
+                .Where(x => x.ForUserId == vote.ForUserId && x.VoterId == vote.VoterId)
+                .FirstOrDefault();
 
             if (existingVote == null)
             {
@@ -46,14 +47,15 @@
             await this.votesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllByUserId<T>(string id)
-        {
-            return this.votesRepository.AllAsNoTracking().Where(x => x.ForUserId == id).To<T>().ToList();
-        }
+        public IEnumerable<T> GetAllByUserId<T>(string id) =>
+            this.votesRepository.AllAsNoTracking()
+            .Where(x => x.ForUserId == id)
+            .To<T>();
 
-        public T GetVote<T>(string forUserId, string voterId)
-        {
-            return this.votesRepository.AllAsNoTracking().Where(x => x.ForUserId == forUserId && x.VoterId == voterId).To<T>().FirstOrDefault();
-        }
+        public T GetVote<T>(string forUserId, string voterId) =>
+            this.votesRepository.AllAsNoTracking()
+            .Where(x => x.ForUserId == forUserId && x.VoterId == voterId)
+            .To<T>()
+            .FirstOrDefault();
     }
 }

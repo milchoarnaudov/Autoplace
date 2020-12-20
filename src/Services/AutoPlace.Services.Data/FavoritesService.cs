@@ -39,13 +39,10 @@
             await this.favoritesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId)
-        {
-            return this.favoritesRepository.AllAsNoTracking()
+        public IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId) =>
+            this.favoritesRepository.AllAsNoTracking()
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Autopart)
-                .To<T>()
-                .ToList();
-        }
+                .To<T>();
     }
 }

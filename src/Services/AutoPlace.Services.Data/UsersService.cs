@@ -16,24 +16,25 @@
             this.usersRepository = usersRepository;
         }
 
-        public IEnumerable<T> GetAll<T>()
-        {
-            return this.usersRepository.AllAsNoTracking().To<T>().ToList();
-        }
+        public IEnumerable<T> GetAll<T>() =>
+            this.usersRepository.AllAsNoTracking().To<T>();
 
-        public T GetById<T>(string id)
-        {
-            return this.usersRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
-        }
+        public T GetById<T>(string id) =>
+            this.usersRepository.AllAsNoTracking()
+            .Where(x => x.Id == id)
+            .To<T>()
+            .FirstOrDefault();
 
-        public T GetByUsername<T>(string username)
-        {
-            return this.usersRepository.AllAsNoTracking().Where(x => x.UserName == username).To<T>().FirstOrDefault();
-        }
+        public T GetByUsername<T>(string username) =>
+            this.usersRepository.AllAsNoTracking()
+                .Where(x => x.UserName == username)
+                .To<T>()
+                .FirstOrDefault();
 
-        public string GetUserIdByUsername(string username)
-        {
-            return this.usersRepository.AllAsNoTracking().Where(x => x.UserName == username).FirstOrDefault()?.Id;
-        }
+        public string GetUserIdByUsername(string username) =>
+            this.usersRepository.AllAsNoTracking()
+            .Where(x => x.UserName == username)
+            .FirstOrDefault()?
+            .Id;
     }
 }

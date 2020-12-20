@@ -79,7 +79,6 @@
                 };
 
                 autopartEntity.Images.Add(dbImage);
-
                 var physicalPath = $"{imagePath}/Autoparts/{dbImage.Id}.{extension}";
                 using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
                 await image.CopyToAsync(fileStream);
@@ -89,25 +88,19 @@
             await this.autopartRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartCategoriesAsKeyValuePairs()
-        {
-            return this.categoriesRepository.AllAsNoTracking()
-                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
-                .ToList();
-        }
+        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartCategoriesAsKeyValuePairs() =>
+            this.categoriesRepository.AllAsNoTracking()
+                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartConditionsAsKeyValuePairs()
-        {
-            return this.conditionsRepository.AllAsNoTracking()
-                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
-                .ToList();
-        }
+        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartConditionsAsKeyValuePairs() =>
+            this.conditionsRepository.AllAsNoTracking()
+                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
 
         public IEnumerable<T> GetAllAutoparts<T>()
         {
             var recipes = this.autopartRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
-                .To<T>().ToList();
+                .To<T>();
 
             return recipes;
         }
