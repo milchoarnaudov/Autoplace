@@ -1,4 +1,4 @@
-﻿namespace AutoPlace.Web.ViewModels
+﻿namespace AutoPlace.Web.ViewModels.Common
 {
     public class ErrorViewModel
     {

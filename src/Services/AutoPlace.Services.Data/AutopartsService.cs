@@ -96,23 +96,23 @@
             this.conditionsRepository.AllAsNoTracking()
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
 
-        public IEnumerable<T> GetAllAutoparts<T>()
-        {
-            var recipes = this.autopartRepository.AllAsNoTracking()
+        public IEnumerable<T> GetAllAutoparts<T>(int page, int itemsPerPage) =>
+            this.autopartRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>();
 
-            return recipes;
-        }
-
-        public T GetAutopartById<T>(int id)
-        {
-            return this.autopartRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
-        }
+        public T GetAutopartById<T>(int id) =>
+            this.autopartRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefault();
 
         public async Task<bool> DeleteAutopartByIdAsync(int id)
         {
-            var autopart = this.autopartRepository.AllAsNoTracking().Where(x => x.Id == id).FirstOrDefault();
+            var autopart = this.autopartRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
 
             if (autopart == null)
             {
@@ -132,7 +132,9 @@
                 return false;
             }
 
-            var autopartEntity = this.autopartRepository.All().Where(x => x.Id == autopart.Id).FirstOrDefault();
+            var autopartEntity = this.autopartRepository.All()
+                .Where(x => x.Id == autopart.Id)
+                .FirstOrDefault();
 
             if (autopartEntity == null)
             {
@@ -156,7 +158,9 @@
                 return false;
             }
 
-            var autopart = this.autopartRepository.AllAsNoTracking().Where(x => x.Id == autopartId).FirstOrDefault();
+            var autopart = this.autopartRepository.AllAsNoTracking()
+                .Where(x => x.Id == autopartId)
+                .FirstOrDefault();
 
             if (autopart.OwnerId == userId)
             {
@@ -190,7 +194,10 @@
                 && x.Car.CarTypeId == searchFiltersDTO.CarTypeId
                 && (searchFiltersDTO.CarMakeYear == null || x.Car.MakeYear == searchFiltersDTO.CarMakeYear)
                 && (searchFiltersDTO.MaxPrice == null || x.Price <= searchFiltersDTO.MaxPrice))
-                .To<T>().ToList();
+                .To<T>()
+                .ToList();
         }
+
+        public int GetAutopartsCount() => this.autopartRepository.All().Count();
     }
 }

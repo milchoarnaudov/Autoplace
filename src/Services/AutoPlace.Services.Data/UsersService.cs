@@ -36,7 +36,5 @@
                .Where(x => x.UserName == username)
                .FirstOrDefault()?
                .Id;
-
-
     }
 }

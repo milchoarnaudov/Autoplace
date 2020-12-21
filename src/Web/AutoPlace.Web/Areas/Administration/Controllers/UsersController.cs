@@ -23,7 +23,6 @@
         public IActionResult All()
         {
             var viewModels = this.usersService.GetAll<UsersListItemViewModel>();
-
             return this.View(viewModels);
         }
     }

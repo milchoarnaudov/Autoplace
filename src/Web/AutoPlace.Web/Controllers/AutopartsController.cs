@@ -3,6 +3,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using AutoPlace.Common;
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Web.ViewModels.Autoparts;
@@ -86,11 +87,22 @@
         }
 
         [AllowAnonymous]
-        public IActionResult All()
+        public IActionResult All(int page)
         {
-            var viewModels = this.autopartsService.GetAllAutoparts<AutopartsListItemViewModel>();
+            if (page <= 0)
+            {
+                page = 1;
+            }
 
-            return this.View(viewModels);
+            var viewModel = new AutopartsListViewModel
+            {
+                AutopartsCount = this.autopartsService.GetAutopartsCount(),
+                Autoparts = this.autopartsService.GetAllAutoparts<AutopartsListItemViewModel>(page, GlobalConstants.AutopartsCountPerPage),
+                ItemsPerPage = GlobalConstants.AutopartsCountPerPage,
+                PageNumber = page,
+            };
+
+            return this.View(viewModel);
         }
 
         [AllowAnonymous]

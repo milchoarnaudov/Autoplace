@@ -14,7 +14,7 @@
     using AutoPlace.Services.Data.AdministrationServices.Contracts;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Services.Messaging;
-    using AutoPlace.Web.ViewModels;
+    using AutoPlace.Web.ViewModels.Common;
     using Ganss.XSS;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;

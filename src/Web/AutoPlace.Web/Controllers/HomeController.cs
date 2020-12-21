@@ -3,7 +3,7 @@
     using System.Diagnostics;
 
     using AutoPlace.Web.ViewModels;
-
+    using AutoPlace.Web.ViewModels.Common;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController

@@ -45,9 +45,8 @@
                 CarMakeYear = searchFilters.CarMakeYear,
             };
 
-            var results = this.autopartsService.GetAutopartsByFilters<AutopartsListItemViewModel>(searchFiltersDTO);
-
-            return this.View(results);
+            var viewModel = this.autopartsService.GetAutopartsByFilters<AutopartsListItemViewModel>(searchFiltersDTO);
+            return this.View(viewModel);
         }
     }
 }

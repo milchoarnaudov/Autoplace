@@ -11,7 +11,7 @@
 
         T GetAutopartById<T>(int id);
 
-        IEnumerable<T> GetAllAutoparts<T>();
+        IEnumerable<T> GetAllAutoparts<T>(int page, int itemsPerPage);
 
         Task<bool> EditAutopart(EditAutopartDTO autopart);
 
@@ -26,5 +26,7 @@
         Task IncreaseAutopartViewsCount(int id);
 
         IEnumerable<T> GetAutopartsByFilters<T>(SearchFiltersDTO searchFiltersDTO);
+
+        int GetAutopartsCount();
     }
 }

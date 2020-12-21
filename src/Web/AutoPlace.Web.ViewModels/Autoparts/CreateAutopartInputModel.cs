@@ -30,12 +30,11 @@
         [Display(Name = "Autopart Category")]
         [Required]
         public int CategoryId { get; set; }
-        
+
         [Display(Name = "Autopart Condition")]
         [Required]
         public int ConditionId { get; set; }
 
-       
         public IEnumerable<KeyValuePair<string, string>> CarManufacturers { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> CarTypes { get; set; }

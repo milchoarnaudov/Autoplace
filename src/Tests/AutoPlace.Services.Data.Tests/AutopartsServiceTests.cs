@@ -132,7 +132,7 @@
             await service.CreateAutopartAsync(autopartA, "a", "testA");
             await service.CreateAutopartAsync(autopartB, "a", "testB");
 
-            Assert.Equal(2, service.GetAllAutoparts<AutopartMap>().Count());
+            Assert.Equal(2, service.GetAllAutoparts<AutopartMap>(10, 10).Count());
         }
 
         [Fact]
@@ -213,7 +213,6 @@
                 this.carRepository.Object,
                 this.autopartRepository.Object);
 
-
             Assert.Equal("A", service.GetAutopartById<AutopartMap>(1).Name);
         }
 
@@ -243,7 +242,6 @@
                 this.conditionsRepository.Object,
                 this.carRepository.Object,
                 this.autopartRepository.Object);
-
 
             await service.DeleteAutopartByIdAsync(1);
 
