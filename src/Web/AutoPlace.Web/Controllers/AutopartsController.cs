@@ -12,7 +12,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    public class AutopartsController : Controller
+    public class AutopartsController : BaseController
     {
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;

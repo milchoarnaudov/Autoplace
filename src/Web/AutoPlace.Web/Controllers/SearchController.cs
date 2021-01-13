@@ -6,7 +6,7 @@
     using AutoPlace.Web.ViewModels.Search;
     using Microsoft.AspNetCore.Mvc;
 
-    public class SearchController : Controller
+    public class SearchController : BaseController
     {
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;
