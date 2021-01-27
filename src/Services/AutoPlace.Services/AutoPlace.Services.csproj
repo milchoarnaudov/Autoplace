@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\AutoPlace.Common\AutoPlace.Common.csproj" />
+  </ItemGroup>
+
 </Project>

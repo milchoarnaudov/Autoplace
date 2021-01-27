@@ -97,8 +97,8 @@
             var viewModel = new AutopartsListViewModel
             {
                 AutopartsCount = this.autopartsService.GetAutopartsCount(),
-                Autoparts = this.autopartsService.GetAllAutoparts<AutopartsListItemViewModel>(page, GlobalConstants.AutopartsCountPerPage),
-                ItemsPerPage = GlobalConstants.AutopartsCountPerPage,
+                Autoparts = this.autopartsService.GetAllAutoparts<AutopartsListItemViewModel>(page, GlobalConstants.ItemsCountPerPage),
+                ItemsPerPage = GlobalConstants.ItemsCountPerPage,
                 PageNumber = page,
             };
 

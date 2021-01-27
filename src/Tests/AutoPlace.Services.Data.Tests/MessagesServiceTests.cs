@@ -18,9 +18,15 @@
         {
             var list = new List<Message>();
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Message>())).Callback(
-                (Message message) => list.Add(message));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Message>()))
+                .Callback((Message message) => list.Add(message));
+
             var service = new MessagesService(mockRepository.Object);
 
             await service.CreateAsync(new CreateMessageDTO
@@ -38,9 +44,15 @@
         {
             var list = new List<Message>();
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Message>())).Callback(
-                (Message message) => list.Add(message));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Message>()))
+                .Callback((Message message) => list.Add(message));
+
             var service = new MessagesService(mockRepository.Object);
 
             await service.CreateAsync(new CreateMessageDTO
@@ -86,9 +98,15 @@
         {
             var list = new List<Message>();
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Message>())).Callback(
-                (Message message) => list.Add(message));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Message>()))
+                .Callback((Message message) => list.Add(message));
+
             var service = new MessagesService(mockRepository.Object);
 
             Assert.Throws<ArgumentNullException>(() =>
@@ -108,9 +126,15 @@
         {
             var list = new List<Message>();
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Message>())).Callback(
-                (Message message) => list.Add(message));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Message>()))
+                .Callback((Message message) => list.Add(message));
+
             var service = new MessagesService(mockRepository.Object);
 
             Assert.Throws<ArgumentNullException>(() =>

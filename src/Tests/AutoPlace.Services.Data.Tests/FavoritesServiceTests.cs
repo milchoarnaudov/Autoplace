@@ -13,19 +13,21 @@
 
     public class FavoritesServiceTests
     {
-        public FavoritesServiceTests()
-        {
-            AutoMapperConfig.RegisterMappings(typeof(AutopartsMapItem).Assembly);
-        }
-
         [Fact]
         public async Task AddToFavoritesListShouldHaveCount1WhenDoneOnce()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Favorite>()))
+                .Callback(
                 (Favorite favorite) => list.Add(favorite));
+
             var service = new FavoritesService(mockRepository.Object);
 
             await service.AddToFavorite("a", 1);
@@ -38,11 +40,21 @@
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Favorite>()))
+                .Callback(
                 (Favorite favorite) => list.Add(favorite));
-            mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
+
+            mockRepository
+                .Setup(x => x.HardDelete(It.IsAny<Favorite>()))
+                .Callback(
                (Favorite favorite) => list.Remove(favorite));
+
             var service = new FavoritesService(mockRepository.Object);
 
             await service.AddToFavorite("a", 1);
@@ -56,11 +68,19 @@
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
                 (Favorite favorite) => list.Add(favorite));
-            mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
+
+            mockRepository
+                .Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
                (Favorite favorite) => list.Remove(favorite));
+
             var service = new FavoritesService(mockRepository.Object);
 
             await service.AddToFavorite("a", 1);
@@ -76,11 +96,19 @@
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
-                (Favorite favorite) => list.Add(favorite));
-            mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
-               (Favorite favorite) => list.Remove(favorite));
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Favorite>()))
+                .Callback((Favorite favorite) => list.Add(favorite));
+
+            mockRepository
+                .Setup(x => x.HardDelete(It.IsAny<Favorite>()))
+                .Callback((Favorite favorite) => list.Remove(favorite));
+
             var service = new FavoritesService(mockRepository.Object);
 
             await service.AddToFavorite("a", 1);
@@ -92,137 +120,6 @@
             await service.AddToFavorite("x", 3);
 
             Assert.Equal(7, list.Count());
-        }
-
-        [Fact]
-        public void GetAllFavoritesAutopartByUserIdListShouldHaveCorrectCount()
-        {
-            var list = new List<Favorite>()
-            {
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "b",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "b",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "b",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "z",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "q",
-                },
-            };
-
-            var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
-                (Favorite favorite) => list.Add(favorite));
-            mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
-               (Favorite favorite) => list.Remove(favorite));
-            var service = new FavoritesService(mockRepository.Object);
-
-            Assert.Equal(3, service.GetAllFavoritesAutopartByUserId<AutopartsMapItem>("b").Count());
-        }
-
-        [Fact]
-        public void GetAllFavoritesAutopartByUserIdListShouldReturnEmtpyListWhenThereAreNoMatches()
-        {
-            var list = new List<Favorite>()
-            {
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "b",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "b",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "b",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "z",
-                },
-                new Favorite
-                {
-                     Autopart = new Autopart
-                     {
-                         Id = 1,
-                         OwnerId = "a",
-                     },
-                     UserId = "q",
-                },
-            };
-
-            var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Favorite>())).Callback(
-                (Favorite favorite) => list.Add(favorite));
-            mockRepository.Setup(x => x.HardDelete(It.IsAny<Favorite>())).Callback(
-               (Favorite favorite) => list.Remove(favorite));
-            var service = new FavoritesService(mockRepository.Object);
-
-            Assert.Empty(service.GetAllFavoritesAutopartByUserId<AutopartsMapItem>("no"));
-        }
-
-        public class AutopartsMapItem : IMapFrom<Autopart>
-        {
-            public int Id { get; set; }
         }
     }
 }

@@ -1,5 +1,6 @@
 namespace AutoPlace.Services.Tests
 {
+    using AutoPlace.Common;
     using System;
     using System.Linq;
     using Xunit;
@@ -11,10 +12,9 @@ namespace AutoPlace.Services.Tests
         {
             var textService = new TextService();
 
-
             var text = new String(Enumerable.Repeat('D', 55).ToArray());
-            var shortenText = textService.ShortenText(text);
-            var expectedResult = new string(Enumerable.Repeat('D', 35).ToArray()) + "...";
+            var shortenText = textService.ShortenText(text, GlobalConstants.ShortenTextDefaultLength);
+            var expectedResult = $"{new string(Enumerable.Repeat('D', GlobalConstants.ShortenTextDefaultLength).ToArray())}...";
 
             Assert.Equal(expectedResult, shortenText);
         }
@@ -24,10 +24,9 @@ namespace AutoPlace.Services.Tests
         {
             var textService = new TextService();
 
-
             var text = new String(Enumerable.Repeat('D', 55).ToArray());
             var shortenText = textService.ShortenText(text, 40);
-            var expectedResult = new string(Enumerable.Repeat('D', 40).ToArray()) + "...";
+            var expectedResult = $"{new string(Enumerable.Repeat('D', 40).ToArray())}...";
 
             Assert.Equal(expectedResult, shortenText);
         }
@@ -39,7 +38,7 @@ namespace AutoPlace.Services.Tests
 
 
             var text = new String(Enumerable.Repeat('D', 20).ToArray());
-            var shortenText = textService.ShortenText(text);
+            var shortenText = textService.ShortenText(text, GlobalConstants.ShortenTextDefaultLength);
             var expectedResult = new string(Enumerable.Repeat('D', 20).ToArray());
 
             Assert.Equal(expectedResult, shortenText);
@@ -49,7 +48,6 @@ namespace AutoPlace.Services.Tests
         public void ShortenTextShouldWorkCorrectlyShorterStringAndGivenMaxLength()
         {
             var textService = new TextService();
-
 
             var text = new String(Enumerable.Repeat('D', 20).ToArray());
             var shortenText = textService.ShortenText(text, 200);
@@ -63,8 +61,7 @@ namespace AutoPlace.Services.Tests
         {
             var textService = new TextService();
 
-
-            var shortenText = textService.ShortenText(null);
+            var shortenText = textService.ShortenText(null, GlobalConstants.ShortenTextDefaultLength);
             var expectedResult = "";
 
             Assert.Equal(expectedResult, shortenText);
@@ -74,7 +71,6 @@ namespace AutoPlace.Services.Tests
         public void ShortenTextShouldWorkCorrectlyWhenGivenNullAndGivenMaxLength()
         {
             var textService = new TextService();
-
 
             var shortenText = textService.ShortenText(null, 200);
             var expectedResult = "";

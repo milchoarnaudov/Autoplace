@@ -27,21 +27,27 @@
             this.carRepository = new Mock<IDeletableEntityRepository<Car>>();
             this.autopartRepository = new Mock<IDeletableEntityRepository<Autopart>>();
 
-            AutoMapperConfig.RegisterMappings(typeof(AutopartMap).Assembly);
         }
 
         [Fact]
         public async Task AutpartsListShouldIncreaseWhenAddingNewAutopart()
         {
             var list = new List<Autopart>();
-            this.autopartRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            this.autopartRepository.Setup(x => x.AddAsync(It.IsAny<Autopart>())).Callback(
-                (Autopart autopart) => list.Add(autopart));
+
+            this.autopartRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            this.autopartRepository
+                .Setup(x => x.AddAsync(It.IsAny<Autopart>()))
+                .Callback((Autopart autopart) => list.Add(autopart));
+
             var service = new AutopartsService(
                 this.categoriesRepository.Object,
                 this.conditionsRepository.Object,
                 this.carRepository.Object,
                 this.autopartRepository.Object);
+
             var fileMock = new Mock<IFormFile>();
             var content = "test";
             var fileName = "test.png";
@@ -90,52 +96,6 @@
         }
 
         [Fact]
-        public async Task GetAllAutopartsShouldReturnCorrectCount()
-        {
-            var list = new List<Autopart>();
-            this.autopartRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            this.autopartRepository.Setup(x => x.AddAsync(It.IsAny<Autopart>())).Callback(
-                (Autopart autopart) => list.Add(autopart));
-            var service = new AutopartsService(
-                this.categoriesRepository.Object,
-                this.conditionsRepository.Object,
-                this.carRepository.Object,
-                this.autopartRepository.Object);
-
-            var file = this.GetMockFile().Object;
-            var autopartA = new CreateAutopartDTO
-            {
-                Name = "TestA",
-                Price = 5,
-                Images = new List<IFormFile>()
-                {
-                    file,
-                    file,
-                },
-                CarManufacturerId = 1,
-                CarTypeId = 1,
-                ModelId = 1,
-            };
-            var autopartB = new CreateAutopartDTO
-            {
-                Name = "TestBA",
-                Price = 10,
-                Images = new List<IFormFile>()
-                {
-                    file,
-                    file,
-                },
-                CarManufacturerId = 2,
-                CarTypeId = 2,
-                ModelId = 2,
-            };
-            await service.CreateAutopartAsync(autopartA, "a", "testA");
-            await service.CreateAutopartAsync(autopartB, "a", "testB");
-
-            Assert.Equal(2, service.GetAllAutoparts<AutopartMap>(10, 10).Count());
-        }
-
-        [Fact]
         public void GetAllCategoriesAsKeyValuePairsListShouldHaveCorrectCount()
         {
             var list = new List<AutopartCategory>()
@@ -179,7 +139,10 @@
                 },
             };
 
-            this.conditionsRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
+            this.conditionsRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
             var service = new AutopartsService(
                this.categoriesRepository.Object,
                this.conditionsRepository.Object,
@@ -187,33 +150,6 @@
                this.autopartRepository.Object);
 
             Assert.Equal(2, service.GetAllAutopartConditionsAsKeyValuePairs().Count());
-        }
-
-        [Fact]
-        public void GetAutopartByIdShouldReturnTheCorrectAutopart()
-        {
-            var list = new List<Autopart>()
-            {
-                new Autopart
-                {
-                     Id = 1,
-                     Name = "A",
-                },
-                new Autopart
-                {
-                     Id = 2,
-                     Name = "B",
-                },
-            };
-
-            this.autopartRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            var service = new AutopartsService(
-                this.categoriesRepository.Object,
-                this.conditionsRepository.Object,
-                this.carRepository.Object,
-                this.autopartRepository.Object);
-
-            Assert.Equal("A", service.GetAutopartById<AutopartMap>(1).Name);
         }
 
         [Fact]
@@ -233,9 +169,13 @@
                 },
             };
 
-            this.autopartRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            this.autopartRepository.Setup(x => x.Delete(It.IsAny<Autopart>())).Callback(
-               (Autopart autopart) => list.Remove(autopart));
+            this.autopartRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            this.autopartRepository
+                .Setup(x => x.Delete(It.IsAny<Autopart>()))
+                .Callback((Autopart autopart) => list.Remove(autopart));
 
             var service = new AutopartsService(
                 this.categoriesRepository.Object,

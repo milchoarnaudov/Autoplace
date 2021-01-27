@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AutoPlace.Common\AutoPlace.Common.csproj" />
+    <ProjectReference Include="..\..\Common\AutoPlace.Common\AutoPlace.Common.csproj" />
     <ProjectReference Include="..\AutoPlace.Data.Common\AutoPlace.Data.Common.csproj" />
     <ProjectReference Include="..\AutoPlace.Data.Models\AutoPlace.Data.Models.csproj" />
   </ItemGroup>

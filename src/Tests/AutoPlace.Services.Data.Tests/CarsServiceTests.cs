@@ -53,9 +53,14 @@
                 },
             };
 
-            this.carModelsMockRepository.Setup(x => x.AllAsNoTracking()).Returns(carModelsList.AsQueryable());
+            this.carModelsMockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(carModelsList.AsQueryable());
 
-            var service = new CarsService(this.carModelsMockRepository.Object, this.carManufacturersMockRepository.Object, this.carTypesMockRepository.Object);
+            var service = new CarsService(
+                this.carModelsMockRepository.Object, 
+                this.carManufacturersMockRepository.Object, 
+                this.carTypesMockRepository.Object);
 
             Assert.Equal(2, service.GetAllCarModelsAsKeyValuePairsById(1).Count());
         }
@@ -91,9 +96,14 @@
                 },
             };
 
-            this.carModelsMockRepository.Setup(x => x.AllAsNoTracking()).Returns(carModelsList.AsQueryable());
+            this.carModelsMockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(carModelsList.AsQueryable());
 
-            var service = new CarsService(this.carModelsMockRepository.Object, this.carManufacturersMockRepository.Object, this.carTypesMockRepository.Object);
+            var service = new CarsService(
+                this.carModelsMockRepository.Object, 
+                this.carManufacturersMockRepository.Object, 
+                this.carTypesMockRepository.Object);
 
             Assert.Empty(service.GetAllCarModelsAsKeyValuePairsById(69));
         }
@@ -125,9 +135,14 @@
                 },
             };
 
-            this.carManufacturersMockRepository.Setup(x => x.AllAsNoTracking()).Returns(carManufacturersList.AsQueryable());
+            this.carManufacturersMockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(carManufacturersList.AsQueryable());
 
-            var service = new CarsService(this.carModelsMockRepository.Object, this.carManufacturersMockRepository.Object, this.carTypesMockRepository.Object);
+            var service = new CarsService(
+                this.carModelsMockRepository.Object, 
+                this.carManufacturersMockRepository.Object, 
+                this.carTypesMockRepository.Object);
 
             Assert.Equal(4, service.GetAllCarManufacturersAsKeyValuePairs().Count());
         }
@@ -137,9 +152,14 @@
         {
             var carManufacturersList = new List<CarManufacturer>();
 
-            this.carManufacturersMockRepository.Setup(x => x.AllAsNoTracking()).Returns(carManufacturersList.AsQueryable());
+            this.carManufacturersMockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(carManufacturersList.AsQueryable());
 
-            var service = new CarsService(this.carModelsMockRepository.Object, this.carManufacturersMockRepository.Object, this.carTypesMockRepository.Object);
+            var service = new CarsService(
+                this.carModelsMockRepository.Object,
+                this.carManufacturersMockRepository.Object,
+                this.carTypesMockRepository.Object);
 
             Assert.Empty(service.GetAllCarManufacturersAsKeyValuePairs());
         }
@@ -181,9 +201,14 @@
                 },
             };
 
-            this.carTypesMockRepository.Setup(x => x.AllAsNoTracking()).Returns(carTypesList.AsQueryable());
+            this.carTypesMockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(carTypesList.AsQueryable());
 
-            var service = new CarsService(this.carModelsMockRepository.Object, this.carManufacturersMockRepository.Object, this.carTypesMockRepository.Object);
+            var service = new CarsService(
+                this.carModelsMockRepository.Object,
+                this.carManufacturersMockRepository.Object,
+                this.carTypesMockRepository.Object);
 
             Assert.Equal(6, service.GetAllCarTypesAsKeyValuePairs().Count());
         }
@@ -193,9 +218,14 @@
         {
             var carTypesList = new List<CarType>();
 
-            this.carTypesMockRepository.Setup(x => x.AllAsNoTracking()).Returns(carTypesList.AsQueryable());
+            this.carTypesMockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(carTypesList.AsQueryable());
 
-            var service = new CarsService(this.carModelsMockRepository.Object, this.carManufacturersMockRepository.Object, this.carTypesMockRepository.Object);
+            var service = new CarsService(
+                this.carModelsMockRepository.Object,
+                this.carManufacturersMockRepository.Object,
+                this.carTypesMockRepository.Object);
 
             Assert.Empty(service.GetAllCarTypesAsKeyValuePairs());
         }

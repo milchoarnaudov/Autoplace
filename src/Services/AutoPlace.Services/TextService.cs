@@ -1,8 +1,10 @@
 ﻿namespace AutoPlace.Services
 {
+    using AutoPlace.Common;
+
     public class TextService : ITextService
     {
-        public string ShortenText(string text, int maxLength = 35)
+        public string ShortenText(string text, int maxLength)
         {
             if (string.IsNullOrEmpty(text))
             {

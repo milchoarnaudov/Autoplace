@@ -17,9 +17,15 @@
         {
             var list = new List<Comment>();
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Comment>())).Callback(
-                (Comment favorite) => list.Add(favorite));
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Comment>()))
+                .Callback((Comment favorite) => list.Add(favorite));
+
             var service = new CommentsService(mockRepository.Object);
 
             await service.CreateAsync(new CreateCommentDTO
@@ -44,9 +50,15 @@
         {
             var list = new List<Comment>();
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Comment>())).Callback(
-                (Comment favorite) => list.Add(favorite));
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Comment>()))
+                .Callback((Comment favorite) => list.Add(favorite));
+
             var service = new CommentsService(mockRepository.Object);
 
             await service.CreateAsync(new CreateCommentDTO
@@ -71,9 +83,15 @@
         {
             var list = new List<Comment>();
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Comment>())).Callback(
-                (Comment favorite) => list.Add(favorite));
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Comment>()))
+                .Callback((Comment favorite) => list.Add(favorite));
+
             var service = new CommentsService(mockRepository.Object);
 
             await service.CreateAsync(new CreateCommentDTO
@@ -105,9 +123,15 @@
         {
             var list = new List<Comment>();
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Comment>())).Callback(
-                (Comment favorite) => list.Add(favorite));
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Comment>()))
+                .Callback((Comment favorite) => list.Add(favorite));
+
             var service = new CommentsService(mockRepository.Object);
 
             await service.CreateAsync(new CreateCommentDTO

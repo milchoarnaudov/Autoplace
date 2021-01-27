@@ -8,6 +8,8 @@
 
         public const string UserRoleName = "User";
 
-        public const int AutopartsCountPerPage = 12;
+        public const int ItemsCountPerPage = 12;
+
+        public const int ShortenTextDefaultLength = 35;
     }
 }

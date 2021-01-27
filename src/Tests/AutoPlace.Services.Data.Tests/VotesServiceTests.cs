@@ -14,19 +14,20 @@
 
     public class VotesServiceTests
     {
-        public VotesServiceTests()
-        {
-            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
-        }
-
         [Fact]
         public async Task WhenUserVoteOnceTheVoteIsAdded()
         {
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
-                (Vote vote) => list.Add(vote));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Vote>()))
+                .Callback((Vote vote) => list.Add(vote));
+
             var service = new VotesService(mockRepository.Object);
 
             await service.AddVote(new CreateVoteDTO
@@ -44,9 +45,15 @@
         {
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
-                (Vote vote) => list.Add(vote));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Vote>()))
+                .Callback((Vote vote) => list.Add(vote));
+
             var service = new VotesService(mockRepository.Object);
 
             await service.AddVote(new CreateVoteDTO
@@ -71,9 +78,15 @@
         {
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
-                (Vote vote) => list.Add(vote));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Vote>()))
+                .Callback((Vote vote) => list.Add(vote));
+
             var service = new VotesService(mockRepository.Object);
 
             await service.AddVote(new CreateVoteDTO
@@ -98,9 +111,15 @@
         {
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
-            mockRepository.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
-                (Vote vote) => list.Add(vote));
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Vote>()))
+                .Callback((Vote vote) => list.Add(vote));
+
             var service = new VotesService(mockRepository.Object);
 
             await service.AddVote(new CreateVoteDTO
@@ -123,11 +142,19 @@
         [Fact]
         public async Task GetAllByUsernameShouldHaveCountTwo()
         {
+            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
+
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
-                (Vote vote) => list.Add(vote));
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Vote>()))
+                .Callback((Vote vote) => list.Add(vote));
+
             var service = new VotesService(mockRepository.Object);
 
             await service.AddVote(new CreateVoteDTO
@@ -150,11 +177,19 @@
         [Fact]
         public async Task GetVoteShouldReturnTheCorrectVote()
         {
+            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
+
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
-            mockRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            mockRepository.Setup(x => x.AddAsync(It.IsAny<Vote>())).Callback(
-                (Vote vote) => list.Add(vote));
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Vote>()))
+                .Callback((Vote vote) => list.Add(vote));
+
             var service = new VotesService(mockRepository.Object);
 
             await service.AddVote(new CreateVoteDTO
@@ -165,6 +200,7 @@
             });
 
             var vote = service.GetVote<VotesViewModel>("a", "c");
+
             Assert.True(vote.VoteValue);
         }
     }

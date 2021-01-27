@@ -2,6 +2,6 @@
 {
     public interface ITextService
     {
-        string ShortenText(string text, int maxLength = 50);
+        string ShortenText(string text, int maxLength);
     }
 }
