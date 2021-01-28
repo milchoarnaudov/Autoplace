@@ -1,4 +1,4 @@
-﻿namespace AutoPlace.Services.Data.AdministrationServices.Contracts
+﻿namespace AutoPlace.Services.Data.Administration
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.AdministrationServices.Contracts;
+    using AutoPlace.Services.Data.Administration;
     using AutoPlace.Web.ViewModels.Common;
     using Ganss.XSS;
     using Microsoft.AspNetCore.Mvc;

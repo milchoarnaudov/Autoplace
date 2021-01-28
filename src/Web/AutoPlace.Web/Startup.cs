@@ -10,8 +10,7 @@
     using AutoPlace.Data.Seeding;
     using AutoPlace.Services;
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.AdministrationServices;
-    using AutoPlace.Services.Data.AdministrationServices.Contracts;
+    using AutoPlace.Services.Data.Administration;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Services.Messaging;
     using AutoPlace.Web.ViewModels.Common;

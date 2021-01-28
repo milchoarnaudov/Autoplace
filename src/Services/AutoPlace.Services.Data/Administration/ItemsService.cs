@@ -1,4 +1,4 @@
-﻿namespace AutoPlace.Services.Data.AdministrationServices
+﻿namespace AutoPlace.Services.Data.Administration
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -6,7 +6,6 @@
 
     using AutoPlace.Data.Common.Models;
     using AutoPlace.Data.Common.Repositories;
-    using AutoPlace.Services.Data.AdministrationServices.Contracts;
 
     public class ItemsService<TEntity> : IItemsService<TEntity>
         where TEntity : class, IDeletableEntity, IItemEntity, new()
