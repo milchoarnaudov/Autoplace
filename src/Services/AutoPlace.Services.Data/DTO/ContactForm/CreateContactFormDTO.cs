@@ -3,7 +3,7 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Mapping;
 
-    public class ContactFormDTO : IMapTo<ContactForm>
+    public class CreateContactFormDTO : IMapTo<ContactForm>
     {
         public string FullName { get; set; }
 

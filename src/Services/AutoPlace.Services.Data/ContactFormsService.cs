@@ -16,7 +16,7 @@
             this.contactFormRepository = contactFormRepository;
         }
 
-        public async Task CreateAsync(ContactFormDTO contactForm)
+        public async Task CreateAsync(CreateContactFormDTO contactForm)
         {
             if (contactForm == null)
             {
