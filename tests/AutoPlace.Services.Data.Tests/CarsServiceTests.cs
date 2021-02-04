@@ -76,24 +76,6 @@
                     Name = "test1",
                     ManufacturerId = 1,
                 },
-                new CarModel
-                {
-                    Id = 2,
-                    Name = "test2",
-                    ManufacturerId = 1,
-                },
-                new CarModel
-                {
-                    Id = 2,
-                    Name = "test3",
-                    ManufacturerId = 2,
-                },
-                new CarModel
-                {
-                    Id = 2,
-                    Name = "test4",
-                    ManufacturerId = 3,
-                },
             };
 
             this.carModelsMockRepository
@@ -111,29 +93,17 @@
         [Fact]
         public void GetAllCarManufacturersAsKeyValuePairsListCountShouldBeCorrect()
         {
-            var carManufacturersList = new List<CarManufacturer>
+            var carManufacturersList = new List<CarManufacturer>();
+            var carManufacturersCount = 4;
+
+            for (int i = 0; i < carManufacturersCount; i++)
             {
-                new CarManufacturer
+                carManufacturersList.Add(new CarManufacturer
                 {
-                    Id = 1,
-                    Name = "test1",
-                },
-                new CarManufacturer
-                {
-                    Id = 2,
-                    Name = "test2",
-                },
-                new CarManufacturer
-                {
-                    Id = 3,
-                    Name = "test3",
-                },
-                new CarManufacturer
-                {
-                    Id = 4,
-                    Name = "test4",
-                },
-            };
+                    Id = i,
+                    Name = "test",
+                });
+            }
 
             this.carManufacturersMockRepository
                 .Setup(x => x.AllAsNoTracking())
@@ -144,7 +114,7 @@
                 this.carManufacturersMockRepository.Object, 
                 this.carTypesMockRepository.Object);
 
-            Assert.Equal(4, service.GetAllCarManufacturersAsKeyValuePairs().Count());
+            Assert.Equal(carManufacturersCount, service.GetAllCarManufacturersAsKeyValuePairs().Count());
         }
 
         [Fact]
@@ -167,38 +137,17 @@
         [Fact]
         public void GetAllCarTypesAsKeyValuePairsListCountShouldBeCorrect()
         {
-            var carTypesList = new List<CarType>
+            var carTypesList = new List<CarType>();
+
+            var carTypesCount = 6;
+
+            for (int i = 0; i < carTypesCount; i++)
             {
-                new CarType
+                carTypesList.Add(new CarType
                 {
-                    Id = 1,
-                    Name = "test1",
-                },
-                new CarType
-                {
-                    Id = 2,
-                    Name = "test2",
-                },
-                new CarType
-                {
-                    Id = 3,
-                    Name = "test3",
-                },
-                new CarType
-                {
-                    Id = 4,
-                    Name = "test4",
-                },
-                new CarType
-                {
-                    Id = 5,
-                    Name = "test5",
-                },
-                new CarType
-                {
-                    Id = 6,
-                    Name = "test6",
-                },
+                    Id = i,
+                    Name = "test",
+                });
             };
 
             this.carTypesMockRepository

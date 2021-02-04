@@ -28,23 +28,20 @@
 
             var service = new ContactFormsService(mockRepository.Object);
 
-            await service.CreateAsync(new CreateContactFormDTO
-            {
-                Email = "test@test",
-                FullName = "testtesttesttest",
-                Message = "testtesttesttesttest",
-                Topic = "Topictesttesttest",
-            });
+            var createFormCount = 2;
 
-            await service.CreateAsync(new CreateContactFormDTO
+            for (int i = 0; i < createFormCount; i++)
             {
-                Email = "test@test",
-                FullName = "testtesttesttest",
-                Message = "testtesttesttesttest",
-                Topic = "Topictesttesttest2",
-            });
+                await service.CreateAsync(new CreateContactFormDTO
+                {
+                    Email = "test@test",
+                    FullName = "test",
+                    Message = "test",
+                    Topic = "test",
+                });
+            }
 
-            Assert.Equal(2, list.Count());
+            Assert.Equal(createFormCount, list.Count());
         }
 
         [Fact]

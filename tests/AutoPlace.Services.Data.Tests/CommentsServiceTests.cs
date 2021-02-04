@@ -61,21 +61,19 @@
 
             var service = new CommentsService(mockRepository.Object);
 
-            await service.CreateAsync(new CreateCommentDTO
-            {
-                CommentatorId = "a",
-                CommentedUserId = "a",
-                Content = "testtest",
-            });
+            var numberOfComments = 2;
 
-            await service.CreateAsync(new CreateCommentDTO
+            for (int i = 0; i < numberOfComments; i++)
             {
-                CommentatorId = "a",
-                CommentedUserId = "a",
-                Content = "testtest",
-            });
+                await service.CreateAsync(new CreateCommentDTO
+                {
+                    CommentatorId = "a",
+                    CommentedUserId = "a",
+                    Content = "testtest",
+                });
+            }
 
-            Assert.Equal(2, list.Where(x => x.CommentedUserId == "a").Count());
+            Assert.Equal(numberOfComments, list.Where(x => x.CommentedUserId == "a").Count());
         }
 
         [Fact]
@@ -93,29 +91,19 @@
                 .Callback((Comment favorite) => list.Add(favorite));
 
             var service = new CommentsService(mockRepository.Object);
+            var commentsCount = 3;
 
-            await service.CreateAsync(new CreateCommentDTO
+            for (int i = 0; i < commentsCount; i++)
             {
-                CommentatorId = "a",
-                CommentedUserId = "b",
-                Content = "testtest",
-            });
+                await service.CreateAsync(new CreateCommentDTO
+                {
+                    CommentatorId = "a",
+                    CommentedUserId = $"{i}",
+                    Content = "testtest",
+                });
+            }
 
-            await service.CreateAsync(new CreateCommentDTO
-            {
-                CommentatorId = "a",
-                CommentedUserId = "b",
-                Content = "testtest",
-            });
-
-            await service.CreateAsync(new CreateCommentDTO
-            {
-                CommentatorId = "a",
-                CommentedUserId = "c",
-                Content = "testtest",
-            });
-
-            Assert.Equal(3, list.Where(x => x.CommentatorId == "a").Count());
+            Assert.Equal(commentsCount, list.Where(x => x.CommentatorId == "a").Count());
         }
 
         [Fact]
@@ -134,28 +122,19 @@
 
             var service = new CommentsService(mockRepository.Object);
 
-            await service.CreateAsync(new CreateCommentDTO
-            {
-                CommentatorId = "b",
-                CommentedUserId = "a",
-                Content = "testtest",
-            });
+            var commentsCount = 3;
 
-            await service.CreateAsync(new CreateCommentDTO
+            for (int i = 0; i < commentsCount; i++)
             {
-                CommentatorId = "c",
-                CommentedUserId = "a",
-                Content = "testtest",
-            });
+                await service.CreateAsync(new CreateCommentDTO
+                {
+                    CommentatorId = $"{i}",
+                    CommentedUserId = "a",
+                    Content = "testtest",
+                });
+            }
 
-            await service.CreateAsync(new CreateCommentDTO
-            {
-                CommentatorId = "d",
-                CommentedUserId = "a",
-                Content = "testtest",
-            });
-
-            Assert.Equal(3, list.Where(x => x.CommentedUserId == "a").Count());
+            Assert.Equal(commentsCount, list.Where(x => x.CommentedUserId == "a").Count());
         }
     }
 }

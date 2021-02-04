@@ -26,7 +26,6 @@
             this.conditionsRepository = new Mock<IDeletableEntityRepository<AutopartCondition>>();
             this.carRepository = new Mock<IDeletableEntityRepository<Car>>();
             this.autopartRepository = new Mock<IDeletableEntityRepository<Autopart>>();
-
         }
 
         [Fact]
@@ -48,51 +47,32 @@
                 this.carRepository.Object,
                 this.autopartRepository.Object);
 
-            var fileMock = new Mock<IFormFile>();
-            var content = "test";
-            var fileName = "test.png";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(content);
-            writer.Flush();
-            ms.Position = 0;
-            fileMock.Setup(_ => _.OpenReadStream()).Returns(ms);
-            fileMock.Setup(_ => _.FileName).Returns(fileName);
-            fileMock.Setup(_ => _.Length).Returns(ms.Length);
 
-            var file = fileMock.Object;
-            var autopartA = new CreateAutopartDTO
+            var file = this.GetMockFile().Object;
+
+            var countOfFakeAutoparts = 2;
+
+            for (int i = 0; i < countOfFakeAutoparts; i++)
             {
-                Name = "TestA",
-                Price = 5,
-                Images = new List<IFormFile>()
+                await service.CreateAutopartAsync(
+                    new CreateAutopartDTO
+                {
+                    Name = $"Fake Autopart {i}",
+                    Price = 10,
+                    Images = new List<IFormFile>()
                 {
                     file,
                     file,
                 },
-                CarManufacturerId = 1,
-                CarTypeId = 1,
-                ModelId = 1,
-            };
-
-            var autopartB = new CreateAutopartDTO
-            {
-                Name = "TestBA",
-                Price = 10,
-                Images = new List<IFormFile>()
-                {
-                    file,
-                    file,
+                    CarManufacturerId = 2,
+                    CarTypeId = 2,
+                    ModelId = 2,
                 },
-                CarManufacturerId = 2,
-                CarTypeId = 2,
-                ModelId = 2,
-            };
+                    $"fakeUser{i}",
+                    $"fakeAutopart{i}");
+            }
 
-            await service.CreateAutopartAsync(autopartA, "a", "testA");
-            await service.CreateAutopartAsync(autopartB, "a", "testB");
-
-            Assert.Equal(2, list.Count());
+            Assert.Equal(countOfFakeAutoparts, list.Count());
         }
 
         [Fact]
@@ -203,13 +183,6 @@
             fileMock.Setup(_ => _.Length).Returns(ms.Length);
 
             return fileMock;
-        }
-
-        public class AutopartMap : IMapFrom<Autopart>
-        {
-            public int Id { get; set; }
-
-            public string Name { get; set; }
         }
     }
 }

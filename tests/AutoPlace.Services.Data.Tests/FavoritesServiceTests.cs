@@ -14,7 +14,7 @@
     public class FavoritesServiceTests
     {
         [Fact]
-        public async Task AddToFavoritesListShouldHaveCount1WhenDoneOnce()
+        public async Task AddToFavoritesListShouldHaveCountOfOneWhenDoneOnce()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
@@ -32,11 +32,11 @@
 
             await service.AddToFavorite("a", 1);
 
-            Assert.Single(list.Where(x => !x.IsDeleted));
+            Assert.Single(list);
         }
 
         [Fact]
-        public async Task AddToFavoritesListShouldHaveCount0WhenDoneTwice()
+        public async Task AddToFavoritesListShouldBeEmptyAutopartAddedToFavoritesTwice()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
@@ -64,7 +64,7 @@
         }
 
         [Fact]
-        public async Task AddToFavoritesListShouldIncreaseForCertainAutopartWhenDoneMultipleTimes()
+        public async Task OneUserShouldBeAbleToAddMultipleAutoparts()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
@@ -83,16 +83,18 @@
 
             var service = new FavoritesService(mockRepository.Object);
 
-            await service.AddToFavorite("a", 1);
-            await service.AddToFavorite("b", 1);
-            await service.AddToFavorite("c", 1);
-            await service.AddToFavorite("d", 1);
+            var favoritesCount = 4;
 
-            Assert.Equal(4, list.Where(x => x.AutopartId == 1).Count());
+            for (int i = 0; i < favoritesCount; i++)
+            {
+                await service.AddToFavorite("fakeUser", i);
+            }
+
+            Assert.Equal(favoritesCount, list.Count);
         }
 
         [Fact]
-        public async Task AddToFavoritesListShouldIncreaseDoneMultipleTimes()
+        public async Task OneAutopartShouldBeAbleToBeAddedToFavoritesByMultipleUsers()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
@@ -111,15 +113,14 @@
 
             var service = new FavoritesService(mockRepository.Object);
 
-            await service.AddToFavorite("a", 1);
-            await service.AddToFavorite("b", 1);
-            await service.AddToFavorite("c", 1);
-            await service.AddToFavorite("q", 1);
-            await service.AddToFavorite("d", 2);
-            await service.AddToFavorite("dx", 3);
-            await service.AddToFavorite("x", 3);
+            var favoritesCount = 7;
 
-            Assert.Equal(7, list.Count());
+            for (int i = 0; i < favoritesCount; i++)
+            {
+                await service.AddToFavorite($"{i}", 3);
+            }
+
+            Assert.Equal(favoritesCount, list.Count);
         }
     }
 }
