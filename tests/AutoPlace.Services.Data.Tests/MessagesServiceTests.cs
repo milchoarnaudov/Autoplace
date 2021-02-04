@@ -55,40 +55,15 @@
 
             var service = new MessagesService(mockRepository.Object);
 
-            await service.CreateAsync(new CreateMessageDTO
+            for (int i = 0; i < 5; i++)
             {
-                ReceiverId = "a",
-                SenderId = "b",
-                Content = "test",
-            });
-
-            await service.CreateAsync(new CreateMessageDTO
-            {
-                ReceiverId = "c",
-                SenderId = "d",
-                Content = "test",
-            });
-
-            await service.CreateAsync(new CreateMessageDTO
-            {
-                ReceiverId = "c",
-                SenderId = "d",
-                Content = "test2",
-            });
-
-            await service.CreateAsync(new CreateMessageDTO
-            {
-                ReceiverId = "c",
-                SenderId = "d",
-                Content = "test",
-            });
-
-            await service.CreateAsync(new CreateMessageDTO
-            {
-                ReceiverId = "d",
-                SenderId = "c",
-                Content = "test",
-            });
+                await service.CreateAsync(new CreateMessageDTO
+                {
+                    ReceiverId = $"Receiver {i}",
+                    SenderId = $"Sender {i}",
+                    Content = "test",
+                });
+            }
 
             Assert.Equal(5, list.Count);
         }
@@ -147,6 +122,97 @@
                     AutopartId = 1,
                 }).GetAwaiter().GetResult();
             });
+        }
+
+        [Fact]
+        public async Task MessageDeletionWorksAsExpected()
+        {
+            var list = new List<Message>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.Delete(It.IsAny<Message>()))
+                .Callback((Message message) => list.Remove(message));
+
+            var service = new MessagesService(mockRepository.Object);
+
+            var initalCountOfMessages = 10;
+            var countOfDeletedMessages = 2;
+
+            for (int i = 0; i < initalCountOfMessages; i++)
+            {
+                list.Add(new Message { Id = i });
+            }
+
+
+            for (int i = 0; i < countOfDeletedMessages; i++)
+            {
+                await service.Delete(i);
+            }
+
+            Assert.Equal(initalCountOfMessages - countOfDeletedMessages, list.Count);
+        }
+
+        [Fact]
+        public async Task TrueIsReturnedOnSuccessfulDeletion()
+        {
+            var list = new List<Message>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.Delete(It.IsAny<Message>()))
+                .Callback((Message message) => list.Remove(message));
+
+            var service = new MessagesService(mockRepository.Object);
+
+            var initalCountOfMessages = 10;
+
+            for (int i = 0; i < initalCountOfMessages; i++)
+            {
+                list.Add(new Message { Id = i });
+            }
+
+            var result = await service.Delete(1);
+
+            Assert.Equal(initalCountOfMessages - 1, list.Count);
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task FalseIsReturnedOnFailedDeletion()
+        {
+            var list = new List<Message>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.Delete(It.IsAny<Message>()))
+                .Callback((Message message) => list.Remove(message));
+
+            var service = new MessagesService(mockRepository.Object);
+
+            var initalCountOfMessages = 10;
+
+            for (int i = 0; i < initalCountOfMessages; i++)
+            {
+                list.Add(new Message { Id = i });
+            }
+
+            var result = await service.Delete(initalCountOfMessages + 10);
+
+            Assert.Equal(initalCountOfMessages, list.Count);
+            Assert.False(result);
         }
     }
 }
