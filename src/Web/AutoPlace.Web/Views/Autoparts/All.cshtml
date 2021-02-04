@@ -3,24 +3,10 @@
 @{
     this.ViewData["Title"] = "All Autoparts";
 }
-<h1>All Autoparts</h1>
+<h1 class="heading">All Autoparts</h1>
 
 <br />
-<div>
-    @if (Model.AutopartsCount == 0)
-    {
-        <div>Empty</div>
-    }
-    else
-    {
-        <div class="row">
-            @foreach (var autopart in Model.Autoparts)
-            {
-                <partial name="_AutopartPartial" model="autopart" />
-            }
-        </div>
 
-        <br />
-        <partial name="_PaginationPartial" model="Model" />
-    }
-</div>
+<partial name="_AutopartsListPartial" model="Model.Autoparts" />
+
+<partial name="_PaginationPartial" model="Model" />

@@ -1,5 +1,4 @@
-﻿/*User Details*/
-
+﻿/* User Details */
 .votes-container {
     margin-top: 10px;
 }
@@ -24,12 +23,38 @@
     color: blue;
 }
 
-/*Home Icon*/
+/* Home Icon */
 .home-icon {
     width: 45px;
     height: 45px;
 }
 
+/* Heading */
+.heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .blue-color {
     background-color: #003296;
 }
+
+/* Autoparts List */
+.autoparts-list {
+    margin-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@media only screen and (max-width: 991px) {
+    .autoparts-list {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
