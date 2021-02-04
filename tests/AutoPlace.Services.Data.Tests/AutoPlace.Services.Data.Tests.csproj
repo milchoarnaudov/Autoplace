@@ -4,14 +4,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.9" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
@@ -27,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\AutoPlace.Data\AutoPlace.Data.csproj" />
-    <ProjectReference Include="..\..\Services\AutoPlace.Services.Data\AutoPlace.Services.Data.csproj" />
-    <ProjectReference Include="..\..\Web\AutoPlace.Web.ViewModels\AutoPlace.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\..\src\Data\AutoPlace.Data\AutoPlace.Data.csproj" />
+    <ProjectReference Include="..\..\src\Services\AutoPlace.Services.Data\AutoPlace.Services.Data.csproj" />
+    <ProjectReference Include="..\..\src\Web\AutoPlace.Web.ViewModels\AutoPlace.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

@@ -28,7 +28,7 @@
 
             var service = new ContactFormsService(mockRepository.Object);
 
-            await service.CreateAsync(new ContactFormDTO
+            await service.CreateAsync(new CreateContactFormDTO
             {
                 Email = "test@test",
                 FullName = "testtesttesttest",
@@ -36,7 +36,7 @@
                 Topic = "Topictesttesttest",
             });
 
-            await service.CreateAsync(new ContactFormDTO
+            await service.CreateAsync(new CreateContactFormDTO
             {
                 Email = "test@test",
                 FullName = "testtesttesttest",
