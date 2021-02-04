@@ -11,6 +11,9 @@
             <p class="card-text">@this.TextService.ShortenText(Model.Content, GlobalConstants.ShortenTextDefaultLength)</p>
             <a class="btn-link" asp-controller="Users" asp-action="Details" asp-route-username="@Model.SenderUserName">@Model.SenderUserName</a>
         </div>
-        <a asp-controller="Messages" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Read</a>
+        <div class="d-flex justify-content-between">
+            <a asp-controller="Messages" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Read</a>
+            <a asp-controller="Messages" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+        </div>
     </div>
 </div>

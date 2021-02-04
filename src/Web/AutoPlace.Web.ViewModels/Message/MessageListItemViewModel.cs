@@ -11,6 +11,8 @@
 
         public string SenderUserName { get; set; }
 
+        public string ReceiverUserName { get; set; }
+
         public string AutopartName { get; set; }
 
         public int AutopartId { get; set; }

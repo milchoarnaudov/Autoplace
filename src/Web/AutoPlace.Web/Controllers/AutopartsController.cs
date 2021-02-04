@@ -140,7 +140,7 @@
 
         [HttpPost]
         [ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> ConfirmDeletion(int id)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 

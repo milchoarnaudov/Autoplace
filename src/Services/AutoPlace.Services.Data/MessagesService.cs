@@ -54,5 +54,22 @@
             this.messagesRepository.AllAsNoTracking()
                 .Where(x => x.Id == id).To<T>()
                 .FirstOrDefault();
+
+        public async Task<bool> Delete(int id)
+        {
+            var message = this.messagesRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            if (message == null)
+            {
+                return false;
+            }
+
+            this.messagesRepository.Delete(message);
+            await this.messagesRepository.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

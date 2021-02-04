@@ -90,5 +90,34 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult Delete(int id)
+        {
+            var viewModel = this.messagesService.GetMessageById<MessageListItemViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> ConfirmDeletion(int id)
+        {
+            var currentUserUsername = this.User.Identity.Name;
+            var viewModel = this.messagesService.GetMessageById<MessageListItemViewModel>(id);
+
+            if (viewModel.ReceiverUserName != currentUserUsername)
+            {
+                return this.Forbid();
+            }
+
+            var isSuccessful = await this.messagesService.Delete(id);
+
+            if (!isSuccessful)
+            {
+                return this.NotFound();
+            }
+
+            return this.RedirectToAction("All");
+        }
     }
 }
