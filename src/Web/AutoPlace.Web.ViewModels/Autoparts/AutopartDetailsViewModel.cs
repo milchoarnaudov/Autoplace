@@ -1,6 +1,7 @@
 ﻿namespace AutoPlace.Web.ViewModels.Autoparts
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using AutoMapper;
@@ -27,6 +28,8 @@
 
         public string ImageUrl { get; set; }
 
+        public IEnumerable<string> Images { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
@@ -37,7 +40,11 @@
                 .ForMember(x => x.ImageUrl, opt =>
                 opt.MapFrom(x =>
                     x.Images.FirstOrDefault().RemoteImageUrl ??
-                    $"/Images/Autoparts/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extension}"));
+                    $"/Images/Autoparts/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extension}"))
+                .ForMember(x => x.Images, opt =>
+                    opt.MapFrom(x =>
+                    x.Images.Select(x => $"/Images/Autoparts/{x.Id}.{x.Extension}"))
+                );
         }
     }
 }

@@ -28,7 +28,37 @@
     </div>
     <br />
     <div class="d-flex justify-content-between">
-        <img width="400" height="400" src="@Model.ImageUrl" />
+        <div id="indicators" class="carousel slide" style="max-width:400px" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#indicators" data-slide-to="0" class="active"></li>
+                @for (int i = 1; i <= Model.Images.Skip(1).Count(); i++)
+                {
+                    <li data-target="#indicators" data-slide-to="i"></li>
+                }
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img width="430" height="430" src="@Model.Images.FirstOrDefault()">
+                </div>
+                @foreach (var image in Model.Images.Skip(1))
+                {
+                    <div class="carousel-item">
+                        <img width="430" height="430" src="@image">
+                    </div>
+                }
+            </div>
+            @if (Model.Images.Count() > 1)
+            {
+                <a class="carousel-control-prev" href="#indicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#indicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            }
+        </div>
         <div style="width: 400px">
             <h2>@Model.CarManufacturerName - @Model.CarModelName @Model.CarMakeYear</h2>
             <h3 class="font-italic">@Model.CategoryName</h3>
