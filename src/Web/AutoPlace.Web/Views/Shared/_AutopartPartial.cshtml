@@ -1,11 +1,12 @@
-﻿@model  AutopartsListItemViewModel
+﻿@model AutopartsListItemViewModel
+@inject ITextService TextService
 
 <div class="card" style="margin:5px">
     <img class="card-img-top" src="@Model.ImageUrl" style="width: 15rem; height: 200px; image-rendering: auto" />
     <div class="card-body text-lg-center">
-        <h3 class="card-title">@Model.Name</h3>
+        <h3 class="card-title autopart-partial-title">@Model.Name</h3>
+        <br />
         <h4 class="card-title">&euro; @Model.Price</h4>
-        <p class="card-text">@Model.Description</p>
         <a class="btn btn-primary w-100" asp-controller="Autoparts" asp-action="Details" asp-route-id="@Model.Id">View</a>
     </div>
 </div>

@@ -5,7 +5,7 @@
 
     public class BaseAutopartsViewModel
     {
-        [StringLength(maximumLength: 100, MinimumLength = 5)]
+        [StringLength(maximumLength: 50, MinimumLength = 5)]
         [Required]
         public string Name { get; set; }
 

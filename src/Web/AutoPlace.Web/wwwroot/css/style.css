@@ -58,3 +58,10 @@
     }
 }
 
+/* Autopart Partial */
+
+.autopart-partial-title {
+    max-width: 200px;
+    font-size: 1em;
+    max-height: 20px;
+}
