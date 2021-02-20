@@ -17,7 +17,6 @@
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;
         private readonly IWebHostEnvironment env;
-        private readonly IFavoritesService favoritesService;
 
         public AutopartsController(
             IAutopartsService autopartsService,
@@ -28,7 +27,6 @@
             this.autopartsService = autopartsService;
             this.carsService = carsService;
             this.env = env;
-            this.favoritesService = favoritesService;
         }
 
         public IActionResult Add()
