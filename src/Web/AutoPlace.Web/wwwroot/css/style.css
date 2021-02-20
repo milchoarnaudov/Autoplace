@@ -65,3 +65,27 @@
     font-size: 1em;
     max-height: 20px;
 }
+
+/* User Details */
+
+.profile-section {
+    height: 80vh;
+}
+
+.profile-section-items {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.profile-section-btn-add-autopart{
+    margin-top: 50px;
+}
+
+.add-comment-section{
+    margin-top: 10px;
+}
+
+.comment-content {
+    height: 100px;
+    resize: none;
+}

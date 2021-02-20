@@ -24,7 +24,7 @@
 
         public bool IsCurrentUserVotedPositive { get; set; }
 
-        public IEnumerable<AutopartsListItemViewModel> Autoparts { get; set; }
+        public IList<AutopartsListItemViewModel> Autoparts { get; set; }
 
         public IEnumerable<CommentListItemViewModel> CommentsForUser { get; set; }
 
