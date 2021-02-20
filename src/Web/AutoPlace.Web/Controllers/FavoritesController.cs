@@ -4,20 +4,27 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Data;
+    using AutoPlace.Web.ViewModels.Autoparts;
     using AutoPlace.Web.ViewModels.Common;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class FavoritesController : ControllerBase
+    public class FavoritesController : BaseController
     {
         private readonly IFavoritesService favoritesService;
 
         public FavoritesController(IFavoritesService favoritesService)
         {
             this.favoritesService = favoritesService;
+        }
+
+        public IActionResult Index()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var viewModels = this.favoritesService.GetAllFavoritesAutopartByUserId<AutopartsListItemViewModel>(userId);
+
+            return this.View(viewModels);
         }
 
         [HttpPost]
