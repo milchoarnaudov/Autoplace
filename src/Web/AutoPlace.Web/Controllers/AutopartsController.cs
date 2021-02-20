@@ -21,8 +21,7 @@
         public AutopartsController(
             IAutopartsService autopartsService,
             ICarsService carsService,
-            IWebHostEnvironment env,
-            IFavoritesService favoritesService)
+            IWebHostEnvironment env)
         {
             this.autopartsService = autopartsService;
             this.carsService = carsService;
