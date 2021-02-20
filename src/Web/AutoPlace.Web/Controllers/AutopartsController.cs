@@ -214,13 +214,5 @@
 
             return this.RedirectToAction("All");
         }
-
-        public IActionResult Favorites()
-        {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var viewModels = this.favoritesService.GetAllFavoritesAutopartByUserId<AutopartsListItemViewModel>(userId);
-
-            return this.View(viewModels);
-        }
     }
 }
