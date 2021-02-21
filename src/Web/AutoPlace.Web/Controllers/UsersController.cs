@@ -24,24 +24,30 @@
 
         public IActionResult Details(string username)
         {
-            var viewModel = this.usersService.GetByUsername<UserDetailsViewModel>(username);
-            var forUserId = this.usersService.GetUserIdByUsername(username);
+            var userViewModel = this.usersService.GetByUsername<UserDetailsViewModel>(username);
+
+            if (userViewModel == null)
+            {
+                return this.NotFound();
+            }
+
             var voterId = this.User.Identity.IsAuthenticated ? this.User.FindFirst(ClaimTypes.NameIdentifier).Value : string.Empty;
-            var currentUserVote = this.votesService.GetVote<VotesViewModel>(forUserId, voterId);
+
+            var currentUserVote = this.votesService.GetVote<VotesViewModel>(userViewModel.Id, voterId);
 
             if (currentUserVote != null)
             {
                 if (currentUserVote.VoteValue)
                 {
-                    viewModel.IsCurrentUserVotedPositive = true;
+                    userViewModel.IsCurrentUserVotedPositive = true;
                 }
                 else
                 {
-                    viewModel.IsCurrentUserVotedNegative = true;
+                    userViewModel.IsCurrentUserVotedNegative = true;
                 }
             }
 
-            return this.View(viewModel);
+            return this.View(userViewModel);
         }
     }
 }

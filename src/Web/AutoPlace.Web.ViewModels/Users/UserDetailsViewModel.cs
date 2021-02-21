@@ -14,6 +14,8 @@
     {
         public string Username { get; set; }
 
+        public string Id { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public int PositiveVotes { get; set; }
