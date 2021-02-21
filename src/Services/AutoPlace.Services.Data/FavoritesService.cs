@@ -44,5 +44,10 @@
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Autopart)
                 .To<T>();
+
+        public bool IsAutopartFavoriteForUser(string userId, int autopartId)
+        {
+            return this.favoritesRepository.AllAsNoTracking().Where(x => x.UserId == userId && x.AutopartId == autopartId).FirstOrDefault() != null;
+        }
     }
 }

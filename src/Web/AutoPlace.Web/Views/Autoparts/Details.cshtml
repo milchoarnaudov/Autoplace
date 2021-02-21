@@ -14,7 +14,19 @@
 <div class="container w-100">
     <div class="d-flex justify-content-between">
         <h1>@Model.Name</h1>
-        <a id="addToFavorites"><i class="fa fa-heart fa-2x"></i></a>
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            <a id="addToFavorites">
+                @if (Model.IsInFavorites)
+                {
+                    <i class="fas fa-heart fa-2x"></i>
+                }
+                else
+                {
+                    <i class="far fa-heart fa-2x"></i>
+                }
+            </a>
+        }
     </div>
     <div class="d-flex justify-content-between">
         <span>Added on @Model.CreatedOn.ToString("dd/MM/yyyy")</span>
@@ -105,10 +117,10 @@
             return token;
         }
 
-        document.getElementById("addToFavorites").addEventListener('click', function (e) {
+        document.getElementById('addToFavorites').addEventListener('click', function (e) {
             fetch(`/Favorites/Add`,
                 {
-                    method: "POST",
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=UTF-8',
                         'RequestVerificationToken': gettoken()
@@ -116,11 +128,15 @@
                     body: JSON.stringify({ id: @Model.Id })
                 })
                 .then((response) => {
-                    return response.text();
+                    let child = document.getElementById('addToFavorites').firstElementChild;
+
+                    if (child.classList.contains('far')) {
+                        child.classList.replace('far', 'fas');
+                    }
+                    else {
+                        child.classList.replace('fas', 'far');
+                    }
                 })
-                .then((result) => {
-                    console.log(result);
-                });
         })
     </script>
 }

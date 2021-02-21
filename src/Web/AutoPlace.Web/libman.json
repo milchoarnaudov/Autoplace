@@ -37,7 +37,8 @@
       ]
     },
     {
-      "library": "font-awesome@4.7.0",
+      "provider": "cdnjs",
+      "library": "font-awesome@5.10.2",
       "destination": "wwwroot/lib/font-awesome/"
     }
   ]

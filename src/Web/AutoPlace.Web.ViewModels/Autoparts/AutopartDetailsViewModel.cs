@@ -14,6 +14,8 @@
 
         public int CountViews { get; set; }
 
+        public bool IsInFavorites { get; set; }
+
         public string ConditionName { get; set; }
 
         public string CarManufacturerName { get; set; }

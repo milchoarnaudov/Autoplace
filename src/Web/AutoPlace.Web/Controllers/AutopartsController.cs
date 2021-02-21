@@ -17,15 +17,18 @@
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;
         private readonly IWebHostEnvironment env;
+        private readonly IFavoritesService favoritesService;
 
         public AutopartsController(
             IAutopartsService autopartsService,
             ICarsService carsService,
-            IWebHostEnvironment env)
+            IWebHostEnvironment env,
+            IFavoritesService favoritesService)
         {
             this.autopartsService = autopartsService;
             this.carsService = carsService;
             this.env = env;
+            this.favoritesService = favoritesService;
         }
 
         public IActionResult Add()
@@ -54,7 +57,7 @@
                 return this.View(input);
             }
 
-            var autopart = new CreateAutopartDTO
+            var autopartDTO = new CreateAutopartDTO
             {
                 Name = input.Name,
                 Price = input.Price,
@@ -71,7 +74,7 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var imagePath = $"{this.env.WebRootPath}/Images";
 
-            await this.autopartsService.CreateAutopartAsync(autopart, userId, imagePath);
+            await this.autopartsService.CreateAutopartAsync(autopartDTO, userId, imagePath);
             return this.Redirect("/");
         }
 
@@ -91,7 +94,7 @@
                 page = 1;
             }
 
-            var viewModel = new AutopartsListViewModel
+            var autopartsListViewModel = new AutopartsListViewModel
             {
                 AutopartsCount = this.autopartsService.GetAutopartsCount(),
                 Autoparts = this.autopartsService.GetAllAutoparts<AutopartsListItemViewModel>(page, GlobalConstants.ItemsCountPerPage),
@@ -99,30 +102,36 @@
                 PageNumber = page,
             };
 
-            return this.View(viewModel);
+            return this.View(autopartsListViewModel);
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
+            var autopartViewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
 
-            if (viewModel == null)
+            if (autopartViewModel == null)
             {
                 return this.NotFound();
             }
 
-            await this.autopartsService.IncreaseAutopartViewsCount(viewModel.Id);
+            await this.autopartsService.IncreaseAutopartViewsCount(autopartViewModel.Id);
 
-            return this.View(viewModel);
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                autopartViewModel.IsInFavorites = this.favoritesService.IsAutopartFavoriteForUser(userId, autopartViewModel.Id);
+            }
+
+            return this.View(autopartViewModel);
         }
 
         public IActionResult Delete(int id)
         {
-            var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
+            var autopartViewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            if (viewModel == null)
+            if (autopartViewModel == null)
             {
                 return this.NotFound();
             }
@@ -132,7 +141,7 @@
                 return this.Forbid();
             }
 
-            return this.View(viewModel);
+            return this.View(autopartViewModel);
         }
 
         [HttpPost]

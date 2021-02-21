@@ -8,5 +8,7 @@
         Task AddToFavorite(string userId, int autopartId);
 
         IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId);
+
+        bool IsAutopartFavoriteForUser(string userId, int autopartId);
     }
 }
