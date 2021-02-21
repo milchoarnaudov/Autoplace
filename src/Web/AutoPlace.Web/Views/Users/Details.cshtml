@@ -5,7 +5,7 @@
 }
 
 
-<div class="container w-100">
+<div class="container w-100 user-details-sections-wrapper">
     <div class="d-flex justify-content-between">
         <h1>@Model.Username</h1>
         <div class="votes-container d-flex justify-content-between">
@@ -44,8 +44,8 @@
     <br />
 
     <div class="d-flex justify-content-between">
-        <div class="col-6 profile-section bg-light rounded">
-            <div class="d-flex justify-content-between row border border-light rounded profile-section-items w-100 h-100">
+        <div class="col-6 user-details-section bg-light rounded">
+            <div class="d-flex justify-content-between row border border-light rounded user-details-section-items w-100 h-100">
                 @foreach (var autopart in Model.Autoparts)
                 {
                     <partial name="_AutopartPartial" model="autopart" />
@@ -53,8 +53,8 @@
             </div>
         </div>
         
-        <div class="col-5 border-light bg-light profile-section rounded">
-            <div class="profile-section-items h-75">
+        <div class="col-5 border-light bg-light user-details-section rounded">
+            <div class="user-details-section-items h-75">
                 @foreach (var comment in Model.CommentsForUser)
                 {
                     <partial name="_CommentPartial" model="comment" />
@@ -74,7 +74,6 @@
             }
         </div>
     </div>
-    <hr />
 </div>
 
 @section Scripts{

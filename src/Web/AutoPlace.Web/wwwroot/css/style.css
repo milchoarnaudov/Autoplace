@@ -73,13 +73,17 @@
 
 /* User Details */
 
-.profile-section {
+.user-details-sections-wrapper{
+    padding-bottom: 75px;
+}
+
+.user-details-section {
     height: 80vh;
     margin: 0;
     padding: 0;
 }
 
-.profile-section-items {
+.user-details-section-items {
     width: 100%;
     margin: 5px 0 0 0;
     padding: 0;
@@ -87,16 +91,16 @@
     overflow-x: hidden;
 }
 
-.profile-section-btn-add-autopart{
+.user-details-section-btn-add-autopart{
     margin-top: 50px;
 }
 
 .add-comment-section{
-    margin-top: 20px;
+    margin-top: 2%;
 }
 
 .comment-content {
-    height: 100px;
+    height: 10vh;
     resize: none;
 }
 
