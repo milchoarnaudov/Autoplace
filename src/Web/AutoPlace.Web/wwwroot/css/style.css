@@ -60,6 +60,11 @@
 
 /* Autopart Partial */
 
+.autopart-partial-wrapper{
+    max-height: 370px;
+    margin: 5px;
+}
+
 .autopart-partial-title {
     max-width: 200px;
     font-size: 1em;
@@ -70,10 +75,15 @@
 
 .profile-section {
     height: 80vh;
+    margin: 0;
+    padding: 0;
 }
 
 .profile-section-items {
-    overflow-y: scroll;
+    width: 100%;
+    margin: 5px 0 0 0;
+    padding: 0;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -82,10 +92,11 @@
 }
 
 .add-comment-section{
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .comment-content {
     height: 100px;
     resize: none;
 }
+
