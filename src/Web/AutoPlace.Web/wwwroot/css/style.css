@@ -23,6 +23,37 @@
     color: blue;
 }
 
+.user-details-sections-wrapper {
+    padding-bottom: 75px;
+}
+
+.user-details-section {
+    height: 80vh;
+    margin: 0;
+    padding: 0;
+}
+
+.user-details-section-items {
+    width: 100%;
+    margin: 5px 0 0 0;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.user-details-section-btn-add-autopart {
+    margin-top: 50px;
+}
+
+.add-comment-section {
+    margin-top: 2%;
+}
+
+.comment-content {
+    height: 10vh;
+    resize: none;
+}
+
 /* Home Icon */
 .home-icon {
     width: 45px;
@@ -40,6 +71,7 @@
 }
 
 /* Autoparts List */
+
 .autoparts-list {
     margin-left: 30px;
     display: flex;
@@ -71,36 +103,13 @@
     max-height: 20px;
 }
 
-/* User Details */
+/* Autopart Details */
 
-.user-details-sections-wrapper{
-    padding-bottom: 75px;
+.favorite-icon {
+    color: #c82333;
 }
 
-.user-details-section {
-    height: 80vh;
-    margin: 0;
-    padding: 0;
+.autopart-details-right-section {
+    margin: 20px 0 20px 0;
+    background-color: #fafafa;
 }
-
-.user-details-section-items {
-    width: 100%;
-    margin: 5px 0 0 0;
-    padding: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.user-details-section-btn-add-autopart{
-    margin-top: 50px;
-}
-
-.add-comment-section{
-    margin-top: 2%;
-}
-
-.comment-content {
-    height: 10vh;
-    resize: none;
-}
-

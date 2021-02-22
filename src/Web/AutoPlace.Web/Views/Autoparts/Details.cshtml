@@ -19,11 +19,11 @@
             <a id="addToFavorites">
                 @if (Model.IsInFavorites)
                 {
-                    <i class="fas fa-heart fa-2x"></i>
+                    <i class="fas fa-heart fa-2x favorite-icon"></i>
                 }
                 else
                 {
-                    <i class="far fa-heart fa-2x"></i>
+                    <i class="far fa-heart fa-2x favorite-icon"></i>
                 }
             </a>
         }
@@ -75,34 +75,30 @@
             <h2>@Model.CarManufacturerName - @Model.CarModelName @Model.CarMakeYear</h2>
             <h3 class="font-italic">@Model.CategoryName</h3>
             <hr />
-            <div class="card border-light">
-                <div class="card-header">
-                    <h5 class="card-title">Description:</h5>
-                </div>
+            <div class="card border-secondary autopart-details-right-section">
                 <div class="card-body">
+                    <h5 class="card-title">Description:</h5>
                     <p class="card-text">@Model.Description</p>
                 </div>
             </div>
-            <div class="card border-light">
-                <div class="card-header">
-                    <h5 class="card-title">Contact the seller:</h5>
-                </div>
+            <div class="card border-secondary autopart-details-right-section">
                 <div class="card-body">
+                    <h5 class="card-title">Contact the seller:</h5>
                     <p class="card-text">@Model.OwnerEmail</p>
                 </div>
                 <br />
-                <div class="row d-flex justify-content-around">
-                    @if (this.User.FindFirstValue(ClaimTypes.Name) != @Model.OwnerUserName)
-                    {
-                        <a class="btn btn-primary col-sm-5 text" asp-controller="Messages" asp-action="Add" asp-route-id="@Model.Id">Send a Message</a>
-                        <a class="btn btn-primary  col-sm-5" asp-controller="Users" asp-action="Details" asp-route-username="@Model.OwnerUserName">View Profile</a>
-                    }
-                    @if (this.AutopartService.IsUserAutopartOwner(userId, Model.Id))
-                    {
-                        <a class="btn btn-primary col-sm-5 text" asp-controller="Autoparts" asp-action="Edit" asp-route-id="@Model.Id">Edit <i class="fa fa-edit"></i></a>
-                        <a class="btn btn-danger  col-sm-5" asp-controller="Autoparts" asp-action="Delete" asp-route-id="@Model.Id">Delete <i class="fa fa-trash"></i></a>
-                    }
-                </div>
+            </div>
+            <div class="row d-flex justify-content-around">
+                @if (this.User.FindFirstValue(ClaimTypes.Name) != @Model.OwnerUserName)
+                {
+                    <a class="btn btn-primary col-sm-5 text" asp-controller="Messages" asp-action="Add" asp-route-id="@Model.Id">Send a Message</a>
+                    <a class="btn btn-primary  col-sm-5" asp-controller="Users" asp-action="Details" asp-route-username="@Model.OwnerUserName">View Profile</a>
+                }
+                @if (this.AutopartService.IsUserAutopartOwner(userId, Model.Id))
+                {
+                    <a class="btn btn-link border-primary col-sm-5 text" asp-controller="Autoparts" asp-action="Edit" asp-route-id="@Model.Id">Edit <i class="fa fa-edit"></i></a>
+                    <a class="btn btn-danger  col-sm-5" asp-controller="Autoparts" asp-action="Delete" asp-route-id="@Model.Id">Delete <i class="fa fa-trash"></i></a>
+                }
             </div>
         </div>
     </div>
