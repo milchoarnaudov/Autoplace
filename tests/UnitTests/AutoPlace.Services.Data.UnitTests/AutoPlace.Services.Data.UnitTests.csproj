@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Data\AutoPlace.Data\AutoPlace.Data.csproj" />
-    <ProjectReference Include="..\..\src\Services\AutoPlace.Services.Data\AutoPlace.Services.Data.csproj" />
-    <ProjectReference Include="..\..\src\Web\AutoPlace.Web.ViewModels\AutoPlace.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\..\..\src\Data\AutoPlace.Data\AutoPlace.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\AutoPlace.Services.Data\AutoPlace.Services.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\Web\AutoPlace.Web.ViewModels\AutoPlace.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
