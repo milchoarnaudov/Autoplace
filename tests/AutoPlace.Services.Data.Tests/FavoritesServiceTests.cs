@@ -30,7 +30,9 @@
 
             var service = new FavoritesService(mockRepository.Object);
 
-            await service.AddToFavorite("a", 1);
+            var userId = "User_01";
+
+            await service.AddToFavorite(userId, 1);
 
             Assert.Single(list);
         }
@@ -57,8 +59,10 @@
 
             var service = new FavoritesService(mockRepository.Object);
 
-            await service.AddToFavorite("a", 1);
-            await service.AddToFavorite("a", 1);
+            var userId = "User_01";
+
+            await service.AddToFavorite(userId, 1);
+            await service.AddToFavorite(userId, 1);
 
             Assert.Empty(list);
         }
@@ -83,11 +87,13 @@
 
             var service = new FavoritesService(mockRepository.Object);
 
+            var userId = "User_01";
+
             var favoritesCount = 4;
 
             for (int i = 0; i < favoritesCount; i++)
             {
-                await service.AddToFavorite("fakeUser", i);
+                await service.AddToFavorite(userId, i);
             }
 
             Assert.Equal(favoritesCount, list.Count);
@@ -117,10 +123,54 @@
 
             for (int i = 0; i < favoritesCount; i++)
             {
-                await service.AddToFavorite($"{i}", 3);
+                await service.AddToFavorite($"User_{i}", 3);
             }
 
             Assert.Equal(favoritesCount, list.Count);
+        }
+
+        [Fact]
+        public void ReturnTrueWhenAutopartIsFavoriteForUser()
+        {
+            var list = new List<Favorite>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            var autopartId = 123;
+            var userId = "User_01";
+
+            list.Add(new Favorite{ AutopartId = autopartId, UserId = userId });
+
+            var service = new FavoritesService(mockRepository.Object);
+
+            var result = service.IsAutopartFavoriteForUser(userId, autopartId);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void ReturnFalseWhenAutopartIsNotFavoriteForUser()
+        {
+            var list = new List<Favorite>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            var autopartId = 123;
+            var userId = "User_01";
+
+            list.Add(new Favorite { AutopartId = 321, UserId = "User_02" });
+
+            var service = new FavoritesService(mockRepository.Object);
+
+            var result = service.IsAutopartFavoriteForUser(userId, autopartId);
+
+            Assert.False(result);
         }
     }
 }
