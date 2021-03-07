@@ -7,7 +7,7 @@
 
     public interface IVotesService
     {
-        Task AddVote(CreateVoteDTO vote);
+        Task CreateAsync(CreateVoteDTO vote);
 
         IEnumerable<T> GetAllByUserId<T>(string userId);
 

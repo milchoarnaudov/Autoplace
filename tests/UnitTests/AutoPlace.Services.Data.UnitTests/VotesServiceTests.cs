@@ -30,7 +30,7 @@
 
             var service = new VotesService(mockRepository.Object);
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
@@ -56,14 +56,14 @@
 
             var service = new VotesService(mockRepository.Object);
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
                 VoterId = "b",
             });
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
@@ -89,14 +89,14 @@
 
             var service = new VotesService(mockRepository.Object);
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
                 VoterId = "b",
             });
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = false,
@@ -122,14 +122,14 @@
 
             var service = new VotesService(mockRepository.Object);
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
                 VoterId = "b",
             });
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
@@ -157,14 +157,14 @@
 
             var service = new VotesService(mockRepository.Object);
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
                 VoterId = "b",
             });
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
@@ -192,7 +192,7 @@
 
             var service = new VotesService(mockRepository.Object);
 
-            await service.AddVote(new CreateVoteDTO
+            await service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,

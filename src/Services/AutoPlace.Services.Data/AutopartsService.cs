@@ -31,7 +31,7 @@
             this.autopartRepository = autopartRepository;
         }
 
-        public async Task CreateAutopartAsync(CreateAutopartDTO autopart, string userId, string imagePath)
+        public async Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath)
         {
             var autopartEntity = new Autopart
             {
@@ -96,19 +96,19 @@
             this.conditionsRepository.AllAsNoTracking()
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
 
-        public IEnumerable<T> GetAllAutoparts<T>(int page, int itemsPerPage) =>
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage) =>
             this.autopartRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>();
 
-        public T GetAutopartById<T>(int id) =>
+        public T GetById<T>(int id) =>
             this.autopartRepository.AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
 
-        public async Task<bool> DeleteAutopartByIdAsync(int id)
+        public async Task<bool> DeleteByIdAsync(int id)
         {
             var autopart = this.autopartRepository.AllAsNoTracking()
                 .Where(x => x.Id == id)
@@ -125,7 +125,7 @@
             return true;
         }
 
-        public async Task<bool> EditAutopart(EditAutopartDTO autopart)
+        public async Task<bool> EditAsync(EditAutopartDTO autopart)
         {
             if (autopart == null)
             {
@@ -151,7 +151,7 @@
             return true;
         }
 
-        public bool IsUserAutopartOwner(string userId, int autopartId)
+        public bool CheckIfUserIsOwner(string userId, int autopartId)
         {
             if (userId == default || autopartId == default)
             {
@@ -170,7 +170,7 @@
             return false;
         }
 
-        public async Task IncreaseAutopartViewsCount(int id)
+        public async Task IncreaseViewsCountAsync(int id)
         {
             var autopart = this.autopartRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
@@ -180,7 +180,7 @@
             await this.autopartRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAutopartsByFilters<T>(SearchFiltersDTO searchFiltersDTO)
+        public IEnumerable<T> GetAll<T>(SearchFiltersDTO searchFiltersDTO)
         {
             if (searchFiltersDTO == null)
             {
@@ -198,6 +198,6 @@
                 .ToList();
         }
 
-        public int GetAutopartsCount() => this.autopartRepository.All().Count();
+        public int GetCount() => this.autopartRepository.All().Count();
     }
 }

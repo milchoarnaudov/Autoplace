@@ -5,10 +5,10 @@
 
     public interface IFavoritesService
     {
-        Task AddToFavorite(string userId, int autopartId);
+        Task AddToFavoriteAsync(string userId, int autopartId);
 
         IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId);
 
-        bool IsAutopartFavoriteForUser(string userId, int autopartId);
+        bool CheckIfAutopartIsFavoriteForUser(string userId, int autopartId);
     }
 }

@@ -32,7 +32,7 @@
 
             var userId = "User_01";
 
-            await service.AddToFavorite(userId, 1);
+            await service.AddToFavoriteAsync(userId, 1);
 
             Assert.Single(list);
         }
@@ -61,8 +61,8 @@
 
             var userId = "User_01";
 
-            await service.AddToFavorite(userId, 1);
-            await service.AddToFavorite(userId, 1);
+            await service.AddToFavoriteAsync(userId, 1);
+            await service.AddToFavoriteAsync(userId, 1);
 
             Assert.Empty(list);
         }
@@ -93,7 +93,7 @@
 
             for (int i = 0; i < favoritesCount; i++)
             {
-                await service.AddToFavorite(userId, i);
+                await service.AddToFavoriteAsync(userId, i);
             }
 
             Assert.Equal(favoritesCount, list.Count);
@@ -123,7 +123,7 @@
 
             for (int i = 0; i < favoritesCount; i++)
             {
-                await service.AddToFavorite($"User_{i}", 3);
+                await service.AddToFavoriteAsync($"User_{i}", 3);
             }
 
             Assert.Equal(favoritesCount, list.Count);
@@ -146,7 +146,7 @@
 
             var service = new FavoritesService(mockRepository.Object);
 
-            var result = service.IsAutopartFavoriteForUser(userId, autopartId);
+            var result = service.CheckIfAutopartIsFavoriteForUser(userId, autopartId);
 
             Assert.True(result);
         }
@@ -168,7 +168,7 @@
 
             var service = new FavoritesService(mockRepository.Object);
 
-            var result = service.IsAutopartFavoriteForUser(userId, autopartId);
+            var result = service.CheckIfAutopartIsFavoriteForUser(userId, autopartId);
 
             Assert.False(result);
         }

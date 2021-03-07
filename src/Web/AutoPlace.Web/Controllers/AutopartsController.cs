@@ -74,7 +74,7 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var imagePath = $"{this.env.WebRootPath}/Images";
 
-            await this.autopartsService.CreateAutopartAsync(autopartDTO, userId, imagePath);
+            await this.autopartsService.CreateAsync(autopartDTO, userId, imagePath);
             return this.Redirect("/");
         }
 
@@ -96,8 +96,8 @@
 
             var autopartsListViewModel = new AutopartsListViewModel
             {
-                AutopartsCount = this.autopartsService.GetAutopartsCount(),
-                Autoparts = this.autopartsService.GetAllAutoparts<AutopartsListItemViewModel>(page, GlobalConstants.ItemsCountPerPage),
+                AutopartsCount = this.autopartsService.GetCount(),
+                Autoparts = this.autopartsService.GetAll<AutopartsListItemViewModel>(page, GlobalConstants.ItemsCountPerPage),
                 ItemsPerPage = GlobalConstants.ItemsCountPerPage,
                 PageNumber = page,
             };
@@ -108,19 +108,19 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var autopartViewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
+            var autopartViewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
 
             if (autopartViewModel == null)
             {
                 return this.NotFound();
             }
 
-            await this.autopartsService.IncreaseAutopartViewsCount(autopartViewModel.Id);
+            await this.autopartsService.IncreaseViewsCountAsync(autopartViewModel.Id);
 
             if (this.User.Identity.IsAuthenticated)
             {
                 var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                autopartViewModel.IsInFavorites = this.favoritesService.IsAutopartFavoriteForUser(userId, autopartViewModel.Id);
+                autopartViewModel.IsInFavorites = this.favoritesService.CheckIfAutopartIsFavoriteForUser(userId, autopartViewModel.Id);
             }
 
             return this.View(autopartViewModel);
@@ -128,7 +128,7 @@
 
         public IActionResult Delete(int id)
         {
-            var autopartViewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
+            var autopartViewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (autopartViewModel == null)
@@ -136,7 +136,7 @@
                 return this.NotFound();
             }
 
-            if (!this.autopartsService.IsUserAutopartOwner(userId, id))
+            if (!this.autopartsService.CheckIfUserIsOwner(userId, id))
             {
                 return this.Forbid();
             }
@@ -150,12 +150,12 @@
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            if (!this.autopartsService.IsUserAutopartOwner(userId, id))
+            if (!this.autopartsService.CheckIfUserIsOwner(userId, id))
             {
                 return this.Forbid();
             }
 
-            var isSuccessful = await this.autopartsService.DeleteAutopartByIdAsync(id);
+            var isSuccessful = await this.autopartsService.DeleteByIdAsync(id);
 
             if (!isSuccessful)
             {
@@ -167,7 +167,7 @@
 
         public IActionResult Edit(int id)
         {
-            var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
+            var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (viewModel == null)
@@ -175,7 +175,7 @@
                 return this.NotFound();
             }
 
-            if (!this.autopartsService.IsUserAutopartOwner(userId, id))
+            if (!this.autopartsService.CheckIfUserIsOwner(userId, id))
             {
                 return this.Forbid();
             }
@@ -190,7 +190,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                var viewModel = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(input.Id);
+                var viewModel = this.autopartsService.GetById<AutopartDetailsViewModel>(input.Id);
 
                 if (viewModel == null)
                 {
@@ -200,12 +200,12 @@
                 return this.View(input);
             }
 
-            if (!this.autopartsService.IsUserAutopartOwner(userId, input.Id))
+            if (!this.autopartsService.CheckIfUserIsOwner(userId, input.Id))
             {
                 return this.Forbid();
             }
 
-            var isSuccessful = await this.autopartsService.EditAutopart(new EditAutopartDTO
+            var isSuccessful = await this.autopartsService.EditAsync(new EditAutopartDTO
             {
                 Id = input.Id,
                 Description = input.Description,

@@ -46,7 +46,7 @@
                 VoteValue = vote.VoteValue,
             };
 
-            await this.votesService.AddVote(voteDTO);
+            await this.votesService.CreateAsync(voteDTO);
 
             return this.Ok();
         }

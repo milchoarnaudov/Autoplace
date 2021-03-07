@@ -15,6 +15,6 @@
 
         T GetMessageById<T>(int id);
 
-        Task<bool> Delete(int id);
+        Task<bool> DeleteAsync(int id);
     }
 }

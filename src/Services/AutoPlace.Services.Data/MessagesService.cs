@@ -55,7 +55,7 @@
                 .Where(x => x.Id == id).To<T>()
                 .FirstOrDefault();
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var message = this.messagesRepository.AllAsNoTracking()
                 .Where(x => x.Id == id)

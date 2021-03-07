@@ -18,7 +18,7 @@
             this.votesRepository = votesRepository;
         }
 
-        public async Task AddVote(CreateVoteDTO vote)
+        public async Task CreateAsync(CreateVoteDTO vote)
         {
             var existingVote = this.votesRepository.All()
                 .Where(x => x.ForUserId == vote.ForUserId && x.VoterId == vote.VoterId)

@@ -17,13 +17,13 @@
             this.favoritesRepository = favoritesRepository;
         }
 
-        public async Task AddToFavorite(string userId, int autopartId)
+        public async Task AddToFavoriteAsync(string userId, int autopartId)
         {
-            var alreadyAdded = this.favoritesRepository.AllAsNoTracking().Where(x => x.UserId == userId && x.AutopartId == autopartId).FirstOrDefault();
+            var favoriteExistingEntity = this.favoritesRepository.AllAsNoTracking().Where(x => x.UserId == userId && x.AutopartId == autopartId).FirstOrDefault();
 
-            if (alreadyAdded != null)
+            if (favoriteExistingEntity != null)
             {
-                this.favoritesRepository.HardDelete(alreadyAdded);
+                this.favoritesRepository.HardDelete(favoriteExistingEntity);
             }
             else
             {
@@ -45,9 +45,6 @@
                 .Select(x => x.Autopart)
                 .To<T>();
 
-        public bool IsAutopartFavoriteForUser(string userId, int autopartId)
-        {
-            return this.favoritesRepository.AllAsNoTracking().Any(x => x.UserId == userId && x.AutopartId == autopartId);
-        }
+        public bool CheckIfAutopartIsFavoriteForUser(string userId, int autopartId) => this.favoritesRepository.AllAsNoTracking().Any(x => x.UserId == userId && x.AutopartId == autopartId);
     }
 }

@@ -7,26 +7,26 @@
 
     public interface IAutopartsService
     {
-        Task CreateAutopartAsync(CreateAutopartDTO autopart, string userId, string imagePath);
+        Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath);
 
-        T GetAutopartById<T>(int id);
+        T GetById<T>(int id);
 
-        IEnumerable<T> GetAllAutoparts<T>(int page, int itemsPerPage);
+        IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
-        Task<bool> EditAutopart(EditAutopartDTO autopart);
+        IEnumerable<T> GetAll<T>(SearchFiltersDTO searchFiltersDTO);
 
-        Task<bool> DeleteAutopartByIdAsync(int id);
+        Task<bool> EditAsync(EditAutopartDTO autopart);
+
+        Task<bool> DeleteByIdAsync(int id);
 
         IEnumerable<KeyValuePair<string, string>> GetAllAutopartCategoriesAsKeyValuePairs();
 
         IEnumerable<KeyValuePair<string, string>> GetAllAutopartConditionsAsKeyValuePairs();
 
-        bool IsUserAutopartOwner(string userId, int autopartId);
+        bool CheckIfUserIsOwner(string userId, int autopartId);
 
-        Task IncreaseAutopartViewsCount(int id);
+        Task IncreaseViewsCountAsync(int id);
 
-        IEnumerable<T> GetAutopartsByFilters<T>(SearchFiltersDTO searchFiltersDTO);
-
-        int GetAutopartsCount();
+        int GetCount();
     }
 }

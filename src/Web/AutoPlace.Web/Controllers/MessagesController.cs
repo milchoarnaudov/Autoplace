@@ -38,7 +38,7 @@
 
         public IActionResult Add(int id)
         {
-            var autopart = this.autopartsService.GetAutopartById<AutopartDetailsViewModel>(id);
+            var autopart = this.autopartsService.GetById<AutopartDetailsViewModel>(id);
 
             if (autopart == null)
             {
@@ -110,7 +110,7 @@
                 return this.Forbid();
             }
 
-            var isSuccessful = await this.messagesService.Delete(id);
+            var isSuccessful = await this.messagesService.DeleteAsync(id);
 
             if (!isSuccessful)
             {

@@ -151,7 +151,7 @@
 
             for (int i = 0; i < countOfDeletedMessages; i++)
             {
-                await service.Delete(i);
+                await service.DeleteAsync(i);
             }
 
             Assert.Equal(initalCountOfMessages - countOfDeletedMessages, list.Count);
@@ -180,7 +180,7 @@
                 list.Add(new Message { Id = i });
             }
 
-            var result = await service.Delete(1);
+            var result = await service.DeleteAsync(1);
 
             Assert.Equal(initalCountOfMessages - 1, list.Count);
             Assert.True(result);
@@ -209,7 +209,7 @@
                 list.Add(new Message { Id = i });
             }
 
-            var result = await service.Delete(initalCountOfMessages + 10);
+            var result = await service.DeleteAsync(initalCountOfMessages + 10);
 
             Assert.Equal(initalCountOfMessages, list.Count);
             Assert.False(result);

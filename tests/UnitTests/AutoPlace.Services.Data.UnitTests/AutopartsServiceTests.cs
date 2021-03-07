@@ -54,7 +54,7 @@
 
             for (int i = 0; i < countOfFakeAutoparts; i++)
             {
-                await service.CreateAutopartAsync(
+                await service.CreateAsync(
                     new CreateAutopartDTO
                 {
                     Name = $"Fake Autopart {i}",
@@ -163,7 +163,7 @@
                 this.carRepository.Object,
                 this.autopartRepository.Object);
 
-            await service.DeleteAutopartByIdAsync(1);
+            await service.DeleteByIdAsync(1);
 
             Assert.Single(list);
         }
