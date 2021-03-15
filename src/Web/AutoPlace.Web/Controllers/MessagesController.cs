@@ -86,14 +86,14 @@
 
         public IActionResult Details(int id)
         {
-            var viewModel = this.messagesService.GetMessageById<MessageListItemViewModel>(id);
+            var viewModel = this.messagesService.GetById<MessageListItemViewModel>(id);
 
             return this.View(viewModel);
         }
 
         public IActionResult Delete(int id)
         {
-            var viewModel = this.messagesService.GetMessageById<MessageListItemViewModel>(id);
+            var viewModel = this.messagesService.GetById<MessageListItemViewModel>(id);
 
             return this.View(viewModel);
         }
@@ -103,7 +103,7 @@
         public async Task<IActionResult> ConfirmDeletion(int id)
         {
             var currentUserUsername = this.User.Identity.Name;
-            var viewModel = this.messagesService.GetMessageById<MessageListItemViewModel>(id);
+            var viewModel = this.messagesService.GetById<MessageListItemViewModel>(id);
 
             if (viewModel.ReceiverUserName != currentUserUsername)
             {

@@ -8,6 +8,8 @@
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.DTO.Messages;
+    using AutoPlace.Services.Mapping;
+    using AutoPlace.Web.ViewModels.Message;
     using Moq;
     using Xunit;
 
@@ -213,6 +215,51 @@
 
             Assert.Equal(initalCountOfMessages, list.Count);
             Assert.False(result);
+        }
+
+        [Fact]
+        public void GetByIdReturnsTheCorrectMessage()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(MessageListItemViewModel).Assembly);
+
+            var list = new List<Message>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            var service = new MessagesService(mockRepository.Object);
+
+            var messageId = 1;
+
+            list.Add(new Message { Id = messageId });
+
+            var result = service.GetById<MessageListItemViewModel>(messageId);
+
+            Assert.Equal(1, result.Id);
+        }
+
+        [Fact]
+        public void GetByIdReturnsNull()
+        {
+            var list = new List<Message>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            var service = new MessagesService(mockRepository.Object);
+
+            var messageId = 1;
+            var nonExistingId = 2;
+
+            list.Add(new Message { Id = messageId });
+
+            var result = service.GetById<MessageListItemViewModel>(nonExistingId);
+
+            Assert.Null(result);
         }
     }
 }

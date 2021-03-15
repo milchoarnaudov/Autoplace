@@ -50,7 +50,7 @@
                 .OrderByDescending(x => x.CreatedOn)
                 .To<T>();
 
-        public T GetMessageById<T>(int id) =>
+        public T GetById<T>(int id) =>
             this.messagesRepository.AllAsNoTracking()
                 .Where(x => x.Id == id).To<T>()
                 .FirstOrDefault();

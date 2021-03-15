@@ -13,7 +13,7 @@
 
         Task CreateAsync(CreateMessageDTO message);
 
-        T GetMessageById<T>(int id);
+        T GetById<T>(int id);
 
         Task<bool> DeleteAsync(int id);
     }
