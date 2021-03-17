@@ -14,6 +14,11 @@
 
     public class VotesServiceTests
     {
+        public VotesServiceTests()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
+        }
+
         [Fact]
         public async Task WhenUserVoteOnceTheVoteIsAdded()
         {
@@ -142,8 +147,6 @@
         [Fact]
         public async Task GetAllByUsernameShouldHaveCountTwo()
         {
-            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
-
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
 
@@ -177,8 +180,6 @@
         [Fact]
         public async Task GetVoteShouldReturnTheCorrectVote()
         {
-            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
-
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
 

@@ -15,6 +15,11 @@
 
     public class MessagesServiceTests
     {
+        public MessagesServiceTests()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(MessageListItemViewModel).Assembly);
+        }
+
         [Fact]
         public async Task MessageContentShouldBeCorrect()
         {
@@ -220,8 +225,6 @@
         [Fact]
         public void GetByIdReturnsTheCorrectMessage()
         {
-            AutoMapperConfig.RegisterMappings(typeof(MessageListItemViewModel).Assembly);
-
             var list = new List<Message>();
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
 
@@ -233,7 +236,13 @@
 
             var messageId = 1;
 
-            list.Add(new Message { Id = messageId });
+            list.Add(new Message
+            {
+                Id = messageId,
+                Receiver = new ApplicationUser(),
+                Sender = new ApplicationUser(),
+                Autopart = new Autopart(),
+            });
 
             var result = service.GetById<MessageListItemViewModel>(messageId);
 
@@ -255,7 +264,13 @@
             var messageId = 1;
             var nonExistingId = 2;
 
-            list.Add(new Message { Id = messageId });
+            list.Add(new Message
+            {
+                Id = messageId,
+                Receiver = new ApplicationUser(),
+                Sender = new ApplicationUser(),
+                Autopart = new Autopart(),
+            });
 
             var result = service.GetById<MessageListItemViewModel>(nonExistingId);
 
