@@ -43,27 +43,5 @@
 
             Assert.Equal(createFormCount, list.Count());
         }
-
-        [Fact]
-        public async Task ContactFormsListShouldNotBeIncreasedWhenAddingNullContactForm()
-        {
-            var list = new List<ContactForm>();
-            var mockRepository = new Mock<IDeletableEntityRepository<ContactForm>>();
-
-            mockRepository
-                .Setup(x => x.AllAsNoTracking())
-                .Returns(list.AsQueryable());
-
-            mockRepository
-                .Setup(x => x.AddAsync(It.IsAny<ContactForm>()))
-                .Callback((ContactForm favorite) => list.Add(favorite));
-
-            var service = new ContactFormsService(mockRepository.Object);
-
-            await service.CreateAsync(null);
-            await service.CreateAsync(null);
-
-            Assert.Empty(list);
-        }
     }
 }

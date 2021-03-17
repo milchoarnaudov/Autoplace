@@ -18,11 +18,6 @@
 
         public async Task CreateAsync(CreateContactFormDTO contactForm)
         {
-            if (contactForm == null)
-            {
-                return;
-            }
-
             await this.contactFormRepository.AddAsync(new ContactForm
             {
                  FullName = contactForm.Email,

@@ -21,11 +21,6 @@
 
         public async Task CreateAsync(CreateMessageDTO message)
         {
-            if (message.ReceiverId == null || message.SenderId == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             var messageEntity = new Message
             {
                 Topic = message.Topic,

@@ -76,62 +76,6 @@
         }
 
         [Fact]
-        public void ThrowsArgumentNullExceptionWhenReceiverIdsIsNull()
-        {
-            var list = new List<Message>();
-            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
-
-            mockRepository
-                .Setup(x => x.All())
-                .Returns(list.AsQueryable());
-
-            mockRepository
-                .Setup(x => x.AddAsync(It.IsAny<Message>()))
-                .Callback((Message message) => list.Add(message));
-
-            var service = new MessagesService(mockRepository.Object);
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                service.CreateAsync(new CreateMessageDTO
-                {
-                    ReceiverId = null,
-                    SenderId = "b",
-                    Content = "test",
-                    AutopartId = 1,
-                }).GetAwaiter().GetResult();
-            });
-        }
-
-        [Fact]
-        public void ThrowsArgumentNullExceptionWhenSenderIdsIsNull()
-        {
-            var list = new List<Message>();
-            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
-
-            mockRepository
-                .Setup(x => x.All())
-                .Returns(list.AsQueryable());
-
-            mockRepository
-                .Setup(x => x.AddAsync(It.IsAny<Message>()))
-                .Callback((Message message) => list.Add(message));
-
-            var service = new MessagesService(mockRepository.Object);
-
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                service.CreateAsync(new CreateMessageDTO
-                {
-                    ReceiverId = "a",
-                    SenderId = null,
-                    Content = "test",
-                    AutopartId = 1,
-                }).GetAwaiter().GetResult();
-            });
-        }
-
-        [Fact]
         public async Task MessageDeletionWorksAsExpected()
         {
             var list = new List<Message>();
