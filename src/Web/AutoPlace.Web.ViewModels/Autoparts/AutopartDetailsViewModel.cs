@@ -45,8 +45,7 @@
                     $"/Images/Autoparts/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extension}"))
                 .ForMember(x => x.Images, opt =>
                     opt.MapFrom(x =>
-                    x.Images.Select(x => $"/Images/Autoparts/{x.Id}.{x.Extension}"))
-                );
+                    x.Images.Select(x => $"/Images/Autoparts/{x.Id}.{x.Extension}")));
         }
     }
 }
