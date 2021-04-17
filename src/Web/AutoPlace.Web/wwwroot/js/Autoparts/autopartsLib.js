@@ -16,7 +16,7 @@
             })
             .then((data) => {
                 Array.prototype.forEach.call(data, function (item, i) {
-                    carModel.innerHTML += `<option value="${item.Key}">${item.Value}</option>`
+                    carModel.innerHTML += `<option value="${item.key}">${item.value}</option>`
                 });
             });
     }

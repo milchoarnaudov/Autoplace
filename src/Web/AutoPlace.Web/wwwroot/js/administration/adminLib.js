@@ -27,7 +27,7 @@
             })
             .then((data) => {
                 Array.prototype.forEach.call(data, function (item, i) {
-                    itemsList.innerHTML += (`<div class="list-group-item d-flex justify-content-between text-color-black"><span>${item.Value}</span><button class="deleteItemsBtn"  value="${controllerName}, ${item.Key}">Delete</button></div>`);
+                    itemsList.innerHTML += (`<div class="list-group-item d-flex justify-content-between text-color-black"><span>${item.value}</span><button class="deleteItemsBtn"  value="${controllerName}, ${item.key}">Delete</button></div>`);
                     addEventListenerByClassName("deleteItemsBtn", deleteItem);
                 });
             });
