@@ -32,9 +32,6 @@
             return true;
         }
 
-        public string GetExtension(string fileName)
-        {
-            return Path.GetExtension(fileName).TrimStart('.');
-        }
+        public string GetExtension(string fileName) => Path.GetExtension(fileName).TrimStart('.');
     }
 }

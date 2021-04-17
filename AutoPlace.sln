@@ -43,6 +43,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPlace.Services.Data.Uni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPlace.Services.UnitTests", "tests\UnitTests\AutoPlace.Services.UnitTests\AutoPlace.Services.UnitTests.csproj", "{142A5E04-F613-475B-A77D-95E6CC6DDB1B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{CA11C973-CDA3-4487-9C9A-4A5DC78ED81D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPlace.Tests.Utils", "tests\Common\AutoPlace.Tests.Utils\AutoPlace.Tests.Utils.csproj", "{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +105,10 @@ Global
 		{142A5E04-F613-475B-A77D-95E6CC6DDB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{142A5E04-F613-475B-A77D-95E6CC6DDB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{142A5E04-F613-475B-A77D-95E6CC6DDB1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +132,8 @@ Global
 		{9DF9E388-EEC9-4430-ADE7-A24AB69C9373} = {AB838A6B-F4D0-49B6-8E72-9F0356D00AAE}
 		{13F6A85A-B3EF-4208-8899-7EAB772D3996} = {9DF9E388-EEC9-4430-ADE7-A24AB69C9373}
 		{142A5E04-F613-475B-A77D-95E6CC6DDB1B} = {9DF9E388-EEC9-4430-ADE7-A24AB69C9373}
+		{CA11C973-CDA3-4487-9C9A-4A5DC78ED81D} = {AB838A6B-F4D0-49B6-8E72-9F0356D00AAE}
+		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F} = {CA11C973-CDA3-4487-9C9A-4A5DC78ED81D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9254AD7B-3FE7-40BF-B928-D7512D5902FE}

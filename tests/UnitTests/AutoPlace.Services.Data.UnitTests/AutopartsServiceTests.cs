@@ -9,6 +9,7 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Services.Mapping;
+    using AutoPlace.Tests.Utils;
     using Microsoft.AspNetCore.Http;
     using Moq;
     using Xunit;
@@ -19,6 +20,7 @@
         private readonly Mock<IDeletableEntityRepository<AutopartCondition>> conditionsRepository;
         private readonly Mock<IDeletableEntityRepository<Car>> carRepository;
         private readonly Mock<IDeletableEntityRepository<Autopart>> autopartRepository;
+        private readonly Mock<IImageService> imageService;
 
         public AutopartsServiceTests()
         {
@@ -26,6 +28,7 @@
             this.conditionsRepository = new Mock<IDeletableEntityRepository<AutopartCondition>>();
             this.carRepository = new Mock<IDeletableEntityRepository<Car>>();
             this.autopartRepository = new Mock<IDeletableEntityRepository<Autopart>>();
+            this.imageService = new Mock<IImageService>();
         }
 
         [Fact]
@@ -45,10 +48,11 @@
                 this.categoriesRepository.Object,
                 this.conditionsRepository.Object,
                 this.carRepository.Object,
-                this.autopartRepository.Object);
+                this.autopartRepository.Object,
+                this.imageService.Object);
 
 
-            var file = this.GetMockFile().Object;
+            var file = MockObjects.GetMockFile().Object;
 
             var countOfFakeAutoparts = 2;
 
@@ -97,7 +101,8 @@
                this.categoriesRepository.Object,
                this.conditionsRepository.Object,
                this.carRepository.Object,
-               this.autopartRepository.Object);
+               this.autopartRepository.Object,
+               this.imageService.Object);
 
             Assert.Equal(2, service.GetAllAutopartCategoriesAsKeyValuePairs().Count());
         }
@@ -127,7 +132,8 @@
                this.categoriesRepository.Object,
                this.conditionsRepository.Object,
                this.carRepository.Object,
-               this.autopartRepository.Object);
+               this.autopartRepository.Object,
+               this.imageService.Object);
 
             Assert.Equal(2, service.GetAllAutopartConditionsAsKeyValuePairs().Count());
         }
@@ -161,28 +167,12 @@
                 this.categoriesRepository.Object,
                 this.conditionsRepository.Object,
                 this.carRepository.Object,
-                this.autopartRepository.Object);
+                this.autopartRepository.Object,
+                this.imageService.Object);
 
             await service.DeleteByIdAsync(1);
 
             Assert.Single(list);
-        }
-
-        private Mock<IFormFile> GetMockFile()
-        {
-            var fileMock = new Mock<IFormFile>();
-            var content = "test";
-            var fileName = "test.png";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(content);
-            writer.Flush();
-            ms.Position = 0;
-            fileMock.Setup(_ => _.OpenReadStream()).Returns(ms);
-            fileMock.Setup(_ => _.FileName).Returns(fileName);
-            fileMock.Setup(_ => _.Length).Returns(ms.Length);
-
-            return fileMock;
         }
     }
 }
