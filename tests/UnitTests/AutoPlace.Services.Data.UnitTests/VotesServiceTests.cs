@@ -16,7 +16,7 @@
     {
         public VotesServiceTests()
         {
-            AutoMapperConfig.RegisterMappings(typeof(VotesViewModel).Assembly);
+            AutoMapperConfig.RegisterMappingsThreadSafe(typeof(VotesViewModel).Assembly);
         }
 
         [Fact]
@@ -178,7 +178,7 @@
         }
 
         [Fact]
-        public async Task GetVoteShouldReturnTheCorrectVote()
+        public void GetVoteShouldReturnTheCorrectVote()
         {
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
@@ -193,12 +193,12 @@
 
             var service = new VotesService(mockRepository.Object);
 
-            await service.CreateAsync(new CreateVoteDTO
+            service.CreateAsync(new CreateVoteDTO
             {
                 ForUserId = "a",
                 VoteValue = true,
                 VoterId = "c",
-            });
+            }).GetAwaiter();
 
             var vote = service.GetVote<VotesViewModel>("a", "c");
 

@@ -10,6 +10,7 @@
     using AutoPlace.Services.Data.DTO.Messages;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Web.ViewModels.Message;
+    using AutoPlace.Web.ViewModels.Votes;
     using Moq;
     using Xunit;
 
@@ -17,7 +18,7 @@
     {
         public MessagesServiceTests()
         {
-            AutoMapperConfig.RegisterMappings(typeof(MessageListItemViewModel).Assembly);
+            AutoMapperConfig.RegisterMappingsThreadSafe(typeof(MessageListItemViewModel).Assembly);
         }
 
         [Fact]
