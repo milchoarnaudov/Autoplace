@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class NameInputModel
+    public class ItemInputModel
     {
         [StringLength(maximumLength: 100, MinimumLength = 3)]
         [Required]

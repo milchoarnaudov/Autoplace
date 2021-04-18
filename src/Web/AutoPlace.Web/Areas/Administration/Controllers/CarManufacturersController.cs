@@ -42,7 +42,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] NameInputModel item)
+        public async Task<IActionResult> Add([FromBody] ItemInputModel item)
         {
             var isSuccessful = await this.carManufacturersService.Add(this.htmlSanitizer.Sanitize(item.Name));
 
