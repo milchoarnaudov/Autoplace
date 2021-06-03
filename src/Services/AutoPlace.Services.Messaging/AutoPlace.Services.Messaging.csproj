@@ -19,4 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AutoPlace.Services.Common\AutoPlace.Services.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -58,11 +58,12 @@
 
             services.AddRazorPages();
 
-            services.AddConventionalServices(typeof(IAutopartsService).Assembly);
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddConventionalServices(typeof(IAutopartsService).Assembly, typeof(ITextService).Assembly);
 
             services.AddSingleton(this.configuration);
             services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
-            services.AddSingleton<ITextService, TextService>();
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -70,7 +71,6 @@
 
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
-            services.AddTransient<IImageService, ImageService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -88,7 +88,6 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {

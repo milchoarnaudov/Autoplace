@@ -2,12 +2,13 @@
 {
     using System.Threading.Tasks;
 
+    using AutoPlace.Services.Common;
     using Microsoft.AspNetCore.Http;
 
-    public interface IImageService
+    public interface IImageService : ITransientService
     {
-        public Task<bool> Save(IFormFile file, string path, string imageId);
+        Task<bool> Save(IFormFile file, string path, string imageId);
 
-        public string GetExtension(string fileName);
+        string GetExtension(string fileName);
     }
 }

@@ -45,8 +45,6 @@
                 .Callback((Autopart autopart) => list.Add(autopart));
 
             var service = new AutopartsService(
-                this.categoriesRepository.Object,
-                this.conditionsRepository.Object,
                 this.carRepository.Object,
                 this.autopartRepository.Object,
                 this.imageService.Object);
@@ -158,8 +156,6 @@
                 .Callback((Autopart autopart) => list.Remove(autopart));
 
             var service = new AutopartsService(
-                this.categoriesRepository.Object,
-                this.conditionsRepository.Object,
                 this.carRepository.Object,
                 this.autopartRepository.Object,
                 this.imageService.Object);
