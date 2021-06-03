@@ -13,21 +13,15 @@
 
     public class AutopartsService : IAutopartsService
     {
-        private readonly IDeletableEntityRepository<AutopartCategory> categoriesRepository;
-        private readonly IDeletableEntityRepository<AutopartCondition> conditionsRepository;
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IDeletableEntityRepository<Autopart> autopartRepository;
         private readonly IImageService imageService;
 
         public AutopartsService(
-            IDeletableEntityRepository<AutopartCategory> categoriesRepository,
-            IDeletableEntityRepository<AutopartCondition> conditionsRepository,
             IDeletableEntityRepository<Car> carRepository,
             IDeletableEntityRepository<Autopart> autopartRepository,
             IImageService imageService)
         {
-            this.categoriesRepository = categoriesRepository;
-            this.conditionsRepository = conditionsRepository;
             this.carRepository = carRepository;
             this.autopartRepository = autopartRepository;
             this.imageService = imageService;
