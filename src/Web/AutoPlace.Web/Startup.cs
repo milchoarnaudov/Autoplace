@@ -68,8 +68,8 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+            services.AddScoped<IEmailSender, NullMessageSender>();
 
-            services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
         }
 
