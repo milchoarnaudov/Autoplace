@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AutoPlace.Services.Common\AutoPlace.Services.Common.csproj" />
     <ProjectReference Include="..\..\Data\AutoPlace.Data.Common\AutoPlace.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\AutoPlace.Data.Models\AutoPlace.Data.Models.csproj" />
+    <ProjectReference Include="..\AutoPlace.Services.Common\AutoPlace.Services.Common.csproj" />
     <ProjectReference Include="..\AutoPlace.Services.Mapping\AutoPlace.Services.Mapping.csproj" />
     <ProjectReference Include="..\AutoPlace.Services\AutoPlace.Services.csproj" />
   </ItemGroup>
