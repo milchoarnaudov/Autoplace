@@ -1,7 +1,9 @@
 ﻿namespace AutoPlace.Web.Controllers
 {
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using AutoPlace.Common;
     using AutoPlace.Services.Data;
@@ -16,17 +18,20 @@
     {
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;
+        private readonly IAutopartsCharacteristicsService autopartsCharacteristicsService;
         private readonly IWebHostEnvironment env;
         private readonly IFavoritesService favoritesService;
 
         public AutopartsController(
             IAutopartsService autopartsService,
             ICarsService carsService,
+            IAutopartsCharacteristicsService autopartsCharacteristicsService,
             IWebHostEnvironment env,
             IFavoritesService favoritesService)
         {
             this.autopartsService = autopartsService;
             this.carsService = carsService;
+            this.autopartsCharacteristicsService = autopartsCharacteristicsService;
             this.env = env;
             this.favoritesService = favoritesService;
         }
@@ -37,8 +42,8 @@
             {
                 CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
                 CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsService.GetAllAutopartCategoriesAsKeyValuePairs(),
-                Conditions = this.autopartsService.GetAllAutopartConditionsAsKeyValuePairs(),
+                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
+                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
             };
 
             return this.View(viewModel);
@@ -51,8 +56,8 @@
             {
                 input.CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs();
                 input.CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs();
-                input.Categories = this.autopartsService.GetAllAutopartCategoriesAsKeyValuePairs();
-                input.Conditions = this.autopartsService.GetAllAutopartConditionsAsKeyValuePairs();
+                input.Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id, x.Value));
+                input.Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id, x.Value));
 
                 return this.View(input);
             }

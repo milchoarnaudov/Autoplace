@@ -97,14 +97,11 @@
             };
 
             this.categoriesRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            var service = new AutopartsService(
+            var service = new AutopartCharacteristicsService(
                this.categoriesRepository.Object,
-               this.conditionsRepository.Object,
-               this.carRepository.Object,
-               this.autopartRepository.Object,
-               this.imageService.Object);
+               this.conditionsRepository.Object);
 
-            Assert.Equal(2, service.GetAllAutopartCategoriesAsKeyValuePairs().Count());
+            Assert.Equal(2, service.GetAllAutopartCategories().Count());
         }
 
         [Fact]
@@ -128,14 +125,11 @@
                 .Setup(x => x.AllAsNoTracking())
                 .Returns(list.AsQueryable());
 
-            var service = new AutopartsService(
+            var service = new AutopartCharacteristicsService(
                this.categoriesRepository.Object,
-               this.conditionsRepository.Object,
-               this.carRepository.Object,
-               this.autopartRepository.Object,
-               this.imageService.Object);
+               this.conditionsRepository.Object);
 
-            Assert.Equal(2, service.GetAllAutopartConditionsAsKeyValuePairs().Count());
+            Assert.Equal(2, service.GetAllAutopartConditions().Count());
         }
 
         [Fact]

@@ -19,10 +19,6 @@
 
         Task<bool> DeleteByIdAsync(int id);
 
-        IEnumerable<KeyValuePair<string, string>> GetAllAutopartCategoriesAsKeyValuePairs();
-
-        IEnumerable<KeyValuePair<string, string>> GetAllAutopartConditionsAsKeyValuePairs();
-
         bool CheckIfUserIsOwner(string userId, int autopartId);
 
         Task IncreaseViewsCountAsync(int id);

@@ -81,14 +81,6 @@
             await this.autopartRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartCategoriesAsKeyValuePairs() =>
-            this.categoriesRepository.AllAsNoTracking()
-                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
-
-        public IEnumerable<KeyValuePair<string, string>> GetAllAutopartConditionsAsKeyValuePairs() =>
-            this.conditionsRepository.AllAsNoTracking()
-                .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
-
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage) =>
             this.autopartRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)

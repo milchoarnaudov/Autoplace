@@ -54,14 +54,14 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
+
             services.AddSingleton(this.configuration);
+            services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
+            services.AddSingleton<ITextService, TextService>();
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-
-            services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
-            services.AddSingleton<ITextService, TextService>();
 
             services.AddScoped<IFavoritesService, FavoritesService>();
             services.AddScoped<IUsersService, UsersService>();
@@ -75,6 +75,7 @@
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IVotesService, VotesService>();
             services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IAutopartsCharacteristicsService, AutopartCharacteristicsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

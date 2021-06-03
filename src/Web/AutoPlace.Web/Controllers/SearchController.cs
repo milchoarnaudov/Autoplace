@@ -1,5 +1,8 @@
 ﻿namespace AutoPlace.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.DTO.Autoparts;
     using AutoPlace.Web.ViewModels.Autoparts;
@@ -10,13 +13,16 @@
     {
         private readonly IAutopartsService autopartsService;
         private readonly ICarsService carsService;
+        private readonly IAutopartsCharacteristicsService autopartsCharacteristicsService;
 
         public SearchController(
             IAutopartsService autopartsService,
-            ICarsService carsService)
+            ICarsService carsService,
+            IAutopartsCharacteristicsService autopartsCharacteristicsService)
         {
             this.autopartsService = autopartsService;
             this.carsService = carsService;
+            this.autopartsCharacteristicsService = autopartsCharacteristicsService;
         }
 
         public IActionResult Index()
@@ -25,8 +31,8 @@
             {
                 CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
                 CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsService.GetAllAutopartCategoriesAsKeyValuePairs(),
-                Conditions = this.autopartsService.GetAllAutopartConditionsAsKeyValuePairs(),
+                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
+                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
             };
 
             return this.View(viewModel);
