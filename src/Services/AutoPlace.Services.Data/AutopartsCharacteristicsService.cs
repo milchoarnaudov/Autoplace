@@ -7,12 +7,12 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.DTO.AutopartCharacteristics;
 
-    public class AutopartCharacteristicsService : IAutopartsCharacteristicsService
+    public class AutopartsCharacteristicsService : IAutopartsCharacteristicsService
     {
         private readonly IDeletableEntityRepository<AutopartCategory> categoriesRepository;
         private readonly IDeletableEntityRepository<AutopartCondition> conditionsRepository;
 
-        public AutopartCharacteristicsService(
+        public AutopartsCharacteristicsService(
             IDeletableEntityRepository<AutopartCategory> categoriesRepository,
             IDeletableEntityRepository<AutopartCondition> conditionsRepository)
         {

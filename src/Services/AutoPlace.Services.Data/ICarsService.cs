@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public interface ICarsService
+    using AutoPlace.Services.Common;
+
+    public interface ICarsService : ITransientService
     {
         IEnumerable<KeyValuePair<string, string>> GetAllCarModelsAsKeyValuePairsById(int id);
 

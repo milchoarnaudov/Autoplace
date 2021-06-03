@@ -3,9 +3,10 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using AutoPlace.Services.Common;
     using AutoPlace.Services.Data.DTO.Messages;
 
-    public interface IMessagesService
+    public interface IMessagesService : ITransientService
     {
         IEnumerable<T> GetAllForUser<T>(string userId);
 

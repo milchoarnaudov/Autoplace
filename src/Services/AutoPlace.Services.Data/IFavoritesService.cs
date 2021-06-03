@@ -3,7 +3,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IFavoritesService
+    using AutoPlace.Services.Common;
+
+    public interface IFavoritesService : ITransientService
     {
         Task AddToFavoriteAsync(string userId, int autopartId);
 

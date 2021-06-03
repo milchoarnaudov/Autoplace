@@ -3,9 +3,10 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using AutoPlace.Services.Common;
     using AutoPlace.Services.Data.DTO.Autoparts;
 
-    public interface IAutopartsService
+    public interface IAutopartsService : ITransientService
     {
         Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath);
 

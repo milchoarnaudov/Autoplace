@@ -3,9 +3,10 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using AutoPlace.Services.Common;
     using AutoPlace.Services.Data.DTO.Votes;
 
-    public interface IVotesService
+    public interface IVotesService : ITransientService
     {
         Task CreateAsync(CreateVoteDTO vote);
 

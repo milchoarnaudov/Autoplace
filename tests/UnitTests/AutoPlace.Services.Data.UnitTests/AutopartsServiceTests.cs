@@ -97,7 +97,7 @@
             };
 
             this.categoriesRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            var service = new AutopartCharacteristicsService(
+            var service = new AutopartsCharacteristicsService(
                this.categoriesRepository.Object,
                this.conditionsRepository.Object);
 
@@ -125,7 +125,7 @@
                 .Setup(x => x.AllAsNoTracking())
                 .Returns(list.AsQueryable());
 
-            var service = new AutopartCharacteristicsService(
+            var service = new AutopartsCharacteristicsService(
                this.categoriesRepository.Object,
                this.conditionsRepository.Object);
 

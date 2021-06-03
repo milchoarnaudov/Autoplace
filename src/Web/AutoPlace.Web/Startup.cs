@@ -9,10 +9,12 @@
     using AutoPlace.Data.Repositories;
     using AutoPlace.Data.Seeding;
     using AutoPlace.Services;
+    using AutoPlace.Services.Common;
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.Administration;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Services.Messaging;
+    using AutoPlace.Web.Infrastructure;
     using AutoPlace.Web.ViewModels.Common;
     using Ganss.XSS;
     using Microsoft.AspNetCore.Builder;
@@ -53,7 +55,10 @@
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
+
             services.AddRazorPages();
+
+            services.AddConventionalServices(typeof(IAutopartsService).Assembly);
 
             services.AddSingleton(this.configuration);
             services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
@@ -63,19 +68,9 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
-            services.AddScoped<IFavoritesService, FavoritesService>();
-            services.AddScoped<IUsersService, UsersService>();
-
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<IAutopartsService, AutopartsService>();
-            services.AddTransient<ICarsService, CarsService>();
-            services.AddTransient<IContactFormsService, ContactFormsService>();
             services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
-            services.AddTransient<IMessagesService, MessagesService>();
-            services.AddTransient<ICommentsService, CommentsService>();
-            services.AddTransient<IVotesService, VotesService>();
             services.AddTransient<IImageService, ImageService>();
-            services.AddTransient<IAutopartsCharacteristicsService, AutopartCharacteristicsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
