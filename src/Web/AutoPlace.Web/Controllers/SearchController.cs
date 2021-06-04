@@ -31,8 +31,8 @@
             {
                 CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
                 CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
-                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
+                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
+                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
             };
 
             return this.View(viewModel);

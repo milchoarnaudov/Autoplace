@@ -1,4 +1,4 @@
-﻿namespace AutoPlace.Services.Data.Tests
+﻿namespace AutoPlace.Services.Data.UnitTests
 {
     using System.Collections.Generic;
     using System.IO;
@@ -75,59 +75,6 @@
             }
 
             Assert.Equal(countOfFakeAutoparts, list.Count());
-        }
-
-        [Fact]
-        public void GetAllCategoriesAsKeyValuePairsListShouldHaveCorrectCount()
-        {
-            var list = new List<AutopartCategory>()
-            {
-                new AutopartCategory
-                {
-                     Id = 1,
-                     Name = "test",
-                },
-                new AutopartCategory
-                {
-                     Id = 2,
-                     Name = "test",
-                },
-            };
-
-            this.categoriesRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
-            var service = new AutopartsCharacteristicsService(
-               this.categoriesRepository.Object,
-               this.conditionsRepository.Object);
-
-            Assert.Equal(2, service.GetAllAutopartCategories().Count());
-        }
-
-        [Fact]
-        public void GetAllConditionsAsKeyValuePairsListShouldHaveCorrectCount()
-        {
-            var list = new List<AutopartCondition>()
-            {
-                new AutopartCondition
-                {
-                     Id = 1,
-                     Name = "test",
-                },
-                new AutopartCondition
-                {
-                     Id = 2,
-                     Name = "test",
-                },
-            };
-
-            this.conditionsRepository
-                .Setup(x => x.AllAsNoTracking())
-                .Returns(list.AsQueryable());
-
-            var service = new AutopartsCharacteristicsService(
-               this.categoriesRepository.Object,
-               this.conditionsRepository.Object);
-
-            Assert.Equal(2, service.GetAllAutopartConditions().Count());
         }
 
         [Fact]

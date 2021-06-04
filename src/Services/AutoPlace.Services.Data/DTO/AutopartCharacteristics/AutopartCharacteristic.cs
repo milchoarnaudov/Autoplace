@@ -2,7 +2,7 @@
 {
     public class AutopartCharacteristic
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Value { get; set; }
     }

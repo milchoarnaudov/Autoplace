@@ -1,4 +1,4 @@
-﻿namespace AutoPlace.Services.Data.Tests
+﻿namespace AutoPlace.Services.Data.UnitTests
 {
     using System;
     using System.Collections.Generic;

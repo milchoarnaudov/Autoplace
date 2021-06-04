@@ -1,9 +1,9 @@
 ﻿namespace AutoPlace.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoPlace.Common;
     using AutoPlace.Services.Data;
@@ -42,8 +42,8 @@
             {
                 CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
                 CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
-                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id, x.Value)),
+                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
+                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
             };
 
             return this.View(viewModel);
@@ -56,8 +56,8 @@
             {
                 input.CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs();
                 input.CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs();
-                input.Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id, x.Value));
-                input.Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id, x.Value));
+                input.Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value));
+                input.Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value));
 
                 return this.View(input);
             }

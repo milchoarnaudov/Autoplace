@@ -23,14 +23,14 @@
         public IEnumerable<AutopartCharacteristic> GetAllAutopartCategories() => this.categoriesRepository.AllAsNoTracking()
                 .Select(x => new AutopartCharacteristic
                 {
-                     Id = x.Name,
-                     Value = x.Name,
+                    Id = x.Id,
+                    Value = x.Name,
                 });
 
         public IEnumerable<AutopartCharacteristic> GetAllAutopartConditions() => this.conditionsRepository.AllAsNoTracking()
                 .Select(x => new AutopartCharacteristic
                 {
-                    Id = x.Name,
+                    Id = x.Id,
                     Value = x.Name,
                 });
     }
