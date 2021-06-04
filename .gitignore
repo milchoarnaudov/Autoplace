@@ -357,6 +357,7 @@ appsettings.Production.json
 .jpg
 .gif
 .png
+Images/
 
 # GitHub
 .github/
