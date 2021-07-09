@@ -6,7 +6,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.ContactForm;
+    using AutoPlace.Services.Data.Models.ContactForm;
     using Moq;
     using Xunit;
 
@@ -32,7 +32,7 @@
 
             for (int i = 0; i < createFormCount; i++)
             {
-                await service.CreateAsync(new CreateContactFormDTO
+                await service.CreateAsync(new CreateContactForm
                 {
                     Email = "test@test",
                     FullName = "test",

@@ -5,7 +5,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.ContactForm;
+    using AutoPlace.Services.Data.Models.ContactForm;
 
     public class ContactFormsService : IContactFormsService
     {
@@ -16,7 +16,7 @@
             this.contactFormRepository = contactFormRepository;
         }
 
-        public async Task CreateAsync(CreateContactFormDTO contactForm)
+        public async Task CreateAsync(CreateContactForm contactForm)
         {
             await this.contactFormRepository.AddAsync(new ContactForm
             {

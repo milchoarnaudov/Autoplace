@@ -1,6 +1,6 @@
-﻿namespace AutoPlace.Services.Data.DTO.Messages
+﻿namespace AutoPlace.Services.Data.Models.Messages
 {
-    public class CreateMessageDTO
+    public class CreateMessage
     {
         public string Topic { get; set; }
 

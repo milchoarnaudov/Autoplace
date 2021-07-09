@@ -6,7 +6,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.Comments;
+    using AutoPlace.Services.Data.Models.Comments;
     using Moq;
     using Xunit;
 
@@ -28,14 +28,14 @@
 
             var service = new CommentsService(mockRepository.Object);
 
-            await service.CreateAsync(new CreateCommentDTO
+            await service.CreateAsync(new CreateComment
             {
                 CommentatorId = "a",
                 CommentedUserId = "b",
                 Content = "testtest",
             });
 
-            await service.CreateAsync(new CreateCommentDTO
+            await service.CreateAsync(new CreateComment
             {
                 CommentatorId = "c",
                 CommentedUserId = "d",
@@ -65,7 +65,7 @@
 
             for (int i = 0; i < numberOfComments; i++)
             {
-                await service.CreateAsync(new CreateCommentDTO
+                await service.CreateAsync(new CreateComment
                 {
                     CommentatorId = "a",
                     CommentedUserId = "a",
@@ -95,7 +95,7 @@
 
             for (int i = 0; i < commentsCount; i++)
             {
-                await service.CreateAsync(new CreateCommentDTO
+                await service.CreateAsync(new CreateComment
                 {
                     CommentatorId = "a",
                     CommentedUserId = $"{i}",
@@ -126,7 +126,7 @@
 
             for (int i = 0; i < commentsCount; i++)
             {
-                await service.CreateAsync(new CreateCommentDTO
+                await service.CreateAsync(new CreateComment
                 {
                     CommentatorId = $"{i}",
                     CommentedUserId = "a",

@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using AutoPlace.Services.Data.DTO.Autoparts;
+    using AutoPlace.Services.Data.Models.Autoparts;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Web.Infrastructure.ValidationAttributes;
     using Microsoft.AspNetCore.Http;
 
-    public class CreateAutopartInputModel : BaseAutopartsViewModel, IMapTo<CreateAutopartDTO>
+    public class CreateAutopartInputModel : BaseAutopartsViewModel, IMapTo<CreateAutopart>
     {
         [Display(Name = "Car Model Year")]
         [ValidateYear(1960)]

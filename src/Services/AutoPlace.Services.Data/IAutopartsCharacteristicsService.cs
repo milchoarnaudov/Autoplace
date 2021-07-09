@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     using AutoPlace.Services.Common;
-    using AutoPlace.Services.Data.DTO.AutopartCharacteristics;
+    using AutoPlace.Services.Data.Models.AutopartCharacteristics;
 
     public interface IAutopartsCharacteristicsService : ITransientService
     {

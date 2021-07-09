@@ -1,6 +1,6 @@
-﻿namespace AutoPlace.Services.Data.DTO.Autoparts
+﻿namespace AutoPlace.Services.Data.Models.Autoparts
 {
-    public class EditAutopartDTO
+    public class EditAutopart
     {
         public int Id { get; set; }
 

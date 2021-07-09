@@ -7,7 +7,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.Autoparts;
+    using AutoPlace.Services.Data.Models.Autoparts;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Tests.Utils;
     using Microsoft.AspNetCore.Http;

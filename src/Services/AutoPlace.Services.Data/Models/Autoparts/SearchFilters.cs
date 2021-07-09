@@ -1,6 +1,6 @@
-﻿namespace AutoPlace.Services.Data.DTO.Autoparts
+﻿namespace AutoPlace.Services.Data.Models.Autoparts
 {
-    public class SearchFiltersDTO
+    public class SearchFilters
     {
         public decimal? MaxPrice { get; set; }
 

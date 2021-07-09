@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Common;
-    using AutoPlace.Services.Data.DTO.Messages;
+    using AutoPlace.Services.Data.Models.Messages;
 
     public interface IMessagesService : ITransientService
     {
@@ -12,7 +12,7 @@
 
         IEnumerable<T> GetAllByUser<T>(string userId);
 
-        Task CreateAsync(CreateMessageDTO message);
+        Task CreateAsync(CreateMessage message);
 
         T GetById<T>(int id);
 

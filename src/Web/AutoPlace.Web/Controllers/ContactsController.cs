@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.DTO.ContactForm;
+    using AutoPlace.Services.Data.Models.ContactForm;
     using AutoPlace.Web.ViewModels.ContactForm;
     using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +29,7 @@
                 return this.View(input);
             }
 
-            await this.contactFormService.CreateAsync(new CreateContactFormDTO
+            await this.contactFormService.CreateAsync(new CreateContactForm
             {
                 FullName = input.FullName,
                 Email = input.Email,

@@ -7,7 +7,7 @@
 
     public interface IFavoritesService : ITransientService
     {
-        Task AddToFavoriteAsync(string userId, int autopartId);
+        Task AdFavoriteAsync(string userId, int autopartId);
 
         IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId);
 

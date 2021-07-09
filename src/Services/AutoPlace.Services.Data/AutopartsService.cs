@@ -8,7 +8,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.Autoparts;
+    using AutoPlace.Services.Data.Models.Autoparts;
     using AutoPlace.Services.Mapping;
 
     public class AutopartsService : IAutopartsService
@@ -27,7 +27,7 @@
             this.imageService = imageService;
         }
 
-        public async Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath)
+        public async Task CreateAsync(CreateAutopart autopart, string userId, string imagePath)
         {
             var autopartEntity = new Autopart
             {
@@ -104,7 +104,7 @@
             return true;
         }
 
-        public async Task<bool> EditAsync(EditAutopartDTO autopart)
+        public async Task<bool> EditAsync(EditAutopart autopart)
         {
             if (autopart == null)
             {
@@ -159,20 +159,20 @@
             await this.autopartRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>(SearchFiltersDTO searchFiltersDTO)
+        public IEnumerable<T> GetAll<T>(SearchFilters searchFilters)
         {
-            if (searchFiltersDTO == null)
+            if (searchFilters == null)
             {
                 return new List<T>();
             }
 
             return this.autopartRepository.AllAsNoTracking()
-                .Where(x => x.ConditionId == searchFiltersDTO.ConditionId
-                && x.CategoryId == searchFiltersDTO.CategoryId
-                && x.Car.ModelId == searchFiltersDTO.ModelId
-                && x.Car.CarTypeId == searchFiltersDTO.CarTypeId
-                && (searchFiltersDTO.CarMakeYear == null || x.Car.MakeYear == searchFiltersDTO.CarMakeYear)
-                && (searchFiltersDTO.MaxPrice == null || x.Price <= searchFiltersDTO.MaxPrice))
+                .Where(x => x.ConditionId == searchFilters.ConditionId
+                && x.CategoryId == searchFilters.CategoryId
+                && x.Car.ModelId == searchFilters.ModelId
+                && x.Car.CarTypeId == searchFilters.CarTypeId
+                && (searchFilters.CarMakeYear == null || x.Car.MakeYear == searchFilters.CarMakeYear)
+                && (searchFilters.MaxPrice == null || x.Price <= searchFilters.MaxPrice))
                 .To<T>()
                 .ToList();
         }

@@ -3,10 +3,10 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Common;
-    using AutoPlace.Services.Data.DTO.ContactForm;
+    using AutoPlace.Services.Data.Models.ContactForm;
 
     public interface IContactFormsService : ITransientService
     {
-        Task CreateAsync(CreateContactFormDTO contactForm);
+        Task CreateAsync(CreateContactForm contactForm);
     }
 }

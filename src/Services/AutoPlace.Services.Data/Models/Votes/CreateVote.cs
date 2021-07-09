@@ -1,6 +1,6 @@
-﻿namespace AutoPlace.Services.Data.DTO.Votes
+﻿namespace AutoPlace.Services.Data.Models.Votes
 {
-    public class CreateVoteDTO
+    public class CreateVote
     {
         public string ForUserId { get; set; }
 

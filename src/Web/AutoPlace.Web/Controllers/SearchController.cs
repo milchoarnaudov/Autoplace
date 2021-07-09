@@ -4,7 +4,7 @@
     using System.Linq;
 
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.DTO.Autoparts;
+    using AutoPlace.Services.Data.Models.Autoparts;
     using AutoPlace.Web.ViewModels.Autoparts;
     using AutoPlace.Web.ViewModels.Search;
     using Microsoft.AspNetCore.Mvc;
@@ -38,20 +38,20 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Result(SearchFiltersInputModel searchFilters)
+        public IActionResult Result(SearchFiltersInputModel input)
         {
-            var searchFiltersDTO = new SearchFiltersDTO
+            var searchFilters = new SearchFilters
             {
-                MaxPrice = searchFilters.MaxPrice,
-                ConditionId = searchFilters.ConditionId,
-                CategoryId = searchFilters.CategoryId,
-                CarManufacturerId = searchFilters.CarManufacturerId,
-                ModelId = searchFilters.ModelId,
-                CarTypeId = searchFilters.CarTypeId,
-                CarMakeYear = searchFilters.CarMakeYear,
+                MaxPrice = input.MaxPrice,
+                ConditionId = input.ConditionId,
+                CategoryId = input.CategoryId,
+                CarManufacturerId = input.CarManufacturerId,
+                ModelId = input.ModelId,
+                CarTypeId = input.CarTypeId,
+                CarMakeYear = input.CarMakeYear,
             };
 
-            var viewModel = this.autopartsService.GetAll<AutopartsListItemViewModel>(searchFiltersDTO);
+            var viewModel = this.autopartsService.GetAll<AutopartsListItemViewModel>(searchFilters);
             return this.View(viewModel);
         }
     }

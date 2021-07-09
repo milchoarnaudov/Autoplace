@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.DTO.Messages;
+    using AutoPlace.Services.Data.Models.Messages;
     using AutoPlace.Web.ViewModels.Autoparts;
     using AutoPlace.Web.ViewModels.Message;
     using AutoPlace.Web.ViewModels.Users;
@@ -70,7 +70,7 @@
 
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var receiver = this.usersService.GetByUsername<UsersListItemViewModel>(input.ReceiverUsername);
-            var message = new CreateMessageDTO
+            var message = new CreateMessage
             {
                 Topic = input.Topic,
                 Content = input.Content,

@@ -7,7 +7,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.Autoparts;
+    using AutoPlace.Services.Data.Models.Autoparts;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Tests.Utils;
     using Microsoft.AspNetCore.Http;
@@ -57,7 +57,7 @@
             for (int i = 0; i < countOfFakeAutoparts; i++)
             {
                 await service.CreateAsync(
-                    new CreateAutopartDTO
+                    new CreateAutopart
                 {
                     Name = $"Fake Autopart {i}",
                     Price = 10,

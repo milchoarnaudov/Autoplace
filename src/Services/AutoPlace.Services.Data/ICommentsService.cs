@@ -3,10 +3,10 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Common;
-    using AutoPlace.Services.Data.DTO.Comments;
+    using AutoPlace.Services.Data.Models.Comments;
 
     public interface ICommentsService : ITransientService
     {
-        Task CreateAsync(CreateCommentDTO comment);
+        Task CreateAsync(CreateComment comment);
     }
 }

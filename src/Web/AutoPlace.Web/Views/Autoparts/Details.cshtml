@@ -16,7 +16,7 @@
         <h1>@Model.Name</h1>
         @if (this.User.Identity.IsAuthenticated)
         {
-            <a id="addToFavorites">
+            <a id="adFavorites">
                 @if (Model.IsInFavorites)
                 {
                     <i class="fas fa-heart fa-2x favorite-icon"></i>
@@ -113,7 +113,7 @@
             return token;
         }
 
-        document.getElementById('addToFavorites').addEventListener('click', function (e) {
+        document.getElementById('adFavorites').addEventListener('click', function (e) {
             fetch(`/Favorites/Add`,
                 {
                     method: 'POST',
@@ -124,7 +124,7 @@
                     body: JSON.stringify({ id: @Model.Id })
                 })
                 .then((response) => {
-                    let child = document.getElementById('addToFavorites').firstElementChild;
+                    let child = document.getElementById('adFavorites').firstElementChild;
 
                     if (child.classList.contains('far')) {
                         child.classList.replace('far', 'fas');

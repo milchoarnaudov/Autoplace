@@ -4,11 +4,11 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Common;
-    using AutoPlace.Services.Data.DTO.Votes;
+    using AutoPlace.Services.Data.Models.Votes;
 
     public interface IVotesService : ITransientService
     {
-        Task CreateAsync(CreateVoteDTO vote);
+        Task CreateAsync(CreateVote vote);
 
         IEnumerable<T> GetAllByUserId<T>(string userId);
 

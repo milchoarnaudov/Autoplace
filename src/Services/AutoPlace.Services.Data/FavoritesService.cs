@@ -17,7 +17,7 @@
             this.favoritesRepository = favoritesRepository;
         }
 
-        public async Task AddToFavoriteAsync(string userId, int autopartId)
+        public async Task AdFavoriteAsync(string userId, int autopartId)
         {
             var favoriteExistingEntity = this.favoritesRepository.AllAsNoTracking().Where(x => x.UserId == userId && x.AutopartId == autopartId).FirstOrDefault();
 

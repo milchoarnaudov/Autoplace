@@ -7,7 +7,7 @@
 
     using AutoPlace.Common;
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.DTO.Autoparts;
+    using AutoPlace.Services.Data.Models.Autoparts;
     using AutoPlace.Web.ViewModels.Autoparts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
@@ -62,7 +62,7 @@
                 return this.View(input);
             }
 
-            var autopartDTO = new CreateAutopartDTO
+            var autopart = new CreateAutopart
             {
                 Name = input.Name,
                 Price = input.Price,
@@ -79,7 +79,7 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var imagePath = $"{this.env.WebRootPath}/Images";
 
-            await this.autopartsService.CreateAsync(autopartDTO, userId, imagePath);
+            await this.autopartsService.CreateAsync(autopart, userId, imagePath);
             return this.Redirect("/");
         }
 
@@ -210,7 +210,7 @@
                 return this.Forbid();
             }
 
-            var isSuccessful = await this.autopartsService.EditAsync(new EditAutopartDTO
+            var isSuccessful = await this.autopartsService.EditAsync(new EditAutopart
             {
                 Id = input.Id,
                 Description = input.Description,

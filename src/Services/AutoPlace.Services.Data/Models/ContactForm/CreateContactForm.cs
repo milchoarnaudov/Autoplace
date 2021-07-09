@@ -1,9 +1,9 @@
-﻿namespace AutoPlace.Services.Data.DTO.ContactForm
+﻿namespace AutoPlace.Services.Data.Models.ContactForm
 {
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Mapping;
 
-    public class CreateContactFormDTO : IMapTo<ContactForm>
+    public class CreateContactForm : IMapTo<ContactForm>
     {
         public string FullName { get; set; }
 

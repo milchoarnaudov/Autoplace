@@ -7,7 +7,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.Messages;
+    using AutoPlace.Services.Data.Models.Messages;
     using AutoPlace.Services.Mapping;
 
     public class MessagesService : IMessagesService
@@ -19,7 +19,7 @@
             this.messagesRepository = messagesRepository;
         }
 
-        public async Task CreateAsync(CreateMessageDTO message)
+        public async Task CreateAsync(CreateMessage message)
         {
             var messageEntity = new Message
             {

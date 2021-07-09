@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.DTO.Votes;
+    using AutoPlace.Services.Data.Models.Votes;
     using AutoPlace.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -34,19 +34,19 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] CreateVoteInputModel vote)
+        public async Task<IActionResult> Add([FromBody] CreateVoteInputModel input)
         {
             var voterId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var forUserId = this.usersService.GetUserIdByUsername(vote.ForUserUserName);
+            var forUserId = this.usersService.GetUserIdByUsername(input.ForUserUserName);
 
-            var voteDTO = new CreateVoteDTO
+            var vote = new CreateVote
             {
                 ForUserId = forUserId,
                 VoterId = voterId,
-                VoteValue = vote.VoteValue,
+                VoteValue = input.VoteValue,
             };
 
-            await this.votesService.CreateAsync(voteDTO);
+            await this.votesService.CreateAsync(vote);
 
             return this.Ok();
         }

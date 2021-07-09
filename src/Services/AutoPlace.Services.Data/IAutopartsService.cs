@@ -4,19 +4,19 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Common;
-    using AutoPlace.Services.Data.DTO.Autoparts;
+    using AutoPlace.Services.Data.Models.Autoparts;
 
     public interface IAutopartsService : ITransientService
     {
-        Task CreateAsync(CreateAutopartDTO autopart, string userId, string imagePath);
+        Task CreateAsync(CreateAutopart autopart, string userId, string imagePath);
 
         T GetById<T>(int id);
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
-        IEnumerable<T> GetAll<T>(SearchFiltersDTO searchFiltersDTO);
+        IEnumerable<T> GetAll<T>(SearchFilters searchFilters);
 
-        Task<bool> EditAsync(EditAutopartDTO autopart);
+        Task<bool> EditAsync(EditAutopart autopart);
 
         Task<bool> DeleteByIdAsync(int id);
 

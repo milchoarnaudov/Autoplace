@@ -1,4 +1,4 @@
-﻿namespace AutoPlace.Services.Data.DTO.AutopartCharacteristics
+﻿namespace AutoPlace.Services.Data.Models.AutopartCharacteristics
 {
     public class AutopartCharacteristic
     {

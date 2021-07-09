@@ -6,7 +6,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.Votes;
+    using AutoPlace.Services.Data.Models.Votes;
     using AutoPlace.Services.Mapping;
 
     public class VotesService : IVotesService
@@ -18,7 +18,7 @@
             this.votesRepository = votesRepository;
         }
 
-        public async Task CreateAsync(CreateVoteDTO vote)
+        public async Task CreateAsync(CreateVote vote)
         {
             var existingVote = this.votesRepository.All()
                 .Where(x => x.ForUserId == vote.ForUserId && x.VoterId == vote.VoterId)

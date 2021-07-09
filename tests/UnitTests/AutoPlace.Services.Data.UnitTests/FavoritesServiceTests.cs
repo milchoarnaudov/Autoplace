@@ -14,7 +14,7 @@
     public class FavoritesServiceTests
     {
         [Fact]
-        public async Task AddToFavoritesListShouldHaveCountOfOneWhenDoneOnce()
+        public async Task AdFavoritesListShouldHaveCountOfOneWhenDoneOnce()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
@@ -32,13 +32,13 @@
 
             var userId = "User_01";
 
-            await service.AddToFavoriteAsync(userId, 1);
+            await service.AdFavoriteAsync(userId, 1);
 
             Assert.Single(list);
         }
 
         [Fact]
-        public async Task AddToFavoritesListShouldBeEmptyAutopartAddedToFavoritesTwice()
+        public async Task AdFavoritesListShouldBeEmptyAutopartAddeFavoritesTwice()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
@@ -61,8 +61,8 @@
 
             var userId = "User_01";
 
-            await service.AddToFavoriteAsync(userId, 1);
-            await service.AddToFavoriteAsync(userId, 1);
+            await service.AdFavoriteAsync(userId, 1);
+            await service.AdFavoriteAsync(userId, 1);
 
             Assert.Empty(list);
         }
@@ -93,14 +93,14 @@
 
             for (int i = 0; i < favoritesCount; i++)
             {
-                await service.AddToFavoriteAsync(userId, i);
+                await service.AdFavoriteAsync(userId, i);
             }
 
             Assert.Equal(favoritesCount, list.Count);
         }
 
         [Fact]
-        public async Task OneAutopartShouldBeAbleToBeAddedToFavoritesByMultipleUsers()
+        public async Task OneAutopartShouldBeAbleToBeAddeFavoritesByMultipleUsers()
         {
             var list = new List<Favorite>();
             var mockRepository = new Mock<IDeletableEntityRepository<Favorite>>();
@@ -123,7 +123,7 @@
 
             for (int i = 0; i < favoritesCount; i++)
             {
-                await service.AddToFavoriteAsync($"User_{i}", 3);
+                await service.AdFavoriteAsync($"User_{i}", 3);
             }
 
             Assert.Equal(favoritesCount, list.Count);

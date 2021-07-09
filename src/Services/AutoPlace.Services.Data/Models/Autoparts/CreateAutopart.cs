@@ -1,11 +1,11 @@
-﻿namespace AutoPlace.Services.Data.DTO.Autoparts
+﻿namespace AutoPlace.Services.Data.Models.Autoparts
 {
     using System;
     using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Http;
 
-    public class CreateAutopartDTO
+    public class CreateAutopart
     {
         public string Name { get; set; }
 

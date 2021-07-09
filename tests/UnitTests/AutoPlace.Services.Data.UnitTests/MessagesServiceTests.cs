@@ -7,7 +7,7 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.DTO.Messages;
+    using AutoPlace.Services.Data.Models.Messages;
     using AutoPlace.Services.Mapping;
     using AutoPlace.Web.ViewModels.Message;
     using AutoPlace.Web.ViewModels.Votes;
@@ -37,7 +37,7 @@
 
             var service = new MessagesService(mockRepository.Object);
 
-            await service.CreateAsync(new CreateMessageDTO
+            await service.CreateAsync(new CreateMessage
             {
                 ReceiverId = "a",
                 SenderId = "b",
@@ -65,7 +65,7 @@
 
             for (int i = 0; i < 5; i++)
             {
-                await service.CreateAsync(new CreateMessageDTO
+                await service.CreateAsync(new CreateMessage
                 {
                     ReceiverId = $"Receiver {i}",
                     SenderId = $"Sender {i}",

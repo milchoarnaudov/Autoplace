@@ -1,6 +1,6 @@
-﻿namespace AutoPlace.Services.Data.DTO.Comments
+﻿namespace AutoPlace.Services.Data.Models.Comments
 {
-    public class CreateCommentDTO
+    public class CreateComment
     {
         public string CommentatorId { get; set; }
 

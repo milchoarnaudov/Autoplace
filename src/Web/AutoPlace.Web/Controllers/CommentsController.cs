@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using AutoPlace.Services.Data;
-    using AutoPlace.Services.Data.DTO.Comments;
+    using AutoPlace.Services.Data.Models.Comments;
     using AutoPlace.Web.ViewModels.Comments;
     using AutoPlace.Web.ViewModels.Users;
     using Ganss.XSS;
@@ -31,25 +31,25 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreateCommentInputModel comment)
+        public async Task<IActionResult> Add(CreateCommentInputModel input)
         {
             var commentatorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var commentedUserId = this.usersService.GetByUsername<UsersListItemViewModel>(comment.CommentedUserUserName).Id;
-            var sanitizedCommentContent = this.htmlSanitizer.Sanitize(comment.Content);
+            var commentedUserId = this.usersService.GetByUsername<UsersListItemViewModel>(input.CommentedUserUserName).Id;
+            var sanitizedCommentContent = this.htmlSanitizer.Sanitize(input.Content);
 
             if (sanitizedCommentContent.Length < 5)
             {
                 return this.BadRequest();
             }
 
-            var commentDTO = new CreateCommentDTO
+            var comment = new CreateComment
             {
                 CommentatorId = commentatorId,
                 CommentedUserId = commentedUserId,
                 Content = sanitizedCommentContent,
             };
 
-            await this.commentsService.CreateAsync(commentDTO);
+            await this.commentsService.CreateAsync(comment);
 
             return this.Ok();
         }
