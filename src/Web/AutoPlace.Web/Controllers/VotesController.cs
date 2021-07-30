@@ -3,11 +3,12 @@
     using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
-
+    using AutoPlace.Data.Models;
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.Models.Votes;
     using AutoPlace.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
@@ -15,21 +16,22 @@
     public class VotesController : ControllerBase
     {
         private readonly IVotesService votesService;
-        private readonly IUsersService usersService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public VotesController(
             IVotesService votesService,
-            IUsersService usersService)
+            UserManager<ApplicationUser> userManager)
         {
             this.votesService = votesService;
-            this.usersService = usersService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
-        public IEnumerable<VotesViewModel> All(string username)
+        public async Task<IEnumerable<VotesViewModel>> All(string username)
         {
-            var forUserId = this.usersService.GetUserIdByUsername(username);
-            return this.votesService.GetAllByUserId<VotesViewModel>(forUserId);
+            var forUser = await this.userManager.FindByNameAsync(username);
+
+            return this.votesService.GetAllByUserId<VotesViewModel>(forUser.Id);
         }
 
         [Authorize]
@@ -37,11 +39,11 @@
         public async Task<IActionResult> Add([FromBody] CreateVoteInputModel input)
         {
             var voterId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var forUserId = this.usersService.GetUserIdByUsername(input.ForUserUserName);
+            var forUser = await this.userManager.FindByNameAsync(input.ForUserUserName);
 
             var vote = new CreateVote
             {
-                ForUserId = forUserId,
+                ForUserId = forUser.Id,
                 VoterId = voterId,
                 VoteValue = input.VoteValue,
             };

@@ -2,13 +2,14 @@
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
-
+    using AutoPlace.Data.Models;
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.Models.Messages;
     using AutoPlace.Web.ViewModels.Autoparts;
     using AutoPlace.Web.ViewModels.Message;
     using AutoPlace.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
@@ -16,16 +17,16 @@
     {
         private readonly IMessagesService messagesService;
         private readonly IAutopartsService autopartsService;
-        private readonly IUsersService usersService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public MessagesController(
             IMessagesService messagesService,
             IAutopartsService autopartsService,
-            IUsersService usersService)
+            UserManager<ApplicationUser> userManager)
         {
             this.messagesService = messagesService;
             this.autopartsService = autopartsService;
-            this.usersService = usersService;
+            this.userManager = userManager;
         }
 
         public IActionResult All()
@@ -69,7 +70,7 @@
             }
 
             var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var receiver = this.usersService.GetByUsername<UsersListItemViewModel>(input.ReceiverUsername);
+            var receiver = await this.userManager.FindByNameAsync(input.ReceiverUsername);
             var message = new CreateMessage
             {
                 Topic = input.Topic,

@@ -22,7 +22,6 @@
 
             // Register services
             services.AddScoped<IFavoritesService, FavoritesService>();
-            services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IEmailSender, NullMessageSender>();
             services.AddScoped<ITextService, TextService>();
 

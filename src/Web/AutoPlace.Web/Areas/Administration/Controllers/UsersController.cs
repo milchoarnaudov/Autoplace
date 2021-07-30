@@ -1,28 +1,32 @@
 ﻿namespace AutoPlace.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+
     using AutoPlace.Common;
-    using AutoPlace.Services.Data;
+    using AutoPlace.Data.Models;
+    using AutoPlace.Services.Mapping;
     using AutoPlace.Web.Controllers;
     using AutoPlace.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]
     public class UsersController : BaseController
     {
-        private readonly IUsersService usersService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public UsersController(
-            IUsersService usersService)
+            UserManager<ApplicationUser> userManager)
         {
-            this.usersService = usersService;
+            this.userManager = userManager;
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult All()
         {
-            var viewModels = this.usersService.GetAll<UsersListItemViewModel>();
+            var viewModels = this.userManager.Users.To<UsersListItemViewModel>().ToList();
             return this.View(viewModels);
         }
     }
