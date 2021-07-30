@@ -16,7 +16,7 @@
     {
         public VotesServiceTests()
         {
-            AutoMapperConfig.RegisterMappingsThreadSafe(typeof(VotesViewModel).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(VotesServiceTests).Assembly);
         }
 
         [Fact]
@@ -174,7 +174,7 @@
                 VoterId = "c",
             });
 
-            Assert.Equal(2, service.GetAllByUserId<VotesViewModel>("a").Count());
+            Assert.Equal(2, service.GetAllByUserId<VotesMockModel>("a").Count());
         }
 
         [Fact]
@@ -200,9 +200,16 @@
                 VoterId = "c",
             }).GetAwaiter();
 
-            var vote = service.GetVote<VotesViewModel>("a", "c");
+            var vote = service.GetVote<VotesMockModel>("a", "c");
 
             Assert.True(vote.VoteValue);
+        }
+
+        public class VotesMockModel : IMapFrom<Vote>
+        {
+            public int Id { get; set; }
+
+            public bool VoteValue { get; set; }
         }
     }
 }

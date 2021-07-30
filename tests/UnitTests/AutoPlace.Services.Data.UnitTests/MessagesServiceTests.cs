@@ -1,6 +1,5 @@
 ﻿namespace AutoPlace.Services.Data.UnitTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,8 +8,6 @@
     using AutoPlace.Data.Models;
     using AutoPlace.Services.Data.Models.Messages;
     using AutoPlace.Services.Mapping;
-    using AutoPlace.Web.ViewModels.Message;
-    using AutoPlace.Web.ViewModels.Votes;
     using Moq;
     using Xunit;
 
@@ -18,7 +15,7 @@
     {
         public MessagesServiceTests()
         {
-            AutoMapperConfig.RegisterMappingsThreadSafe(typeof(MessageListItemViewModel).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(MessagesServiceTests).Assembly);
         }
 
         [Fact]
@@ -189,7 +186,7 @@
                 Autopart = new Autopart(),
             });
 
-            var result = service.GetById<MessageListItemViewModel>(messageId);
+            var result = service.GetById<MessageMockModel>(messageId);
 
             Assert.Equal(1, result.Id);
         }
@@ -217,9 +214,14 @@
                 Autopart = new Autopart(),
             });
 
-            var result = service.GetById<MessageListItemViewModel>(nonExistingId);
+            var result = service.GetById<MessageMockModel>(nonExistingId);
 
             Assert.Null(result);
+        }
+
+        public class MessageMockModel : IMapFrom<Message>
+        {
+            public int Id { get; set; }
         }
     }
 }

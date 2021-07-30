@@ -14,8 +14,6 @@
 
         public static IMapper MapperInstance { get; set; }
 
-        private static readonly object lockObj = new ();
-
         public static void RegisterMappings(params Assembly[] assemblies)
         {
             if (initialized)
@@ -51,14 +49,6 @@
                     }
                 });
             MapperInstance = new Mapper(new MapperConfiguration(config));
-        }
-
-        public static void RegisterMappingsThreadSafe(params Assembly[] assemblies)
-        {
-            lock (lockObj)
-            {
-                RegisterMappings(assemblies);
-            }
         }
 
         private static IEnumerable<TypesMap> GetFromMaps(IEnumerable<Type> types)

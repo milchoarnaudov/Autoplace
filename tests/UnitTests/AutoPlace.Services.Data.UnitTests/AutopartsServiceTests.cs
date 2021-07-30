@@ -31,7 +31,7 @@
             this.autopartRepository = new Mock<IDeletableEntityRepository<Autopart>>();
             this.imageService = new Mock<IImageService>();
 
-            AutoMapperConfig.RegisterMappingsThreadSafe(typeof(AutopartMockViewModel).Assembly, typeof(Autopart).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(AutopartsServiceTests).Assembly);
         }
 
         [Fact]
@@ -541,7 +541,7 @@
                 this.autopartRepository.Object,
                 this.imageService.Object);
 
-            var result = service.GetById<AutopartMockViewModel>(autopart.Id);
+            var result = service.GetById<AutopartMockModel>(autopart.Id);
 
             Assert.Equal(autopart.Id, result?.Id);
             Assert.Equal(autopart.Name, result?.Name);
@@ -598,7 +598,7 @@
                 ModelId = 1,
             };
 
-            var result = service.GetAll<AutopartMockViewModel>(filters);
+            var result = service.GetAll<AutopartMockModel>(filters);
 
             Assert.Single(result);
             Assert.Equal(autopartToBeMatched.Id, result.FirstOrDefault()?.Id);
@@ -629,15 +629,16 @@
 
             var expectedResult = 5;
 
-            var result = service.GetAll<AutopartMockViewModel>(1, expectedResult);
+            var result = service.GetAll<AutopartMockModel>(1, expectedResult);
 
             Assert.Equal(expectedResult, result.Count());
         }
-    }
-    public class AutopartMockViewModel : IMapFrom<Autopart>
-    {
-        public int Id { get; set; }
 
-        public string Name { get; set; }
+        public class AutopartMockModel : IMapFrom<Autopart>
+        {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+        }
     }
 }
