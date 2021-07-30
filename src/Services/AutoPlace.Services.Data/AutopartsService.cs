@@ -57,7 +57,7 @@
                 && x.CarTypeId == autopart.CarTypeId
                 && x.MakeYear == autopart.MakeYear);
 
-            if (carEntity == null)
+            if (carEntity is null)
             {
                 carEntity = new Car
                 {
@@ -110,7 +110,7 @@
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
-            if (autopart == null)
+            if (autopart is null)
             {
                 return false;
             }
@@ -183,7 +183,7 @@
 
         public IEnumerable<T> GetAll<T>(SearchFilters searchFilters)
         {
-            if (searchFilters == null)
+            if (searchFilters is null)
             {
                 return new List<T>();
             }
