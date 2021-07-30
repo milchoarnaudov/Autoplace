@@ -53,10 +53,6 @@
             MapperInstance = new Mapper(new MapperConfiguration(config));
         }
 
-        /// <summary>
-        /// Slow but thread safe method used in rare cases when multiple mappings are required to be registered separately in async code.
-        /// </summary>
-        /// <param name="assemblies"></param>
         public static void RegisterMappingsThreadSafe(params Assembly[] assemblies)
         {
             lock (lockObj)

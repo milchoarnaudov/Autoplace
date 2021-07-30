@@ -7,7 +7,7 @@
 
     public interface IAutopartsService
     {
-        Task CreateAsync(CreateAutopart autopart, string userId, string imagePath);
+        Task<int> CreateAsync(CreateAutopart autopart, string userId, string imagePath);
 
         T GetById<T>(int id);
 

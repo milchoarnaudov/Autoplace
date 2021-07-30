@@ -27,8 +27,20 @@
             this.imageService = imageService;
         }
 
-        public async Task CreateAsync(CreateAutopart autopart, string userId, string imagePath)
+        public async Task<int> CreateAsync(CreateAutopart autopart, string userId, string imagePath)
         {
+            if (autopart is null ||
+                userId is null ||
+                autopart.Name is null ||
+                autopart.CarManufacturerId == default ||
+                autopart.ModelId == default ||
+                autopart.CarTypeId == default ||
+                autopart.CategoryId == default ||
+                autopart.ConditionId == default)
+            {
+                return default;
+            }
+
             var autopartEntity = new Autopart
             {
                 Name = autopart.Name,
@@ -57,39 +69,44 @@
 
             autopartEntity.Car = carEntity;
 
-            foreach (var image in autopart.Images)
+            if (autopart.Images is not null)
             {
-                var extension = this.imageService.GetExtension(image.FileName);
-
-                var dbImage = new Image
+                foreach (var image in autopart.Images)
                 {
-                    OwnerId = userId,
-                    Extension = extension,
-                };
+                    var extension = this.imageService.GetExtension(image.FileName);
 
-                autopartEntity.Images.Add(dbImage);
-                await this.imageService.Save(image, imagePath, dbImage.Id);
+                    var dbImage = new Image
+                    {
+                        OwnerId = userId,
+                        Extension = extension,
+                    };
+
+                    autopartEntity.Images.Add(dbImage);
+                    await this.imageService.Save(image, imagePath, dbImage.Id);
+                }
             }
 
             await this.autopartRepository.AddAsync(autopartEntity);
             await this.autopartRepository.SaveChangesAsync();
+
+            return autopartEntity.Id;
         }
 
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage) =>
-            this.autopartRepository.AllAsNoTracking()
+            this.autopartRepository.All()
                 .OrderByDescending(x => x.CreatedOn)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>();
 
         public T GetById<T>(int id) =>
-            this.autopartRepository.AllAsNoTracking()
+            this.autopartRepository.All()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
 
         public async Task<bool> DeleteByIdAsync(int id)
         {
-            var autopart = this.autopartRepository.AllAsNoTracking()
+            var autopart = this.autopartRepository.All()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
@@ -106,7 +123,7 @@
 
         public async Task<bool> EditAsync(EditAutopart autopart)
         {
-            if (autopart == null)
+            if (autopart is null || autopart.Name is null)
             {
                 return false;
             }
@@ -115,7 +132,7 @@
                 .Where(x => x.Id == autopart.Id)
                 .FirstOrDefault();
 
-            if (autopartEntity == null)
+            if (autopartEntity is null)
             {
                 return false;
             }
@@ -137,21 +154,26 @@
                 return false;
             }
 
-            var autopart = this.autopartRepository.AllAsNoTracking()
+            var autopart = this.autopartRepository.All()
                 .Where(x => x.Id == autopartId)
                 .FirstOrDefault();
 
-            if (autopart.OwnerId == userId)
+            if (autopart is null || autopart.OwnerId != userId)
             {
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
         }
 
         public async Task IncreaseViewsCountAsync(int id)
         {
             var autopart = this.autopartRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            if (autopart is null)
+            {
+                return;
+            }
 
             autopart.CountViews++;
 
@@ -166,7 +188,7 @@
                 return new List<T>();
             }
 
-            return this.autopartRepository.AllAsNoTracking()
+            return this.autopartRepository.All()
                 .Where(x => x.ConditionId == searchFilters.ConditionId
                 && x.CategoryId == searchFilters.CategoryId
                 && x.Car.ModelId == searchFilters.ModelId
