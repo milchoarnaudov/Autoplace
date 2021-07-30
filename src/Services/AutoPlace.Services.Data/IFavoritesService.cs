@@ -5,7 +5,7 @@
 
     public interface IFavoritesService
     {
-        Task AdFavoriteAsync(string userId, int autopartId);
+        Task<int> AddFavoriteAsync(string userId, int autopartId, bool toDeleteIfExists = true);
 
         IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId);
 

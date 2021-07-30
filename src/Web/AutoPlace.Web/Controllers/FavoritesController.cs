@@ -32,7 +32,7 @@
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            await this.favoritesService.AdFavoriteAsync(userId, autopart.Id);
+            await this.favoritesService.AddFavoriteAsync(userId, autopart.Id);
             return this.Ok();
         }
     }

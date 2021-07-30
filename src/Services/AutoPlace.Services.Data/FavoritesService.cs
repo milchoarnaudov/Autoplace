@@ -17,26 +17,38 @@
             this.favoritesRepository = favoritesRepository;
         }
 
-        public async Task AdFavoriteAsync(string userId, int autopartId)
+        public async Task<int> AddFavoriteAsync(string userId, int autopartId, bool toDeleteIfExists = true)
         {
-            var favoriteExistingEntity = this.favoritesRepository.AllAsNoTracking().Where(x => x.UserId == userId && x.AutopartId == autopartId).FirstOrDefault();
+            if (userId is null || autopartId == default)
+            {
+                return 0;
+            }
+
+            var favoriteExistingEntity = this.favoritesRepository.All()
+                .Where(x => x.UserId == userId && x.AutopartId == autopartId)
+                .FirstOrDefault();
 
             if (favoriteExistingEntity != null)
             {
-                this.favoritesRepository.HardDelete(favoriteExistingEntity);
-            }
-            else
-            {
-                var favoriteEntity = new Favorite
+                if (toDeleteIfExists)
                 {
-                    UserId = userId,
-                    AutopartId = autopartId,
-                };
+                    this.favoritesRepository.HardDelete(favoriteExistingEntity);
+                    await this.favoritesRepository.SaveChangesAsync();
+                }
 
-                await this.favoritesRepository.AddAsync(favoriteEntity);
+                return favoriteExistingEntity.Id;
             }
 
+            var favoriteEntity = new Favorite
+            {
+                UserId = userId,
+                AutopartId = autopartId,
+            };
+
+            await this.favoritesRepository.AddAsync(favoriteEntity);
             await this.favoritesRepository.SaveChangesAsync();
+
+            return favoriteEntity.Id;
         }
 
         public IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId) =>
@@ -45,6 +57,8 @@
                 .Select(x => x.Autopart)
                 .To<T>();
 
-        public bool CheckIfAutopartIsFavoriteForUser(string userId, int autopartId) => this.favoritesRepository.AllAsNoTracking().Any(x => x.UserId == userId && x.AutopartId == autopartId);
+        public bool CheckIfAutopartIsFavoriteForUser(string userId, int autopartId) =>
+            this.favoritesRepository.All()
+                .Any(x => x.UserId == userId && x.AutopartId == autopartId);
     }
 }
