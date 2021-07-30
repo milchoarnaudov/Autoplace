@@ -16,17 +16,29 @@
             this.contactFormRepository = contactFormRepository;
         }
 
-        public async Task CreateAsync(CreateContactForm contactForm)
+        public async Task<int> CreateAsync(CreateContactForm contactForm)
         {
-            await this.contactFormRepository.AddAsync(new ContactForm
+            if (contactForm is null ||
+                string.IsNullOrWhiteSpace(contactForm.FullName) ||
+                string.IsNullOrWhiteSpace(contactForm.Email) ||
+                string.IsNullOrWhiteSpace(contactForm.Message) ||
+                string.IsNullOrWhiteSpace(contactForm.Topic))
             {
-                 FullName = contactForm.Email,
-                 Email = contactForm.Email,
-                 Topic = contactForm.Topic,
-                 Message = contactForm.Message,
-            });
+                return 0;
+            }
 
+            var contactFormEntity = new ContactForm
+            {
+                FullName = contactForm.Email,
+                Email = contactForm.Email,
+                Topic = contactForm.Topic,
+                Message = contactForm.Message,
+            };
+
+            await this.contactFormRepository.AddAsync(contactFormEntity);
             await this.contactFormRepository.SaveChangesAsync();
+
+            return contactFormEntity.Id;
         }
     }
 }
