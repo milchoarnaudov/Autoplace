@@ -9,7 +9,7 @@
 
     using Microsoft.AspNetCore.Http;
 
-    public class ImageService : IImageService
+    public class FileSystemImageService : IImageService
     {
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
 

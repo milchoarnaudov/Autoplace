@@ -33,7 +33,7 @@
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IVotesService, VotesService>();
-            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IImageService, FileSystemImageService>();
             services.AddTransient<IAutopartsCharacteristicsService, AutopartsCharacteristicsService>();
 
             return services;

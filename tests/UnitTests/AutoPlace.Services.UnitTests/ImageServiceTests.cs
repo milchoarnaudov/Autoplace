@@ -9,7 +9,7 @@ namespace AutoPlace.Services.UnitTests
         [Fact]
         public async Task ImageSaveReturnTrueWhenHasAllowedExtension()
         {
-            var imageService = new ImageService();
+            var imageService = new FileSystemImageService();
             var mockImage = MockObjects.GetMockFile("test.png").Object;
 
             var result = await imageService.Save(mockImage, "/test/", "test");
@@ -20,7 +20,7 @@ namespace AutoPlace.Services.UnitTests
         [Fact]
         public async Task ImageSaveReturnFalseWhenHasNotAllowedExtension()
         {
-            var imageService = new ImageService();
+            var imageService = new FileSystemImageService();
             var mockImage = MockObjects.GetMockFile("test.json").Object;
 
             var result = await imageService.Save(mockImage, "/test/", "test");
@@ -31,7 +31,7 @@ namespace AutoPlace.Services.UnitTests
         [Fact]
         public void GetExtensionsMethodReturnsCorrectExtension()
         {
-            var imageService = new ImageService();
+            var imageService = new FileSystemImageService();
             var input = "test.png";
             var expectedResult = "png";
 
@@ -43,7 +43,7 @@ namespace AutoPlace.Services.UnitTests
         [Fact]
         public void GetExtensionsMethodReturnsCorrectExtensionWithComplexFileName()
         {
-            var imageService = new ImageService();
+            var imageService = new FileSystemImageService();
             var input = "test-test.test.json";
             var expectedResult = "json";
 
