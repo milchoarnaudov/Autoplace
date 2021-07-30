@@ -96,7 +96,8 @@
             this.autopartRepository.All()
                 .OrderByDescending(x => x.CreatedOn)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
-                .To<T>();
+                .To<T>()
+                .ToList();
 
         public T GetById<T>(int id) =>
             this.autopartRepository.All()
