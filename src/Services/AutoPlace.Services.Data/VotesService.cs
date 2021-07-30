@@ -18,42 +18,54 @@
             this.votesRepository = votesRepository;
         }
 
-        public async Task CreateAsync(CreateVote vote)
+        public async Task<int> CreateAsync(CreateVote vote)
         {
+            if (vote is null || vote.ForUserId == default || vote.VoterId == default)
+            {
+                return 0;
+            }
+
             var existingVote = this.votesRepository.All()
                 .Where(x => x.ForUserId == vote.ForUserId && x.VoterId == vote.VoterId)
                 .FirstOrDefault();
 
-            if (existingVote == null)
+            if (existingVote != null)
             {
-                var voteEntity = new Vote
+                if (existingVote.VoteValue == vote.VoteValue)
                 {
-                    ForUserId = vote.ForUserId,
-                    VoterId = vote.VoterId,
-                    VoteValue = vote.VoteValue,
-                };
+                    this.votesRepository.HardDelete(existingVote);
+                }
+                else if (existingVote.VoteValue != vote.VoteValue)
+                {
+                    existingVote.VoteValue = vote.VoteValue;
+                }
 
-                await this.votesRepository.AddAsync(voteEntity);
-            }
-            else if (existingVote.VoteValue == vote.VoteValue)
-            {
-                this.votesRepository.HardDelete(existingVote);
-            }
-            else if (existingVote.VoteValue != vote.VoteValue)
-            {
-                existingVote.VoteValue = vote.VoteValue;
+                await this.votesRepository.SaveChangesAsync();
+
+                return existingVote.Id;
             }
 
+            var voteEntity = new Vote
+            {
+                ForUserId = vote.ForUserId,
+                VoterId = vote.VoterId,
+                VoteValue = vote.VoteValue,
+            };
+
+            await this.votesRepository.AddAsync(voteEntity);
             await this.votesRepository.SaveChangesAsync();
+
+            return voteEntity.Id;
         }
 
         public IEnumerable<T> GetAllByUserId<T>(string id) =>
-            this.votesRepository.AllAsNoTracking()
+            this.votesRepository.All()
             .Where(x => x.ForUserId == id)
-            .To<T>();
+            .To<T>()
+            .ToList();
 
         public T GetVote<T>(string forUserId, string voterId) =>
-            this.votesRepository.AllAsNoTracking()
+            this.votesRepository.All()
             .Where(x => x.ForUserId == forUserId && x.VoterId == voterId)
             .To<T>()
             .FirstOrDefault();

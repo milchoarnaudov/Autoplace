@@ -145,13 +145,13 @@
         }
 
         [Fact]
-        public async Task GetAllByUsernameShouldHaveCountTwo()
+        public async Task GetAllByUsernameReturnsCorrectCount()
         {
             var list = new List<Vote>();
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -184,7 +184,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Vote>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
