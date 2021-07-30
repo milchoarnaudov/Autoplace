@@ -5,7 +5,6 @@
 
     using AutoPlace.Data.Common.Repositories;
     using AutoPlace.Data.Models;
-    using AutoPlace.Services.Data.Models.AutopartCharacteristics;
 
     public class AutopartsCharacteristicsService : IAutopartsCharacteristicsService
     {

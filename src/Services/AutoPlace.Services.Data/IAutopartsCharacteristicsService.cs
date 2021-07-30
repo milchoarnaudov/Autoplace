@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using AutoPlace.Services.Data.Models.AutopartCharacteristics;
-
     public interface IAutopartsCharacteristicsService
     {
         IEnumerable<KeyValuePair<int, string>> GetAllCategoriesAsKeyValuePairs();
