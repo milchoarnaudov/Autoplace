@@ -4,10 +4,10 @@
 
     public interface ICarsService
     {
-        IEnumerable<KeyValuePair<string, string>> GetAllCarModelsAsKeyValuePairsById(int id);
+        IEnumerable<KeyValuePair<int, string>> GetAllModelsAsKeyValuePairsById(int id);
 
-        IEnumerable<KeyValuePair<string, string>> GetAllCarTypesAsKeyValuePairs();
+        IEnumerable<KeyValuePair<int, string>> GetAllTypesAsKeyValuePairs();
 
-        IEnumerable<KeyValuePair<string, string>> GetAllCarManufacturersAsKeyValuePairs();
+        IEnumerable<KeyValuePair<int, string>> GetAllManufacturersAsKeyValuePairs();
     }
 }

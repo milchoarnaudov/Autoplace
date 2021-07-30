@@ -29,10 +29,10 @@
         {
             var viewModel = new SearchFiltersInputModel
             {
-                CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
-                CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
-                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
+                CarManufacturers = this.carsService.GetAllManufacturersAsKeyValuePairs(),
+                CarTypes = this.carsService.GetAllTypesAsKeyValuePairs(),
+                Categories = this.autopartsCharacteristicsService.GetAllCategoriesAsKeyValuePairs(),
+                Conditions = this.autopartsCharacteristicsService.GetAllConditionsAsKeyValuePairs(),
             };
 
             return this.View(viewModel);

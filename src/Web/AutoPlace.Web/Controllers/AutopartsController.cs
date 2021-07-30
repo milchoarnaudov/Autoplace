@@ -40,10 +40,10 @@
         {
             var viewModel = new CreateAutopartInputModel
             {
-                CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs(),
-                CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs(),
-                Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
-                Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value)),
+                CarManufacturers = this.carsService.GetAllManufacturersAsKeyValuePairs(),
+                CarTypes = this.carsService.GetAllTypesAsKeyValuePairs(),
+                Categories = this.autopartsCharacteristicsService.GetAllCategoriesAsKeyValuePairs(),
+                Conditions = this.autopartsCharacteristicsService.GetAllConditionsAsKeyValuePairs(),
             };
 
             return this.View(viewModel);
@@ -54,10 +54,10 @@
         {
             if (!this.ModelState.IsValid)
             {
-                input.CarManufacturers = this.carsService.GetAllCarManufacturersAsKeyValuePairs();
-                input.CarTypes = this.carsService.GetAllCarTypesAsKeyValuePairs();
-                input.Categories = this.autopartsCharacteristicsService.GetAllAutopartCategories().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value));
-                input.Conditions = this.autopartsCharacteristicsService.GetAllAutopartConditions().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Value));
+                input.CarManufacturers = this.carsService.GetAllManufacturersAsKeyValuePairs();
+                input.CarTypes = this.carsService.GetAllTypesAsKeyValuePairs();
+                input.Categories = this.autopartsCharacteristicsService.GetAllCategoriesAsKeyValuePairs();
+                input.Conditions = this.autopartsCharacteristicsService.GetAllConditionsAsKeyValuePairs();
 
                 return this.View(input);
             }
@@ -86,7 +86,7 @@
         [AllowAnonymous]
         public IActionResult GetModelsById(int id)
         {
-            var modelsById = this.carsService.GetAllCarModelsAsKeyValuePairsById(id);
+            var modelsById = this.carsService.GetAllModelsAsKeyValuePairsById(id);
 
             return this.Json(modelsById);
         }

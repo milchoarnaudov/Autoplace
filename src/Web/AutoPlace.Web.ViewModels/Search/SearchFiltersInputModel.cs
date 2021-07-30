@@ -31,12 +31,12 @@
         [Range(0, 2020)]
         public int? CarMakeYear { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> CarManufacturers { get; set; }
+        public IEnumerable<KeyValuePair<int, string>> CarManufacturers { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> CarTypes { get; set; }
+        public IEnumerable<KeyValuePair<int, string>> CarTypes { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> Conditions { get; set; }
+        public IEnumerable<KeyValuePair<int, string>> Conditions { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> Categories { get; set; }
+        public IEnumerable<KeyValuePair<int, string>> Categories { get; set; }
     }
 }

@@ -54,7 +54,7 @@
             };
 
             this.carModelsMockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(carModelsList.AsQueryable());
 
             var service = new CarsService(
@@ -62,7 +62,7 @@
                 this.carManufacturersMockRepository.Object, 
                 this.carTypesMockRepository.Object);
 
-            Assert.Equal(2, service.GetAllCarModelsAsKeyValuePairsById(1).Count());
+            Assert.Equal(2, service.GetAllModelsAsKeyValuePairsById(1).Count());
         }
 
         [Fact]
@@ -87,7 +87,7 @@
                 this.carManufacturersMockRepository.Object, 
                 this.carTypesMockRepository.Object);
 
-            Assert.Empty(service.GetAllCarModelsAsKeyValuePairsById(69));
+            Assert.Empty(service.GetAllModelsAsKeyValuePairsById(69));
         }
 
         [Fact]
@@ -106,15 +106,15 @@
             }
 
             this.carManufacturersMockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(carManufacturersList.AsQueryable());
 
             var service = new CarsService(
-                this.carModelsMockRepository.Object, 
-                this.carManufacturersMockRepository.Object, 
+                this.carModelsMockRepository.Object,
+                this.carManufacturersMockRepository.Object,
                 this.carTypesMockRepository.Object);
 
-            Assert.Equal(carManufacturersCount, service.GetAllCarManufacturersAsKeyValuePairs().Count());
+            Assert.Equal(carManufacturersCount, service.GetAllManufacturersAsKeyValuePairs().Count());
         }
 
         [Fact]
@@ -131,7 +131,7 @@
                 this.carManufacturersMockRepository.Object,
                 this.carTypesMockRepository.Object);
 
-            Assert.Empty(service.GetAllCarManufacturersAsKeyValuePairs());
+            Assert.Empty(service.GetAllManufacturersAsKeyValuePairs());
         }
 
         [Fact]
@@ -148,10 +148,10 @@
                     Id = i,
                     Name = "test",
                 });
-            };
+            }
 
             this.carTypesMockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(carTypesList.AsQueryable());
 
             var service = new CarsService(
@@ -159,7 +159,7 @@
                 this.carManufacturersMockRepository.Object,
                 this.carTypesMockRepository.Object);
 
-            Assert.Equal(6, service.GetAllCarTypesAsKeyValuePairs().Count());
+            Assert.Equal(6, service.GetAllTypesAsKeyValuePairs().Count());
         }
 
         [Fact]
@@ -176,7 +176,7 @@
                 this.carManufacturersMockRepository.Object,
                 this.carTypesMockRepository.Object);
 
-            Assert.Empty(service.GetAllCarTypesAsKeyValuePairs());
+            Assert.Empty(service.GetAllTypesAsKeyValuePairs());
         }
     }
 }

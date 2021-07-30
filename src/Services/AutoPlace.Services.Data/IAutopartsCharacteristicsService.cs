@@ -6,8 +6,8 @@
 
     public interface IAutopartsCharacteristicsService
     {
-        IEnumerable<AutopartCharacteristic> GetAllAutopartCategories();
+        IEnumerable<KeyValuePair<int, string>> GetAllCategoriesAsKeyValuePairs();
 
-        IEnumerable<AutopartCharacteristic> GetAllAutopartConditions();
+        IEnumerable<KeyValuePair<int, string>> GetAllConditionsAsKeyValuePairs();
     }
 }

@@ -20,18 +20,14 @@
             this.conditionsRepository = conditionsRepository;
         }
 
-        public IEnumerable<AutopartCharacteristic> GetAllAutopartCategories() => this.categoriesRepository.AllAsNoTracking()
-                .Select(x => new AutopartCharacteristic
-                {
-                    Id = x.Id,
-                    Value = x.Name,
-                });
+        public IEnumerable<KeyValuePair<int, string>> GetAllCategoriesAsKeyValuePairs() =>
+                this.categoriesRepository.All()
+                    .Select(x => new KeyValuePair<int, string>(x.Id, x.Name))
+                    .ToList();
 
-        public IEnumerable<AutopartCharacteristic> GetAllAutopartConditions() => this.conditionsRepository.AllAsNoTracking()
-                .Select(x => new AutopartCharacteristic
-                {
-                    Id = x.Id,
-                    Value = x.Name,
-                });
+        public IEnumerable<KeyValuePair<int, string>> GetAllConditionsAsKeyValuePairs() =>
+                this.conditionsRepository.All()
+                    .Select(x => new KeyValuePair<int, string>(x.Id, x.Name))
+                    .ToList();
     }
 }

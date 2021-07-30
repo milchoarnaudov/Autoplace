@@ -48,12 +48,12 @@
                 },
             };
 
-            this.categoriesRepository.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
+            this.categoriesRepository.Setup(x => x.All()).Returns(list.AsQueryable());
             var service = new AutopartsCharacteristicsService(
                this.categoriesRepository.Object,
                this.conditionsRepository.Object);
 
-            Assert.Equal(2, service.GetAllAutopartCategories().Count());
+            Assert.Equal(2, service.GetAllCategoriesAsKeyValuePairs().Count());
         }
 
         [Fact]
@@ -74,14 +74,14 @@
             };
 
             this.conditionsRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             var service = new AutopartsCharacteristicsService(
                this.categoriesRepository.Object,
                this.conditionsRepository.Object);
 
-            Assert.Equal(2, service.GetAllAutopartConditions().Count());
+            Assert.Equal(2, service.GetAllConditionsAsKeyValuePairs().Count());
         }
 
         [Fact]
@@ -106,17 +106,17 @@
             };
 
             this.conditionsRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             var service = new AutopartsCharacteristicsService(
                this.categoriesRepository.Object,
                this.conditionsRepository.Object);
 
-            var result = service.GetAllAutopartConditions().ToList();
+            var result = service.GetAllConditionsAsKeyValuePairs().ToList();
 
-            Assert.Equal(autopartCondition1.Id, result[0].Id);
-            Assert.Equal(autopartCondition2.Id, result[1].Id);
+            Assert.Equal(autopartCondition1.Id, result[0].Key);
+            Assert.Equal(autopartCondition2.Id, result[1].Key);
 
             Assert.Equal(autopartCondition1.Name, result[0].Value);
             Assert.Equal(autopartCondition2.Name, result[1].Value);
@@ -150,10 +150,10 @@
                this.categoriesRepository.Object,
                this.conditionsRepository.Object);
 
-            var result = service.GetAllAutopartConditions().ToList();
+            var result = service.GetAllConditionsAsKeyValuePairs().ToList();
 
-            Assert.Equal(autopartCategory1.Id, result[0].Id);
-            Assert.Equal(autopartCategory2.Id, result[1].Id);
+            Assert.Equal(autopartCategory1.Id, result[0].Key);
+            Assert.Equal(autopartCategory2.Id, result[1].Key);
 
             Assert.Equal(autopartCategory1.Name, result[0].Value);
             Assert.Equal(autopartCategory2.Name, result[1].Value);
