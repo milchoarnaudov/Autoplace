@@ -19,7 +19,7 @@
         }
 
         [Fact]
-        public async Task MessageContentShouldBeCorrect()
+        public async Task MessageIsSavedOnCorrectInput()
         {
             var list = new List<Message>();
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
@@ -39,9 +39,50 @@
                 ReceiverId = "a",
                 SenderId = "b",
                 Content = "test",
+                Topic = "test",
+                AutopartId = 1,
             });
 
             Assert.Equal("test", list.FirstOrDefault(x => x.ReceiverId == "a" && x.SenderId == "b")?.Content);
+        }
+
+        [Fact]
+        public async Task MessageIsNotSavedOnIncorrectInput()
+        {
+            var list = new List<Message>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
+
+            mockRepository
+                .Setup(x => x.All())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Message>()))
+                .Callback((Message message) => list.Add(message));
+
+            var service = new MessagesService(mockRepository.Object);
+
+            await service.CreateAsync(new CreateMessage
+            {
+                ReceiverId = default,
+                SenderId = default,
+                Content = "   ",
+                AutopartId = default,
+                Topic = "   ",
+            });
+
+            await service.CreateAsync(null);
+
+            await service.CreateAsync(new CreateMessage
+            {
+                ReceiverId = "test",
+                SenderId = "test",
+                Content = "test",
+                Topic = "test",
+                AutopartId = 1,
+            });
+
+            Assert.Single(list);
         }
 
         [Fact]
@@ -67,6 +108,8 @@
                     ReceiverId = $"Receiver {i}",
                     SenderId = $"Sender {i}",
                     Content = "test",
+                    AutopartId = 1,
+                    Topic = "test",
                 });
             }
 
@@ -96,7 +139,6 @@
             {
                 list.Add(new Message { Id = i });
             }
-
 
             for (int i = 0; i < countOfDeletedMessages; i++)
             {
@@ -192,7 +234,7 @@
         }
 
         [Fact]
-        public void GetByIdReturnsNull()
+        public void GetByIdReturnsNullOnNonExistingMessage()
         {
             var list = new List<Message>();
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();

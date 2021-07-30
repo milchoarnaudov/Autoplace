@@ -7,11 +7,11 @@
 
     public interface IMessagesService
     {
+        Task<int> CreateAsync(CreateMessage message);
+
         IEnumerable<T> GetAllForUser<T>(string userId);
 
         IEnumerable<T> GetAllByUser<T>(string userId);
-
-        Task CreateAsync(CreateMessage message);
 
         T GetById<T>(int id);
 
