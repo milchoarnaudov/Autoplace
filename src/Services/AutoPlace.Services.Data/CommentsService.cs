@@ -15,8 +15,16 @@
             this.commentRepository = commentRepository;
         }
 
-        public async Task CreateAsync(CreateComment comment)
+        public async Task<int> CreateAsync(CreateComment comment)
         {
+            if (comment is null ||
+                comment.CommentatorId is null ||
+                comment.CommentedUserId is null ||
+                comment.Content is null)
+            {
+                return 0;
+            }
+
             var commentEntity = new Comment
             {
                 CommentatorId = comment.CommentatorId,
@@ -26,6 +34,8 @@
 
             await this.commentRepository.AddAsync(commentEntity);
             await this.commentRepository.SaveChangesAsync();
+
+            return commentEntity.Id;
         }
     }
 }

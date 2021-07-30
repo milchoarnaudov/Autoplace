@@ -32,17 +32,45 @@
             {
                 CommentatorId = "a",
                 CommentedUserId = "b",
-                Content = "testtest",
+                Content = "Test",
             });
 
             await service.CreateAsync(new CreateComment
             {
                 CommentatorId = "c",
                 CommentedUserId = "d",
-                Content = "testtest",
+                Content = "Test",
             });
 
-            Assert.Equal(2, list.Count());
+            Assert.Equal(2, list.Count);
+        }
+
+        [Fact]
+        public async Task CommentsAreNotSavedOnIncorrectInput()
+        {
+            var list = new List<Comment>();
+            var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
+
+            mockRepository
+                .Setup(x => x.AllAsNoTracking())
+                .Returns(list.AsQueryable());
+
+            mockRepository
+                .Setup(x => x.AddAsync(It.IsAny<Comment>()))
+                .Callback((Comment favorite) => list.Add(favorite));
+
+            var service = new CommentsService(mockRepository.Object);
+
+            await service.CreateAsync(null);
+
+            await service.CreateAsync(new CreateComment
+            {
+                CommentatorId = null,
+                CommentedUserId = null,
+                Content = null,
+            });
+
+            Assert.Empty(list);
         }
 
         [Fact]
@@ -69,7 +97,7 @@
                 {
                     CommentatorId = "a",
                     CommentedUserId = "a",
-                    Content = "testtest",
+                    Content = "Test",
                 });
             }
 
@@ -99,7 +127,7 @@
                 {
                     CommentatorId = "a",
                     CommentedUserId = $"{i}",
-                    Content = "testtest",
+                    Content = "Test",
                 });
             }
 
@@ -130,7 +158,7 @@
                 {
                     CommentatorId = $"{i}",
                     CommentedUserId = "a",
-                    Content = "testtest",
+                    Content = "Test",
                 });
             }
 
