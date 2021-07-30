@@ -3,9 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using AutoPlace.Services.Common;
-
-    public interface IEmailSender : ITransientService
+    public interface IEmailSender
     {
         Task SendEmailAsync(
             string from,

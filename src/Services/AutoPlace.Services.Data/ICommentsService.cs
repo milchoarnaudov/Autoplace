@@ -2,10 +2,9 @@
 {
     using System.Threading.Tasks;
 
-    using AutoPlace.Services.Common;
     using AutoPlace.Services.Data.Models.Comments;
 
-    public interface ICommentsService : ITransientService
+    public interface ICommentsService
     {
         Task CreateAsync(CreateComment comment);
     }

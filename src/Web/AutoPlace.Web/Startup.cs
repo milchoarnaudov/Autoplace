@@ -9,7 +9,6 @@
     using AutoPlace.Data.Repositories;
     using AutoPlace.Data.Seeding;
     using AutoPlace.Services;
-    using AutoPlace.Services.Common;
     using AutoPlace.Services.Data;
     using AutoPlace.Services.Data.Administration;
     using AutoPlace.Services.Mapping;
@@ -60,17 +59,10 @@
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddConventionalServices(typeof(IAutopartsService).Assembly, typeof(ITextService).Assembly);
+            services.AddAppServices();
 
             services.AddSingleton(this.configuration);
             services.AddSingleton<IHtmlSanitizer>(_ => new HtmlSanitizer());
-
-            services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-            services.AddScoped<IEmailSender, NullMessageSender>();
-
-            services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

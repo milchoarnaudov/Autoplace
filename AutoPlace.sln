@@ -47,8 +47,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{CA11C9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPlace.Tests.Utils", "tests\Common\AutoPlace.Tests.Utils\AutoPlace.Tests.Utils.csproj", "{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPlace.Services.Common", "src\Services\AutoPlace.Services.Common\AutoPlace.Services.Common.csproj", "{64272EE1-431F-424D-8D33-36C29E60DC2F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,10 +109,6 @@ Global
 		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64272EE1-431F-424D-8D33-36C29E60DC2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64272EE1-431F-424D-8D33-36C29E60DC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64272EE1-431F-424D-8D33-36C29E60DC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64272EE1-431F-424D-8D33-36C29E60DC2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,7 +134,6 @@ Global
 		{142A5E04-F613-475B-A77D-95E6CC6DDB1B} = {9DF9E388-EEC9-4430-ADE7-A24AB69C9373}
 		{CA11C973-CDA3-4487-9C9A-4A5DC78ED81D} = {AB838A6B-F4D0-49B6-8E72-9F0356D00AAE}
 		{AF989C3E-8B6A-4F2E-B820-2F2CEDCC6B5F} = {CA11C973-CDA3-4487-9C9A-4A5DC78ED81D}
-		{64272EE1-431F-424D-8D33-36C29E60DC2F} = {DF003127-50C1-45B3-B69D-D4DB73F1060E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9254AD7B-3FE7-40BF-B928-D7512D5902FE}

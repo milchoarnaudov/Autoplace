@@ -1,8 +1,6 @@
 ﻿namespace AutoPlace.Services
 {
-    using AutoPlace.Services.Common;
-
-    public interface ITextService : ISingletonService
+    public interface ITextService
     {
         string ShortenText(string text, int maxLength);
     }

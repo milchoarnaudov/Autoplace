@@ -1,48 +1,40 @@
 ﻿namespace AutoPlace.Web.Infrastructure
 {
-    using System.Linq;
-    using System.Reflection;
-
-    using AutoPlace.Services.Common;
+    using AutoPlace.Data;
+    using AutoPlace.Data.Common;
+    using AutoPlace.Data.Common.Repositories;
+    using AutoPlace.Data.Repositories;
+    using AutoPlace.Services;
+    using AutoPlace.Services.Data;
+    using AutoPlace.Services.Data.Administration;
+    using AutoPlace.Services.Messaging;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddConventionalServices(
-            this IServiceCollection services,
-            params Assembly[] assemblies)
+        public static IServiceCollection AddAppServices(
+            this IServiceCollection services)
         {
-            var singletonServiceInterfaceType = typeof(ISingletonService);
-            var scopedServiceInterfaceType = typeof(IScopedService);
-            var transientServiceInterfaceType = typeof(ITransientService);
+            // Register repositories
+            services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
-            foreach (var assembly in assemblies)
-            {
-                var types = assembly.GetExportedTypes()
-               .Where(t => t.IsClass && !t.IsAbstract)
-               .Select(t => new
-               {
-                   Service = t.GetInterface($"I{t.Name}"),
-                   Implementation = t,
-               })
-               .Where(t => t.Service != null);
+            // Register services
+            services.AddScoped<IFavoritesService, FavoritesService>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IEmailSender, NullMessageSender>();
+            services.AddScoped<ITextService, TextService>();
 
-                foreach (var type in types)
-                {
-                    if (transientServiceInterfaceType.IsAssignableFrom(type.Service))
-                    {
-                        services.AddTransient(type.Service, type.Implementation);
-                    }
-                    else if (scopedServiceInterfaceType.IsAssignableFrom(type.Service))
-                    {
-                        services.AddScoped(type.Service, type.Implementation);
-                    }
-                    else if (singletonServiceInterfaceType.IsAssignableFrom(type.Service))
-                    {
-                        services.AddSingleton(type.Service, type.Implementation);
-                    }
-                }
-            }
+            services.AddTransient<IAutopartsService, AutopartsService>();
+            services.AddTransient<ICarsService, CarsService>();
+            services.AddTransient<IContactFormsService, ContactFormsService>();
+            services.AddTransient(typeof(IItemsService<>), typeof(ItemsService<>));
+            services.AddTransient<IMessagesService, MessagesService>();
+            services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IVotesService, VotesService>();
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IAutopartsCharacteristicsService, AutopartsCharacteristicsService>();
 
             return services;
         }

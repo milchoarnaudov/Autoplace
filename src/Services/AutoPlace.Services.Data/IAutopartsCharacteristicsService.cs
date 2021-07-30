@@ -2,10 +2,9 @@
 {
     using System.Collections.Generic;
 
-    using AutoPlace.Services.Common;
     using AutoPlace.Services.Data.Models.AutopartCharacteristics;
 
-    public interface IAutopartsCharacteristicsService : ITransientService
+    public interface IAutopartsCharacteristicsService
     {
         IEnumerable<AutopartCharacteristic> GetAllAutopartCategories();
 

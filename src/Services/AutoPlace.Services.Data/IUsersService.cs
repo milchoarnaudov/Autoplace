@@ -2,9 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using AutoPlace.Services.Common;
-
-    public interface IUsersService : ITransientService
+    public interface IUsersService
     {
         T GetById<T>(string id);
 

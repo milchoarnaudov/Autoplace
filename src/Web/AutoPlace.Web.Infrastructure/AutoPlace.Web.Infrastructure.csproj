@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Services\AutoPlace.Services.Common\AutoPlace.Services.Common.csproj" />
+    <ProjectReference Include="..\..\Data\AutoPlace.Data\AutoPlace.Data.csproj" />
+    <ProjectReference Include="..\..\Services\AutoPlace.Services.Data\AutoPlace.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\AutoPlace.Services.Messaging\AutoPlace.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>
