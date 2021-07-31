@@ -44,14 +44,14 @@
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] ItemInputModel item)
         {
-            var isSuccessful = await this.autopartConditionService.Add(this.htmlSanitizer.Sanitize(item.Name));
+            var conditionId = await this.autopartConditionService.Create(this.htmlSanitizer.Sanitize(item.Name));
 
-            if (isSuccessful)
+            if (conditionId == default)
             {
-                return this.Ok();
+                return this.BadRequest();
             }
 
-            return this.BadRequest();
+            return this.Ok();
         }
     }
 }

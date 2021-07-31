@@ -17,36 +17,43 @@
             this.itemsRepository = itemsRepository;
         }
 
-        public async Task<bool> Add(string name)
+        public async Task<int> Create(string name)
         {
-            var category = this.itemsRepository.All().Where(x => x.Name == name).FirstOrDefault();
-
-            if (category != null)
+            if (string.IsNullOrWhiteSpace(name))
             {
-                return false;
+                return default;
             }
 
-            category = new TEntity
+            var itemEntity = this.itemsRepository.All()
+                .Where(x => x.Name == name)
+                .FirstOrDefault();
+
+            if (itemEntity != null)
+            {
+                return default;
+            }
+
+            itemEntity = new TEntity
             {
                 Name = name,
             };
 
-            await this.itemsRepository.AddAsync(category);
+            await this.itemsRepository.AddAsync(itemEntity);
             await this.itemsRepository.SaveChangesAsync();
 
-            return true;
+            return itemEntity.Id;
         }
 
-        public IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs()
-        {
-            return this.itemsRepository.All().Select(x => new KeyValuePair<int, string>(x.Id, x.Name)).ToList();
-        }
+        public IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs() => 
+            this.itemsRepository.All()
+                .Select(x => new KeyValuePair<int, string>(x.Id, x.Name))
+                .ToList();
 
         public async Task<bool> Delete(int id)
         {
             var category = this.itemsRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
-            if (category == null)
+            if (category is null)
             {
                 return false;
             }

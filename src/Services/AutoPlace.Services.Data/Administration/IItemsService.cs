@@ -8,10 +8,10 @@
     public interface IItemsService<TEntity>
         where TEntity : class, IDeletableEntity, IItemEntity, new()
     {
+        Task<int> Create(string name);
+
         IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs();
 
         Task<bool> Delete(int id);
-
-        Task<bool> Add(string name);
     }
 }

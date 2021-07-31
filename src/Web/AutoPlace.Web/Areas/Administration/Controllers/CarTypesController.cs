@@ -44,14 +44,14 @@
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] ItemInputModel item)
         {
-            var isSuccessful = await this.carTypesService.Add(this.htmlSanitizer.Sanitize(item.Name));
+            var typeId = await this.carTypesService.Create(this.htmlSanitizer.Sanitize(item.Name));
 
-            if (isSuccessful)
+            if (typeId == default)
             {
-                return this.Ok();
+                return this.BadRequest();
             }
 
-            return this.BadRequest();
+            return this.Ok();
         }
     }
 }
