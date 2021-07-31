@@ -79,7 +79,7 @@
             };
 
             this.carModelsMockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(carModelsList.AsQueryable());
 
             var service = new CarsService(
@@ -123,7 +123,7 @@
             var carManufacturersList = new List<CarManufacturer>();
 
             this.carManufacturersMockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(carManufacturersList.AsQueryable());
 
             var service = new CarsService(
@@ -168,7 +168,7 @@
             var carTypesList = new List<CarType>();
 
             this.carTypesMockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(carTypesList.AsQueryable());
 
             var service = new CarsService(

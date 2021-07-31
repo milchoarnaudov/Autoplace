@@ -47,26 +47,26 @@
         }
 
         public IEnumerable<T> GetAllByUser<T>(string userId) =>
-            this.messagesRepository.AllAsNoTracking()
+            this.messagesRepository.All()
                 .Where(x => x.SenderId == userId)
                 .To<T>()
                 .ToList();
 
         public IEnumerable<T> GetAllForUser<T>(string userId) =>
-            this.messagesRepository.AllAsNoTracking()
+            this.messagesRepository.All()
                 .Where(x => x.ReceiverId == userId)
                 .OrderByDescending(x => x.CreatedOn)
                 .To<T>()
                 .ToList();
 
         public T GetById<T>(int id) =>
-            this.messagesRepository.AllAsNoTracking()
+            this.messagesRepository.All()
                 .Where(x => x.Id == id).To<T>()
                 .FirstOrDefault();
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var message = this.messagesRepository.AllAsNoTracking()
+            var message = this.messagesRepository.All()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 

@@ -123,7 +123,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -155,7 +155,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -184,7 +184,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -213,7 +213,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             var service = new MessagesService(mockRepository.Object);
@@ -240,7 +240,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Message>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             var service = new MessagesService(mockRepository.Object);

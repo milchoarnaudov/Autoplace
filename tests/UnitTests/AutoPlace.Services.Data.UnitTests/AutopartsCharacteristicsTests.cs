@@ -143,7 +143,7 @@
             };
 
             this.categoriesRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             var service = new AutopartsCharacteristicsService(

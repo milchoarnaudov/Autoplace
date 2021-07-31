@@ -19,7 +19,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -52,7 +52,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -80,7 +80,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -111,7 +111,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository
@@ -141,7 +141,7 @@
             var mockRepository = new Mock<IDeletableEntityRepository<Comment>>();
 
             mockRepository
-                .Setup(x => x.AllAsNoTracking())
+                .Setup(x => x.All())
                 .Returns(list.AsQueryable());
 
             mockRepository

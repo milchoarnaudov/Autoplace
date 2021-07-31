@@ -52,10 +52,11 @@
         }
 
         public IEnumerable<T> GetAllFavoritesAutopartByUserId<T>(string userId) =>
-            this.favoritesRepository.AllAsNoTracking()
+            this.favoritesRepository.All()
                 .Where(x => x.UserId == userId)
                 .Select(x => x.Autopart)
-                .To<T>();
+                .To<T>()
+                .ToList();
 
         public bool CheckIfAutopartIsFavoriteForUser(string userId, int autopartId) =>
             this.favoritesRepository.All()
