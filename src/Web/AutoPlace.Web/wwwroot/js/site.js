@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function getCarModelsOnChange() {
+    let carManufacturer = document.getElementById('CarManufacturerId');
+    let carModel = document.getElementById('ModelId');
 
-// Write your JavaScript code.
+    function fetchData(target) {
+        carModel.innerHTML = "";
+        fetch(`/autoparts/getModelsById?Id=${target}`)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                Array.prototype.forEach.call(data, function (item, i) {
+                    carModel.innerHTML += `<option value="${item.key}">${item.value}</option>`
+                });
+            });
+    }
+
+    fetchData(carManufacturer.value);
+
+    carManufacturer.addEventListener('change', (e) => {
+        fetchData(e.target.value);
+    });
+}
