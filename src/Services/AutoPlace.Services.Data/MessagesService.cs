@@ -28,7 +28,7 @@
                 message.ReceiverId == default ||
                 message.SenderId == default)
             {
-                return 0;
+                return default;
             }
 
             var messageEntity = new Message

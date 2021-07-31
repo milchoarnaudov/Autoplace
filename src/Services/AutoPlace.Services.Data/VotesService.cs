@@ -22,7 +22,7 @@
         {
             if (vote is null || vote.ForUserId == default || vote.VoterId == default)
             {
-                return 0;
+                return default;
             }
 
             var existingVote = this.votesRepository.All()

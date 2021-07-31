@@ -21,7 +21,7 @@
         {
             if (userId is null || autopartId == default)
             {
-                return 0;
+                return default;
             }
 
             var favoriteExistingEntity = this.favoritesRepository.All()

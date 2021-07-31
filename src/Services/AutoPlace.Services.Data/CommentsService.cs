@@ -22,7 +22,7 @@
                 comment.CommentedUserId is null ||
                 comment.Content is null)
             {
-                return 0;
+                return default;
             }
 
             var commentEntity = new Comment

@@ -24,7 +24,7 @@
                 string.IsNullOrWhiteSpace(contactForm.Message) ||
                 string.IsNullOrWhiteSpace(contactForm.Topic))
             {
-                return 0;
+                return default;
             }
 
             var contactFormEntity = new ContactForm
