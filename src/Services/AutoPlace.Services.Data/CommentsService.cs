@@ -20,7 +20,7 @@
             if (comment is null ||
                 comment.CommentatorId is null ||
                 comment.CommentedUserId is null ||
-                comment.Content is null)
+                string.IsNullOrWhiteSpace(comment.Content))
             {
                 return default;
             }

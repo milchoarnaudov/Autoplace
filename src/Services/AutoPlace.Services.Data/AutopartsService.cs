@@ -31,7 +31,7 @@
         {
             if (autopart is null ||
                 userId is null ||
-                autopart.Name is null ||
+                string.IsNullOrWhiteSpace(autopart.Name) ||
                 autopart.CarManufacturerId == default ||
                 autopart.ModelId == default ||
                 autopart.CarTypeId == default ||
