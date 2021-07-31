@@ -8,19 +8,19 @@ namespace AutoPlace.Services.Tests
     public class TextServiceTests
     {
         [Fact]
-        public void ShortenTextShouldWorkCorrectlyWithDefaultMaxLength()
+        public void WhenTextLengthIsLessThanDefaultLengthTextIsNotShorten()
         {
             var textService = new TextService();
 
-            var text = new String(Enumerable.Repeat('D', 55).ToArray());
+            var text = new string(Enumerable.Repeat('D', GlobalConstants.ShortenTextDefaultLength - 1).ToArray());
             var shortenText = textService.ShortenText(text, GlobalConstants.ShortenTextDefaultLength);
-            var expectedResult = $"{new string(Enumerable.Repeat('D', GlobalConstants.ShortenTextDefaultLength).ToArray())}...";
+            var expectedResult = text;
 
             Assert.Equal(expectedResult, shortenText);
         }
 
         [Fact]
-        public void ShortenTextShouldWorkCorrectlyWithGivenMaxLength()
+        public void WhenTextLengthIsBiggerThanDefaultLengthTextIsShorten()
         {
             var textService = new TextService();
 
@@ -32,50 +32,35 @@ namespace AutoPlace.Services.Tests
         }
 
         [Fact]
-        public void ShortenTextShouldWorkCorrectlyShorterString()
-        {
-            var textService = new TextService();
-
-
-            var text = new String(Enumerable.Repeat('D', 20).ToArray());
-            var shortenText = textService.ShortenText(text, GlobalConstants.ShortenTextDefaultLength);
-            var expectedResult = new string(Enumerable.Repeat('D', 20).ToArray());
-
-            Assert.Equal(expectedResult, shortenText);
-        }
-
-        [Fact]
-        public void ShortenTextShouldWorkCorrectlyShorterStringAndGivenMaxLength()
+        public void WhenGivenMaxLengthIsBiggerThanTextLengthTextIsNotShorten()
         {
             var textService = new TextService();
 
             var text = new String(Enumerable.Repeat('D', 20).ToArray());
             var shortenText = textService.ShortenText(text, 200);
-            var expectedResult = new string(Enumerable.Repeat('D', 20).ToArray());
+            var expectedResult = text;
 
             Assert.Equal(expectedResult, shortenText);
         }
 
         [Fact]
-        public void ShortenTextShouldWorkCorrectlyWhenGivenNull()
+        public void ShortenTextShouldReturnNullWhenInputIsNull()
         {
             var textService = new TextService();
 
             var shortenText = textService.ShortenText(null, GlobalConstants.ShortenTextDefaultLength);
-            var expectedResult = "";
 
-            Assert.Equal(expectedResult, shortenText);
+            Assert.Null(shortenText);
         }
 
         [Fact]
-        public void ShortenTextShouldWorkCorrectlyWhenGivenNullAndGivenMaxLength()
+        public void ShortenTextShouldReturnNullWhenGivenNullAndGivenMaxLength()
         {
             var textService = new TextService();
 
             var shortenText = textService.ShortenText(null, 200);
-            var expectedResult = "";
 
-            Assert.Equal(expectedResult, shortenText);
+            Assert.Null(shortenText);
         }
     }
 }
