@@ -28,8 +28,9 @@
 }
 
 .user-details-section {
+    width: 530px;
     height: 80vh;
-    margin: 0;
+    margin: 0 0 40px 0;
     padding: 0;
 }
 
@@ -71,7 +72,6 @@
 }
 
 /* Autoparts List */
-
 .autoparts-list {
     margin-left: 30px;
     display: flex;
@@ -91,7 +91,6 @@
 }
 
 /* Autopart Partial */
-
 .autopart-partial-wrapper{
     max-height: 370px;
     margin: 5px;
@@ -104,7 +103,6 @@
 }
 
 /* Autopart Details */
-
 .favorite-icon {
     color: #c82333;
 }

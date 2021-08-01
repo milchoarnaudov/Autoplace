@@ -28,23 +28,9 @@
     <hr />
     <br />
 
-    <div class="d-flex justify-content-around">
-        @if (this.User.Identity.Name == Model.Username)
-        {
-            <h2>My auto parts:</h2>
-            <h2>Comments for me:</h2>
-        }
-        else
-        {
-            <h2>Added Autoparts:</h2>
-            <h2>Comments For User:</h2>
-        }
-    </div>
-
-    <br />
-
-    <div class="d-flex justify-content-between">
-        <div class="col-6 user-details-section bg-light rounded">
+    <div class="d-flex justify-content-between row">
+        <div class="user-details-section bg-light rounded">
+            <h2 class="text-center">Added auto parts:</h2>
             <div class="d-flex justify-content-between row border border-light rounded user-details-section-items w-100 h-100">
                 @foreach (var autopart in Model.Autoparts)
                 {
@@ -52,8 +38,8 @@
                 }
             </div>
         </div>
-        
-        <div class="col-5 border-light bg-light user-details-section rounded">
+        <div class="border-light bg-light user-details-section rounded">
+            <h2 class="text-center">Comments:</h2>
             <div class="user-details-section-items h-75">
                 @foreach (var comment in Model.CommentsForUser)
                 {
