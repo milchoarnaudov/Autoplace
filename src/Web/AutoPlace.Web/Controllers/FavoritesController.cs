@@ -28,11 +28,11 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] IdInputModel autopart)
+        public async Task<IActionResult> Add([FromRoute] int id)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            await this.favoritesService.AddFavoriteAsync(userId, autopart.Id);
+            await this.favoritesService.AddFavoriteAsync(userId, id);
             return this.Ok();
         }
     }

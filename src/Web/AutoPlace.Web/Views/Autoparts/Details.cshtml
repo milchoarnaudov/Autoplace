@@ -114,14 +114,13 @@
         }
 
         document.getElementById('adFavorites').addEventListener('click', function (e) {
-            fetch(`/Favorites/Add`,
+            fetch(`/Favorites/Add/@Model.Id`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=UTF-8',
                         'RequestVerificationToken': gettoken()
                     },
-                    body: JSON.stringify({ id: @Model.Id })
                 })
                 .then((response) => {
                     let child = document.getElementById('adFavorites').firstElementChild;
