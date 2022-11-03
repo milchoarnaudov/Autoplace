@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autoplace.Autoparts", "Auto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autoplace.Users", "Autoplace.Users\Autoplace.Users.csproj", "{547B99BE-E227-46A4-880A-83E54ED50B09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autoplace.Common", "Autoplace.Common\Autoplace.Common.csproj", "{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{547B99BE-E227-46A4-880A-83E54ED50B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{547B99BE-E227-46A4-880A-83E54ED50B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{547B99BE-E227-46A4-880A-83E54ED50B09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
