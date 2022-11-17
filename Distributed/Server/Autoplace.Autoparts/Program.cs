@@ -1,25 +1,23 @@
+using Autoplace.Autoparts.Data;
+using Autoplace.Autoparts.Services;
+using Autoplace.Common.Data.Services;
+using Autoplace.Common.Extensions;
+using AutoPlace.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddWebServices<AutopartsDbContext>(builder.Configuration)
+    .AddMessaging(builder.Configuration)
+    .AddScoped<IAutopartsService, AutopartsService>()
+    .AddLogging(config => config.AddConsole())
+    .AddSingleton(typeof(ILogger), typeof(Logger<Program>))
+    .AddScoped<IDataSeeder, DataSeeder>()
+    .AddScoped<IImageService, FileSystemImageSaverService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+app.UseWebService()
+   .Initialize()
+   .Run();

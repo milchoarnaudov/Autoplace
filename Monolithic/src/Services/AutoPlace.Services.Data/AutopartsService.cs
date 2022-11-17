@@ -95,7 +95,8 @@
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage) =>
             this.autopartRepository.All()
                 .OrderByDescending(x => x.CreatedOn)
-                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
                 .To<T>()
                 .ToList();
 

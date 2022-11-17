@@ -1,4 +1,5 @@
-﻿using Autoplace.Common.Services;
+﻿using Autoplace.Common.Controllers;
+using Autoplace.Common.Services;
 using Autoplace.Identity.Models.InputModels;
 using Autoplace.Identity.Models.OutputModels;
 using Autoplace.Identity.Services;
@@ -7,9 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Autoplace.Identity.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class IdentityController : ControllerBase
+    public class IdentityController : BaseApiController
     {
         private readonly IIdentityService identityService;
         private readonly ICurrentUserService currentUserService;
@@ -21,9 +20,9 @@ namespace Autoplace.Identity.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<RegisteredUserOutputModel>> Register(UserInputModel request)
+        public async Task<ActionResult<RegisteredUserOutputModel>> Register(UserInputModel input)
         {
-            var result = await identityService.Register(request);
+            var result = await identityService.Register(input);
 
             if (!result.IsSuccessful)
             {
@@ -40,9 +39,9 @@ namespace Autoplace.Identity.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(LoginInputModel request)
+        public async Task<ActionResult> Login(LoginInputModel input)
         {
-            var result = await identityService.Login(request);
+            var result = await identityService.Login(input);
 
             if (!result.IsSuccessful)
             {
@@ -53,9 +52,9 @@ namespace Autoplace.Identity.Controllers
         }
 
         [HttpPost("resetPassword")]
-        public async Task<ActionResult> ResetPassword(ResetPasswordInputModel request)
+        public async Task<ActionResult> ResetPassword(ResetPasswordInputModel input)
         {
-            var result = await identityService.ResetPassword(request);
+            var result = await identityService.ResetPassword(input);
 
             if (!result.IsSuccessful)
             {
@@ -66,9 +65,9 @@ namespace Autoplace.Identity.Controllers
         }
 
         [HttpPost("forgottenPassword")]
-        public async Task<ActionResult> ForgottenPassword(ForgottenPasswordInputModel request)
+        public async Task<ActionResult> ForgottenPassword(ForgottenPasswordInputModel input)
         {
-            var result = await identityService.GeneratePasswordResetToken(request);
+            var result = await identityService.GeneratePasswordResetToken(input);
 
             if (!result.IsSuccessful)
             {
@@ -80,10 +79,10 @@ namespace Autoplace.Identity.Controllers
 
         [Authorize]
         [HttpPut("changePassword")]
-        public async Task<ActionResult> ChangePassword(ChangePasswordInputModel request)
+        public async Task<ActionResult> ChangePassword(ChangePasswordInputModel input)
         {
             var currentUserId = currentUserService.UserId;
-            var result = await identityService.ChangePassword(request, currentUserId);
+            var result = await identityService.ChangePassword(input, currentUserId);
 
             if (!result.IsSuccessful)
             {

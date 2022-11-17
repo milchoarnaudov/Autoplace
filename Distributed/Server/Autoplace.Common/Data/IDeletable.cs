@@ -1,6 +1,6 @@
 ﻿namespace Autoplace.Common.Data
 {
-    public interface IDeleteable
+    public interface IDeletable
     {
         bool IsDeleted { get; set; }
 

@@ -5,5 +5,7 @@
         public const string SystemName = "Autoplace";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const int DefaultMaxItemsConstraint = 500;
     }
 }

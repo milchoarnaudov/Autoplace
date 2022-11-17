@@ -8,6 +8,6 @@ namespace Autoplace.Common.Data.Services
 {
     public interface IDataSeeder
     {
-        Task SeedData();
+        Task SeedDataAsync();
     }
 }

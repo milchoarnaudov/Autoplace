@@ -1,5 +1,6 @@
 ﻿using Autoplace.Common;
 using Autoplace.Common.Data.Services;
+using Autoplace.Identity.Common;
 using Autoplace.Identity.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -16,15 +17,15 @@ namespace Autoplace.Identity.Data
             this.roleManager = roleManager;
         }
 
-        public async Task SeedData()
+        public async Task SeedDataAsync()
         {
-            await SeedRole();
+            await SeedRoleAsync();
             await SeedUser();
         }
 
-        private async Task SeedRole()
+        private async Task SeedRoleAsync()
         {
-            if (roleManager.Roles.Any())
+            if (await roleManager.RoleExistsAsync(SystemConstants.AdministratorRoleName))
             {
                 return;
             }
@@ -54,8 +55,8 @@ namespace Autoplace.Identity.Data
 
             var userCreationResult = await userManager.CreateAsync(initialUser);
             var token = await userManager.GeneratePasswordResetTokenAsync(initialUser);
-            
-            // TODO
+
+            Console.WriteLine(token);
 
             if (!userCreationResult.Succeeded)
             {

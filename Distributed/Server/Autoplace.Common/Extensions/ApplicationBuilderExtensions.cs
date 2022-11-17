@@ -56,7 +56,7 @@ namespace Autoplace.Common.Extensions
 
             foreach (var seeder in seeders)
             {
-                seeder.SeedData()
+                seeder.SeedDataAsync()
                     .GetAwaiter()
                     .GetResult();
             }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Autoplace.Identity.Data.Models
 {
-    public class User : IdentityUser, IAuditInfo, IDeleteable
+    public class User : IdentityUser, IAuditInfo, IDeletable
     {
         public User()
         {

@@ -6,6 +6,7 @@ using GreenPipes;
 using Hangfire;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ namespace Autoplace.Common.Extensions
                 .AddTokenAuthentication(configuration)
                 .AddHealth(configuration)
                 .AddAutoMapperProfile(Assembly.GetCallingAssembly())
+                .Configure<RouteOptions>(options => options.LowercaseUrls = true)
                 .AddControllers();
 
             return services;
@@ -133,10 +135,16 @@ namespace Autoplace.Common.Extensions
                     }
                     mt.AddBus(context => Bus.Factory.CreateUsingRabbitMq(rmq =>
                     {
-                        rmq.Host("rabbitmq", host =>
+                        var messageQueueSettings = configuration.GetSection("MessageQueueSettings");
+
+                        var host = messageQueueSettings.GetValue<string>("Host");
+                        var username = messageQueueSettings.GetValue<string>("Username"); ;
+                        var password = messageQueueSettings.GetValue<string>("Password"); ;
+
+                        rmq.Host(host, host =>
                         {
-                            host.Username("rabbitmq");
-                            host.Password("rabbitmq");
+                            host.Username(username);
+                            host.Password(password);
                         });
 
                         foreach (var consumer in consumers)
@@ -152,17 +160,6 @@ namespace Autoplace.Common.Extensions
                     }));
                 })
                 .AddMassTransitHostedService();
-
-            services
-                .AddHangfire(config => config
-                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                    .UseSimpleAssemblyNameTypeSerializer()
-                    .UseRecommendedSerializerSettings()
-                    .UseSqlServerStorage(configuration.GetConnectionString(DefaultConnectionString)));
-
-            services.AddHangfireServer();
-
-            services.AddHostedService<MessagesHostedService>();
 
             return services;
         }
