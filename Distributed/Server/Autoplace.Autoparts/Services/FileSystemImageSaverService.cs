@@ -1,4 +1,5 @@
 ﻿using Autoplace.Autoparts.Common;
+using Autoplace.Common.Errors;
 using Autoplace.Common.Models;
 
 namespace AutoPlace.Services
@@ -7,11 +8,11 @@ namespace AutoPlace.Services
     {
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
 
-        public async Task<Result> Save(IFormFile image, string imagePath, string imageId)
+        public async Task<OperationResult> Save(IFormFile image, string imagePath, string imageId)
         {
             if (image == null || String.IsNullOrWhiteSpace(imagePath) || String.IsNullOrWhiteSpace(imageId))
             {
-                return Result.Failure(ErrorMessages.InvalidArgumentsErrorMessage);
+                return OperationResult.Failure(GenericErrorMessages.InvalidArgumentsErrorMessage);
             }
 
             Directory.CreateDirectory($"{imagePath}/Autoparts/");
@@ -21,13 +22,13 @@ namespace AutoPlace.Services
 
             if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
             {
-                return Result.Failure("Extension of the file is not allowed.");
+                return OperationResult.Failure("Extension of the file is not allowed.");
             }
 
             using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
             await image.CopyToAsync(fileStream);
 
-            return Result.Success();
+            return OperationResult.Success();
         }
 
         public string GetExtension(string fileName) => Path.GetExtension(fileName).TrimStart('.');

@@ -8,25 +8,25 @@ namespace Autoplace.Autoparts.Services
 {
     public interface IAutopartsService
     {
-        Task<Result<BaseAutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string userId, string imagePath);
+        Task<OperationResult<BaseAutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string userId, string imagePath);
 
-        IEnumerable<AutopartOutputModel> Search(SearchFiltersInputModel searchFilters = null);
+        Task<IEnumerable<AutopartOutputModel>> SearchAsync(SearchFiltersInputModel searchFilters = null);
 
-        IEnumerable<AutopartOutputModel> GetAll(Expression<Func<Autopart, bool>> filteringPredicate, int page, int itemsPerPage);
+        Task<IEnumerable<AutopartOutputModel>> GetAllAsync(Expression<Func<Autopart, bool>> filteringPredicate, int page, int itemsPerPage);
 
-        IEnumerable<AutopartOutputModel> GetAllForApproval(int? page, int? itemsPerPage);
+        Task<IEnumerable<AutopartOutputModel>> GetAllForApprovalAsync(int? page, int? itemsPerPage);
 
-        Task<Result<AutopartOutputModel>> GetById(int id);
+        Task<AutopartOutputModel> GetByIdAsync(int id);
 
-        Task<Result<BaseAutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string imagePath);
+        Task<OperationResult<BaseAutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string imagePath);
 
-        Task<Result<BaseAutopartOutputModel>> DeleteAsync(int id);
+        Task<OperationResult<BaseAutopartOutputModel>> DeleteAsync(int id);
 
         int GetCount();
 
-        Task<Result> IncreaseViewsCountAsync(int id);
+        Task<OperationResult> IncreaseViewsCountAsync(int id);
 
-        Task<Result<BaseAutopartOutputModel>> MarkAsApproved(int id);
+        Task<OperationResult<BaseAutopartOutputModel>> MarkAsApprovedAsync(int id);
 
         Task<bool> CheckIfUserIsOwnerAsync(string userId, int autopartId);
     }

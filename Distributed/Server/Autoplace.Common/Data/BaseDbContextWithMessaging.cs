@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using Autoplace.Common.Data;
+using Autoplace.Common.Data.Configurations;
 using Autoplace.Common.Messaging;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarRentalSystem.Data
+namespace Autoplace.Common.Data
 {
 
     public abstract class BaseDbContextWithMessaging : BaseDbContext
@@ -19,11 +19,9 @@ namespace CarRentalSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-
             builder.ApplyConfiguration(new MessageConfiguration());
 
-            builder.ApplyConfigurationsFromAssembly(this.ConfigurationsAssembly);
+            builder.ApplyConfigurationsFromAssembly(ConfigurationsAssembly);
 
             base.OnModelCreating(builder);
         }

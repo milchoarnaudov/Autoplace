@@ -1,25 +1,21 @@
+using Autoplace.Common.Extensions;
+using Autoplace.Common.Services.Messaging;
+using Autoplace.Members.Consumers;
+using Autoplace.Members.Data;
+using Autoplace.Members.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddWebServices<MembersDbContext>(builder.Configuration)
+    .AddMessaging(builder.Configuration, typeof(UserRegisteredConsumer))
+    .AddLogging(config => config.AddConsole())
+    .AddSingleton(typeof(ILogger), typeof(Logger<Program>))
+    .AddScoped<IMembersService, MembersService>()
+    .AddScoped<IChatService, ChatService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+app.UseWebService()
+   .Initialize()
+   .Run();

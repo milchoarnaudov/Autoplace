@@ -1,5 +1,5 @@
 ﻿using Autoplace.Common;
-using Autoplace.Common.Data.Services;
+using Autoplace.Common.Services.Data;
 using Autoplace.Identity.Common;
 using Autoplace.Identity.Data.Models;
 using Microsoft.AspNetCore.Identity;

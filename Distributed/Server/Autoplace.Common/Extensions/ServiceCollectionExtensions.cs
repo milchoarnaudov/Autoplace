@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Autoplace.Common.Mappings;
-using Autoplace.Common.Messaging;
-using Autoplace.Common.Services;
+using Autoplace.Common.Services.Identity;
+using Autoplace.Common.Services.Messaging;
 using GreenPipes;
 using Hangfire;
 using MassTransit;
@@ -127,12 +127,15 @@ namespace Autoplace.Common.Extensions
             params Type[] consumers)
         {
             services
+                .AddTransient<IPublisher, Publisher>()
+                .AddTransient<IMessageService, MessageService>()
                 .AddMassTransit(mt =>
                 {
                     foreach (var consumer in consumers)
                     {
                         mt.AddConsumer(consumer);
                     }
+
                     mt.AddBus(context => Bus.Factory.CreateUsingRabbitMq(rmq =>
                     {
                         var messageQueueSettings = configuration.GetSection("MessageQueueSettings");
@@ -152,7 +155,7 @@ namespace Autoplace.Common.Extensions
                             rmq.ReceiveEndpoint(consumer.FullName, endpoint =>
                             {
                                 endpoint.PrefetchCount = 6;
-                                endpoint.UseMessageRetry(retry => retry.Interval(10, 1000));
+                                endpoint.UseMessageRetry(retry => retry.Interval(5, 10000));
 
                                 endpoint.ConfigureConsumer(context, consumer);
                             });
@@ -160,6 +163,7 @@ namespace Autoplace.Common.Extensions
                     }));
                 })
                 .AddMassTransitHostedService();
+                
 
             return services;
         }

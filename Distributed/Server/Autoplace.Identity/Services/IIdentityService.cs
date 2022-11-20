@@ -7,14 +7,14 @@ namespace Autoplace.Identity.Services
 {
     public interface IIdentityService
     {
-        Task<Result<User>> Register(UserInputModel userInputModel);
+        Task<OperationResult<User>> Register(UserInputModel userInputModel);
 
-        Task<Result<UserOutputModel>> Login(LoginInputModel loginInputModel);
+        Task<OperationResult<UserOutputModel>> Login(LoginInputModel loginInputModel);
 
-        Task<Result> ChangePassword(ChangePasswordInputModel changePasswordInputModel, string userId);
+        Task<OperationResult> ChangePassword(ChangePasswordInputModel changePasswordInputModel, string userId);
 
-        Task<Result> ResetPassword(ResetPasswordInputModel resetPasswordInputModel);
+        Task<OperationResult> ResetPassword(ResetPasswordInputModel resetPasswordInputModel);
 
-        Task<Result> GeneratePasswordResetToken(ForgottenPasswordInputModel forgottenPasswordInputModel);
+        Task<OperationResult> GeneratePasswordResetToken(ForgottenPasswordInputModel forgottenPasswordInputModel);
     }
 }

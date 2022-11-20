@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Autoplace.Common.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Autoplace.Common.Data
@@ -58,6 +59,7 @@ namespace Autoplace.Common.Data
                 if (entry.State == EntityState.Added && entity.CreatedOn == default)
                 {
                     entity.CreatedOn = DateTime.UtcNow;
+                    entity.UpdatedOn = DateTime.UtcNow;
                 }
                 else
                 {

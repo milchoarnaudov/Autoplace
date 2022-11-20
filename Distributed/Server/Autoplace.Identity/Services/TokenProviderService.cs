@@ -26,7 +26,8 @@ namespace Autoplace.Identity.Services
 
             var claimsIdentity = new ClaimsIdentity();
             claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, user.Email));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             claimsIdentity.AddClaims(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
             var tokenDescriptor = new SecurityTokenDescriptor

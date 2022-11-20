@@ -4,7 +4,7 @@ namespace AutoPlace.Services
 {
     public interface IImageService
     {
-        Task<Result> Save(IFormFile file, string path, string imageId);
+        Task<OperationResult> Save(IFormFile file, string path, string imageId);
 
         string GetExtension(string fileName);
     }

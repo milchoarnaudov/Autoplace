@@ -1,7 +1,7 @@
 using Autoplace.Autoparts.Data;
 using Autoplace.Autoparts.Services;
-using Autoplace.Common.Data.Services;
 using Autoplace.Common.Extensions;
+using Autoplace.Common.Services.Data;
 using AutoPlace.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +15,7 @@ builder.Services
     .AddSingleton(typeof(ILogger), typeof(Logger<Program>))
     .AddScoped<IDataSeeder, DataSeeder>()
     .AddScoped<IImageService, FileSystemImageSaverService>();
-
+    
 var app = builder.Build();
 
 app.UseWebService()

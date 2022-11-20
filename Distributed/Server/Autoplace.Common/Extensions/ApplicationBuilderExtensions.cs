@@ -1,4 +1,4 @@
-﻿using Autoplace.Common.Data.Services;
+﻿using Autoplace.Common.Services.Data;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;

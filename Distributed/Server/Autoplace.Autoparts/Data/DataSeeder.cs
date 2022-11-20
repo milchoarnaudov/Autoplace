@@ -1,5 +1,5 @@
 ﻿using Autoplace.Autoparts.Data.Models;
-using Autoplace.Common.Data.Services;
+using Autoplace.Common.Services.Data;
 
 namespace Autoplace.Autoparts.Data
 {

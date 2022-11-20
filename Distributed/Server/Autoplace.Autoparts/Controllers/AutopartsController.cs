@@ -1,9 +1,10 @@
-﻿using Autoplace.Autoparts.Models.InputModels;
+﻿using Autoplace.Autoparts.Common;
+using Autoplace.Autoparts.Models.InputModels;
 using Autoplace.Autoparts.Models.OutputModels;
 using Autoplace.Autoparts.Services;
 using Autoplace.Common;
 using Autoplace.Common.Controllers;
-using Autoplace.Common.Services;
+using Autoplace.Common.Services.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,22 +45,22 @@ namespace Autoplace.Autoparts.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AutopartOutputModel>> Get(int id)
         {
-            var result = await autopartsService.GetById(id);
+            var autopart = await autopartsService.GetByIdAsync(id);
 
-            if (!result.IsSuccessful)
+            if (autopart == null)
             {
-                return BadRequest(result.ErrorMessages);
+                return NotFound(ErrorMessages.AutopartNotFoundErrorMessage);
             }
 
             await autopartsService.IncreaseViewsCountAsync(id);
 
-            return Ok(result.Model);
+            return Ok(autopart);
         }
 
         [HttpGet]
-        public ActionResult<AutopartOutputModel> Search([FromQuery] SearchFiltersInputModel input)
+        public async Task<ActionResult<IEnumerable<AutopartOutputModel>>> Search([FromQuery] SearchFiltersInputModel input)
         {
-            var result = autopartsService.Search(input);
+            var result = await autopartsService.SearchAsync(input);
 
             return Ok(result);
         }
@@ -105,12 +106,11 @@ namespace Autoplace.Autoparts.Controllers
             return Ok(result.Model);
         }
 
-
         [Authorize(Roles = SystemConstants.AdministratorRoleName)]
         [HttpPost("approvals/{id}")]
         public async Task<ActionResult<BaseAutopartOutputModel>> Approve(int id)
         {
-            var result = await autopartsService.MarkAsApproved(id);
+            var result = await autopartsService.MarkAsApprovedAsync(id);
 
             if (!result.IsSuccessful)
             {
@@ -122,9 +122,7 @@ namespace Autoplace.Autoparts.Controllers
 
         [Authorize(Roles = SystemConstants.AdministratorRoleName)]
         [HttpGet("approvals")]
-        public IEnumerable<AutopartOutputModel> GetForApproval(int? itemsPerPage, int? page)
-            => autopartsService.GetAllForApproval(itemsPerPage, page);
-
-
+        public async Task<IEnumerable<AutopartOutputModel>> GetForApproval(int? itemsPerPage, int? page)
+            => await autopartsService.GetAllForApprovalAsync(itemsPerPage, page);
     }
 }

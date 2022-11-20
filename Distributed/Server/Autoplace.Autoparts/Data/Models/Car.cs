@@ -1,4 +1,4 @@
-﻿using Autoplace.Common.Data;
+﻿using Autoplace.Common.Data.Models;
 
 namespace Autoplace.Autoparts.Data.Models
 {

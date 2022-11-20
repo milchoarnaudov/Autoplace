@@ -5,8 +5,8 @@ namespace Autoplace.Identity.Models.InputModels
 {
     public class LoginInputModel
     {
-        [EmailAddress]
         [Required]
+        [EmailAddress]
         [MinLength(Constants.EmailAddressMinLength)]
         [MaxLength(Constants.EmailAddressMaxLength)]
         public string Email { get; set; }

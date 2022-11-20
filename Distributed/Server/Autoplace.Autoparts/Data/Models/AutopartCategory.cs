@@ -1,8 +1,8 @@
-﻿using Autoplace.Common.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Autoplace.Autoparts.Data.Models;
 using Autoplace.Autoparts.Common;
+using Autoplace.Common.Data.Models;
 
 namespace Autoplace.Autoparts.Data.Models
 {

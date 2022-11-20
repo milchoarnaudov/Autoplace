@@ -1,4 +1,4 @@
-﻿using Autoplace.Common.Data;
+﻿using Autoplace.Common.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Autoplace.Identity.Data.Models

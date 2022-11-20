@@ -1,5 +1,5 @@
 ﻿using Autoplace.Autoparts.Data.Models;
-using CarRentalSystem.Data;
+using Autoplace.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
