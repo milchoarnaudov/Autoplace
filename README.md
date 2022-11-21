@@ -4,7 +4,7 @@ The idea behind the app is to facilitate the sale and purchase of autoparts and 
 
 ## Distributed
 
-The newer version of the app is with a distributed (microservice-based) architecture. I'm using the Eventual Consistency model with the Outbox pattern to keep data consistent with the help of RabbitMQ and Hangfire.
+The newer version of the app is with a distributed (microservice-based) architecture. I'm using the Eventual Consistency model and the Outbox pattern to keep data consistent with the help of RabbitMQ and Hangfire.
 
 ## Monolithic
 
