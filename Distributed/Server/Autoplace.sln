@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Administration", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Autoparts", "Autoplace.Autoparts\Autoplace.Autoparts.csproj", "{DA64D5B7-3CFF-4859-8A39-3137A161FF51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Members", "Autoplace.Users\Autoplace.Members.csproj", "{547B99BE-E227-46A4-880A-83E54ED50B09}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Common", "Autoplace.Common\Autoplace.Common.csproj", "{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Members", "Autoplace.Members\Autoplace.Members.csproj", "{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,14 @@ Global
 		{DA64D5B7-3CFF-4859-8A39-3137A161FF51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA64D5B7-3CFF-4859-8A39-3137A161FF51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA64D5B7-3CFF-4859-8A39-3137A161FF51}.Release|Any CPU.Build.0 = Release|Any CPU
-		{547B99BE-E227-46A4-880A-83E54ED50B09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{547B99BE-E227-46A4-880A-83E54ED50B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{547B99BE-E227-46A4-880A-83E54ED50B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{547B99BE-E227-46A4-880A-83E54ED50B09}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

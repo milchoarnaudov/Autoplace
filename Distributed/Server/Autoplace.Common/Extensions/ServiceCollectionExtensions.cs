@@ -4,9 +4,11 @@ using Autoplace.Common.Services.Identity;
 using Autoplace.Common.Services.Messaging;
 using GreenPipes;
 using Hangfire;
+using Hangfire.SqlServer;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -163,9 +165,49 @@ namespace Autoplace.Common.Extensions
                     }));
                 })
                 .AddMassTransitHostedService();
-                
+
+            CreateHangfireDatabase(configuration);
+
+            services
+                .AddHangfire(config => config
+                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                    .UseSimpleAssemblyNameTypeSerializer()
+                    .UseRecommendedSerializerSettings()
+                    .UseSqlServerStorage(
+                        configuration.GetConnectionString("CronJobsConnection"),
+                        new SqlServerStorageOptions
+                        {
+                            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                            QueuePollInterval = TimeSpan.Zero,
+                            UseRecommendedIsolationLevel = true,
+                            DisableGlobalLocks = true
+                        }));
+
+            services.AddHangfireServer();
+
+            services.AddHostedService<MessagesHostedService>();
 
             return services;
+        }
+
+        private static void CreateHangfireDatabase(IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("CronJobsConnection");
+
+            var dbName = connectionString
+                .Split(";")[1]
+                .Split("=")[1];
+
+            using var connection = new SqlConnection(connectionString.Replace(dbName, "master"));
+
+            connection.Open();
+
+            using var command = new SqlCommand(
+                $"IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'{dbName}') create database [{dbName}];",
+                connection);
+
+            command.ExecuteNonQuery();
         }
     }
 }

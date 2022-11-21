@@ -1,7 +1,7 @@
 ﻿using Autoplace.Common.Messaging;
 using Hangfire;
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Autoplace.Common.Services.Messaging
@@ -9,21 +9,30 @@ namespace Autoplace.Common.Services.Messaging
     public class MessagesHostedService : IHostedService
     {
         private readonly IRecurringJobManager recurringJob;
-        private readonly DbContext data;
-        private readonly IBus publisher;
+        private readonly IServiceScopeFactory serviceScopeFactory;
+        private readonly IPublisher publisher;
 
         public MessagesHostedService(
             IRecurringJobManager recurringJob,
-            DbContext data,
-            IBus publisher)
+            IServiceScopeFactory serviceScopeFactory,
+            IPublisher publisher)
         {
             this.recurringJob = recurringJob;
-            this.data = data;
+            this.serviceScopeFactory = serviceScopeFactory;
             this.publisher = publisher;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            using var scope = serviceScopeFactory.CreateScope();
+
+            var data = scope.ServiceProvider.GetService<DbContext>();
+
+            if (!data.Database.CanConnect())
+            {
+                data.Database.Migrate();
+            }
+
             recurringJob.AddOrUpdate(
                 nameof(MessagesHostedService),
                 () => ProcessPendingMessages(),
@@ -37,6 +46,10 @@ namespace Autoplace.Common.Services.Messaging
 
         public void ProcessPendingMessages()
         {
+            using var scope = serviceScopeFactory.CreateScope();
+
+            var data = scope.ServiceProvider.GetService<DbContext>();
+
             var messages = data
                 .Set<Message>()
                 .Where(m => !m.Published)
@@ -46,7 +59,7 @@ namespace Autoplace.Common.Services.Messaging
             foreach (var message in messages)
             {
                 publisher
-                    .Publish(message.Data, message.Type)
+                    .PublishAsync(message.Data, message.Type)
                     .GetAwaiter()
                     .GetResult();
 
