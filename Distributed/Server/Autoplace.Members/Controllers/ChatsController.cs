@@ -1,5 +1,6 @@
 ﻿using Autoplace.Common.Controllers;
 using Autoplace.Common.Errors;
+using Autoplace.Common.Models;
 using Autoplace.Common.Services.Identity;
 using Autoplace.Members.Models.InputModels;
 using Autoplace.Members.Models.OutputModels;
@@ -30,7 +31,7 @@ namespace Autoplace.Members.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);
@@ -54,7 +55,7 @@ namespace Autoplace.Members.Controllers
 
             if (chat == null)
             {
-                return BadRequest(GenericErrorMessages.InvalidArgumentsErrorMessage);
+                return BadRequest(ApiResponse.Failure(GenericErrorMessages.InvalidArgumentsErrorMessage));
             }
 
             return Ok(chat);
@@ -68,7 +69,7 @@ namespace Autoplace.Members.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);

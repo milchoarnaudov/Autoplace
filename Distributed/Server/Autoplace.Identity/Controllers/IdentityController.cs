@@ -1,4 +1,5 @@
 ﻿using Autoplace.Common.Controllers;
+using Autoplace.Common.Models;
 using Autoplace.Common.Services.Identity;
 using Autoplace.Identity.Models.InputModels;
 using Autoplace.Identity.Models.OutputModels;
@@ -26,7 +27,7 @@ namespace Autoplace.Identity.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);
@@ -39,7 +40,7 @@ namespace Autoplace.Identity.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);
@@ -52,7 +53,7 @@ namespace Autoplace.Identity.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return NoContent();
@@ -65,7 +66,7 @@ namespace Autoplace.Identity.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return NoContent();
@@ -80,7 +81,7 @@ namespace Autoplace.Identity.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return NoContent();

@@ -4,6 +4,7 @@ using Autoplace.Administration.Models.OutputModels;
 using Autoplace.Administration.Services;
 using Autoplace.Common.Controllers;
 using Autoplace.Common.Enums;
+using Autoplace.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Autoplace.Administration.Controllers
@@ -24,7 +25,7 @@ namespace Autoplace.Administration.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);
@@ -63,7 +64,7 @@ namespace Autoplace.Administration.Controllers
 
             if (approvalRequest == null)
             {
-                return NotFound(ErrorMessages.ApprovalRequestNotFound);
+                return NotFound(ApiResponse.Failure(ErrorMessages.ApprovalRequestNotFound));
             }
 
             return Ok(approvalRequest);

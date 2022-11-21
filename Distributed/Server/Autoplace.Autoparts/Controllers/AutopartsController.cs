@@ -4,6 +4,8 @@ using Autoplace.Autoparts.Models.OutputModels;
 using Autoplace.Autoparts.Services;
 using Autoplace.Common;
 using Autoplace.Common.Controllers;
+using Autoplace.Common.Errors;
+using Autoplace.Common.Models;
 using Autoplace.Common.Services.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +38,7 @@ namespace Autoplace.Autoparts.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);
@@ -49,7 +51,7 @@ namespace Autoplace.Autoparts.Controllers
 
             if (autopart == null)
             {
-                return NotFound(ErrorMessages.AutopartNotFoundErrorMessage);
+                return NotFound(ApiResponse.Failure(ErrorMessages.AutopartNotFoundErrorMessage));
             }
 
             await autopartsService.IncreaseViewsCountAsync(id);
@@ -73,14 +75,14 @@ namespace Autoplace.Autoparts.Controllers
 
             if (!(await autopartsService.CheckIfUserIsOwnerAsync(username, input.Id)))
             {
-                return Forbid();
+                return BadRequest(ApiResponse.Failure(GenericErrorMessages.OperationNotAllowed));
             }
 
             var result = await autopartsService.EditAsync(input, imagePath);
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);
@@ -100,7 +102,7 @@ namespace Autoplace.Autoparts.Controllers
 
             if (!result.IsSuccessful)
             {
-                return BadRequest(result.ErrorMessages);
+                return BadRequest(ApiResponse.Failure(result.ErrorMessages));
             }
 
             return Ok(result.Model);
