@@ -43,7 +43,7 @@ namespace Autoplace.Autoparts.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AutopartOutputModel>> Get(int id)
+        public async Task<ActionResult<DetailedAutopartOutputModel>> Get(int id)
         {
             var autopart = await autopartsService.GetAsync(id);
 
@@ -66,7 +66,7 @@ namespace Autoplace.Autoparts.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<BaseAutopartOutputModel>> Edit([FromForm] EditAutopartInputModel input)
+        public async Task<ActionResult<AutopartOutputModel>> Edit([FromForm] EditAutopartInputModel input)
         {
             var username = currentUserService.Username;
             var imagePath = $"{env.WebRootPath}/Images";

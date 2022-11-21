@@ -10,17 +10,17 @@ namespace Autoplace.Autoparts.Services
 {
     public interface IAutopartsService
     {
-        Task<OperationResult<BaseAutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string username, string imagePath);
+        Task<OperationResult<AutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string username, string imagePath);
 
         Task<IEnumerable<AutopartOutputModel>> SearchAsync(SearchFiltersInputModel searchFilters = null);
 
         Task<IEnumerable<AutopartOutputModel>> GetAllAsync(Expression<Func<Autopart, bool>> filteringPredicate, int pageSize = SystemConstants.DefaultMaxItemsConstraint, int page = 1);
 
-        Task<AutopartOutputModel> GetAsync(int id);
+        Task<DetailedAutopartOutputModel> GetAsync(int id);
 
-        Task<OperationResult<BaseAutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string imagePath);
+        Task<OperationResult<AutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string imagePath);
 
-        Task<OperationResult<BaseAutopartOutputModel>> DeleteAsync(int id);
+        Task<OperationResult<AutopartOutputModel>> DeleteAsync(int id);
 
         Task<int> GetCountAsync();
 
