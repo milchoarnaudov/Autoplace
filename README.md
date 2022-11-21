@@ -1,8 +1,11 @@
 # Autoplace
 
-The idea behind the project is to ease the selling and buying autoparts. Every user has a rating and feedbacks from other users. 
-Based on that, the buyers can determine if the seller is trusted.
+The idea behind the app is to facilitate the sale and purchase of autoparts and allow buyers and sellers to interact with each other. Additionally, the sellers are able to build a reputation that can help them build trust with buyers.
 
+## Distributed
 
-## External Libraries
-- [HtmlSanitizer](https://github.com/mganss/HtmlSanitizer)
+The newer version of the app is with a distributed (microservice-based) architecture. I'm using the Eventual Consistency model with the Outbox pattern to keep data consistent with the help of RabbitMQ and Hangfire.
+
+## Monolithic
+
+The monolithic version of this app is quite old. I used the Data-Centric N-Layer architecture. I'm currently migrating it to the distributed architecture.

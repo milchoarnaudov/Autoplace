@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Identity", "Autoplace.Identity\Autoplace.Identity.csproj", "{7FB65027-407E-4CF3-AA48-9E91B46BA4BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Administration", "Autoplace.Administration\Autoplace.Administration.csproj", "{A1AB190E-FD04-4C96-B687-8E95EB5BE907}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Autoparts", "Autoplace.Autoparts\Autoplace.Autoparts.csproj", "{DA64D5B7-3CFF-4859-8A39-3137A161FF51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Common", "Autoplace.Common\Autoplace.Common.csproj", "{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoplace.Members", "Autoplace.Members\Autoplace.Members.csproj", "{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FB65027-407E-4CF3-AA48-9E91B46BA4BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FB65027-407E-4CF3-AA48-9E91B46BA4BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FB65027-407E-4CF3-AA48-9E91B46BA4BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FB65027-407E-4CF3-AA48-9E91B46BA4BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1AB190E-FD04-4C96-B687-8E95EB5BE907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1AB190E-FD04-4C96-B687-8E95EB5BE907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1AB190E-FD04-4C96-B687-8E95EB5BE907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AB190E-FD04-4C96-B687-8E95EB5BE907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA64D5B7-3CFF-4859-8A39-3137A161FF51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA64D5B7-3CFF-4859-8A39-3137A161FF51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA64D5B7-3CFF-4859-8A39-3137A161FF51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA64D5B7-3CFF-4859-8A39-3137A161FF51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFF13CF-DC5A-4D1D-8BC4-E0085C28379C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE0D97E-D999-4F2C-AE62-F43BF42AEB55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3FA57A1D-F57C-4BB4-AF39-DF7E73CD3315}
+	EndGlobalSection
+EndGlobal
