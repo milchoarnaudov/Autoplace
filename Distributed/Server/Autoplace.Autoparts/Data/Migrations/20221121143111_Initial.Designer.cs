@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autoplace.Autoparts.Migrations
 {
     [DbContext(typeof(AutopartsDbContext))]
-    [Migration("20221117184033_Initial")]
+    [Migration("20221121143111_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,9 +52,6 @@ namespace Autoplace.Autoparts.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -65,6 +62,9 @@ namespace Autoplace.Autoparts.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");

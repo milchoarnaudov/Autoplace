@@ -41,8 +41,8 @@ namespace Autoplace.Members.Services
                 return OperationResult<ChatOutputModel>.Failure(GenericErrorMessages.OperationNotAllowed);
             }
 
-            var receiverMember = await membersService.GetEntity(m => m.Username == receiverUsername);
-            var senderMember = await membersService.GetEntity(m => m.Username == senderUsername);
+            var receiverMember = await membersService.GetEntityAsync(m => m.Username == receiverUsername);
+            var senderMember = await membersService.GetEntityAsync(m => m.Username == senderUsername);
 
             if (receiverMember == null || senderMember == null)
             {
@@ -70,8 +70,8 @@ namespace Autoplace.Members.Services
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<ChatOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<ChatOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
                 throw;
             }
 
@@ -115,7 +115,7 @@ namespace Autoplace.Members.Services
                 return null;
             }
 
-            var member = await membersService.GetEntity(m => m.Username == username);
+            var member = await membersService.GetEntityAsync(m => m.Username == username);
 
             if (member == null)
             {
@@ -173,8 +173,8 @@ namespace Autoplace.Members.Services
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<ChatMessageOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<ChatMessageOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
             }
 
             var outputModel = mapper.Map<ChatMessageOutputModel>(chatMessageEntity);

@@ -10,13 +10,11 @@ namespace Autoplace.Members.Consumers
     public class UserRegisteredConsumer : IConsumer<UserRegisteredMessage>
     {
         private readonly IMembersService membersService;
-        private readonly IMapper mapper;
         private readonly IMessageService messageService;
 
-        public UserRegisteredConsumer(IMembersService membersService, IMapper mapper, IMessageService messageService)
+        public UserRegisteredConsumer(IMembersService membersService, IMessageService messageService)
         {
             this.membersService = membersService;
-            this.mapper = mapper;
             this.messageService = messageService;
         }
 
@@ -33,14 +31,14 @@ namespace Autoplace.Members.Consumers
                 return;
             }
 
-            await messageService.SaveMessageAsync(new Message(message, true));
-
             var result = await membersService.CreateAsync(context.Message.UserId, context.Message.Username, context.Message.Email);
 
             if (!result.IsSuccessful)
             {
                 throw new Exception(string.Join(Environment.NewLine, result.ErrorMessages));
             }
+
+            await messageService.SaveMessageAsync(new Message(message, true));
         }
     }
 }

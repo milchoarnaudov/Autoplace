@@ -48,8 +48,8 @@ namespace Autoplace.Members.Services
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<MemberOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<MemberOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
             }
 
             var outputModel = mapper.Map<MemberOutputModel>(memberEntity);
@@ -71,6 +71,6 @@ namespace Autoplace.Members.Services
             return outputModel;
         }
 
-        public async Task<Member> GetEntity(Expression<Func<Member, bool>> predicate) => await GetAllRecords().FirstOrDefaultAsync(predicate);
+        public async Task<Member> GetEntityAsync(Expression<Func<Member, bool>> predicate) => await GetAllRecords().FirstOrDefaultAsync(predicate);
     }
 }

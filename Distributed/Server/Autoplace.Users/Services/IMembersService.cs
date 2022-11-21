@@ -12,6 +12,6 @@ namespace Autoplace.Members.Services
 
         Task<MemberOutputModel> GetAsync(Expression<Func<Member, bool>> predicate);
 
-        Task<Member> GetEntity(Expression<Func<Member, bool>> predicate);
+        Task<Member> GetEntityAsync(Expression<Func<Member, bool>> predicate);
     }
 }

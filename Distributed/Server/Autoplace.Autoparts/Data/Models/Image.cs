@@ -3,7 +3,7 @@ using Autoplace.Common.Data.Models;
 
 namespace Autoplace.Autoparts.Data.Models
 {
-    public class Image : BaseModel<string>
+    public class Image : BaseEntity<string>
     {
         public Image()
         {

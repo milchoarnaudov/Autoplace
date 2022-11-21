@@ -5,7 +5,7 @@ using Autoplace.Common.Data.Models;
 
 namespace Autoplace.Autoparts.Data.Models
 {
-    public class CarModel : BaseDeletableModel<int>
+    public class CarModel : BaseDeletableEntity<int>
     {
         [MaxLength(Constants.CarModelMaxLength)]
         [Required]

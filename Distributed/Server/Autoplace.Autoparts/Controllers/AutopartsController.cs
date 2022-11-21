@@ -45,7 +45,7 @@ namespace Autoplace.Autoparts.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AutopartOutputModel>> Get(int id)
         {
-            var autopart = await autopartsService.GetByIdAsync(id);
+            var autopart = await autopartsService.GetAsync(id);
 
             if (autopart == null)
             {
@@ -105,24 +105,5 @@ namespace Autoplace.Autoparts.Controllers
 
             return Ok(result.Model);
         }
-
-        [Authorize(Roles = SystemConstants.AdministratorRoleName)]
-        [HttpPost("approvals/{id}")]
-        public async Task<ActionResult<BaseAutopartOutputModel>> Approve(int id)
-        {
-            var result = await autopartsService.MarkAsApprovedAsync(id);
-
-            if (!result.IsSuccessful)
-            {
-                return BadRequest(result.ErrorMessages);
-            }
-
-            return Ok(result.Model);
-        }
-
-        [Authorize(Roles = SystemConstants.AdministratorRoleName)]
-        [HttpGet("approvals")]
-        public async Task<IEnumerable<AutopartOutputModel>> GetForApproval(int? itemsPerPage, int? page)
-            => await autopartsService.GetAllForApprovalAsync(itemsPerPage, page);
     }
 }

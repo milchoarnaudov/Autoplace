@@ -19,7 +19,6 @@
 
             if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
             {
-                // TODO Log error
                 return false;
             }
 

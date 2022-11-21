@@ -3,11 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using Autoplace.Autoparts.Data.Models;
 using Autoplace.Autoparts.Common;
 using Autoplace.Common.Data.Models;
+using Autoplace.Common.Enums;
 
 namespace Autoplace.Autoparts.Data.Models
 {
 
-    public class Autopart : BaseDeletableModel<int>
+    public class Autopart : BaseDeletableEntity<int>
     {
         public Autopart()
         {
@@ -26,7 +27,7 @@ namespace Autoplace.Autoparts.Data.Models
 
         public int ViewsCount { get; set; }
 
-        public bool IsApproved { get; set; }
+        public AutopartStatus Status { get; set; }
 
         public int CategoryId { get; set; }
 

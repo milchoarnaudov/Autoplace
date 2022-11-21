@@ -156,7 +156,7 @@ namespace Autoplace.Autoparts.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ViewsCount = table.Column<int>(type: "int", nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ConditionId = table.Column<int>(type: "int", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false),

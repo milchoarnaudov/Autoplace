@@ -6,7 +6,7 @@ using Autoplace.Common.Data.Models;
 namespace Autoplace.Autoparts.Data.Models
 {
 
-    public class AutopartCondition : BaseDeletableModel<int>
+    public class AutopartCondition : BaseDeletableEntity<int>
     {
         public AutopartCondition()
         {

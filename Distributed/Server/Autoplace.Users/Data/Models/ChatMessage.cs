@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Autoplace.Members.Data.Models
 {
-    public class ChatMessage : BaseDeletableModel<int>
+    public class ChatMessage : BaseDeletableEntity<int>
     {
         [MaxLength(Constants.MaxChatMessageContentLength)]
         [Required]

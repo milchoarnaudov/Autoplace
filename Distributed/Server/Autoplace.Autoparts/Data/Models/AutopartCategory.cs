@@ -7,7 +7,7 @@ using Autoplace.Common.Data.Models;
 namespace Autoplace.Autoparts.Data.Models
 {
 
-    public class AutopartCategory : BaseDeletableModel<int>
+    public class AutopartCategory : BaseDeletableEntity<int>
     {
         public AutopartCategory()
         {

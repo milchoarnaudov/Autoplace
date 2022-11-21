@@ -5,7 +5,7 @@ using Autoplace.Common.Data.Models;
 
 namespace Autoplace.Autoparts.Data.Models
 {
-    public class CarManufacturer : BaseDeletableModel<int>
+    public class CarManufacturer : BaseDeletableEntity<int>
     {
         public CarManufacturer()
         {

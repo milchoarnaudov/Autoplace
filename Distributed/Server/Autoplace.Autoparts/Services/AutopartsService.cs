@@ -5,10 +5,13 @@ using Autoplace.Autoparts.Models.InputModels;
 using Autoplace.Autoparts.Models.OutputModels;
 using Autoplace.Autoparts.Specifications.Autoparts;
 using Autoplace.Common;
+using Autoplace.Common.Enums;
 using Autoplace.Common.Errors;
+using Autoplace.Common.Messaging.Autoparts;
 using Autoplace.Common.Models;
 using Autoplace.Common.Services.Data;
-using AutoPlace.Services;
+using Autoplace.Common.Services.Files;
+using Autoplace.Common.Services.Messaging;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -19,22 +22,25 @@ namespace Autoplace.Autoparts.Services
         private readonly IMapper mapper;
         private readonly ILogger logger;
         private readonly IImageService imageService;
+        private readonly IMessageService messageService;
 
         public AutopartsService(
             DbContext dbContext,
             IMapper mapper,
             ILogger logger,
-            IImageService imageService)
+            IImageService imageService,
+            IMessageService messageService)
             : base(dbContext)
         {
             this.mapper = mapper;
             this.logger = logger;
             this.imageService = imageService;
+            this.messageService = messageService;
         }
 
-        public async Task<OperationResult<BaseAutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string userId, string imagePath)
+        public async Task<OperationResult<BaseAutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string userId, string directory)
         {
-            if (createAutopartInputModel == null || String.IsNullOrWhiteSpace(userId) || String.IsNullOrWhiteSpace(imagePath))
+            if (createAutopartInputModel == null || String.IsNullOrWhiteSpace(userId) || String.IsNullOrWhiteSpace(directory))
             {
                 return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.InvalidArgumentsErrorMessage);
             }
@@ -52,23 +58,47 @@ namespace Autoplace.Autoparts.Services
 
             try
             {
-                await SaveImagesAsync(createAutopartInputModel.Images, imagePath, autopartEntity);
+                await SaveImagesAsync(createAutopartInputModel.Images, directory, autopartEntity);
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(e, ErrorMessages.ErrorWhileSavingImagesErrorMessage);
                 return OperationResult<BaseAutopartOutputModel>.Failure(ErrorMessages.ErrorWhileSavingImagesErrorMessage);
             }
 
+            await Data.AddAsync(autopartEntity);
+
             try
             {
-                await Data.AddAsync(autopartEntity);
                 await Data.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+            }
+
+            var message = new ApprovalRequestMessage
+            {
+                AutopartId = autopartEntity.Id,
+                Name = autopartEntity.Name,
+                Description = autopartEntity.Description,
+                Price = autopartEntity.Price,
+                Images = autopartEntity.Images.Select(i => new ImageMessage
+                {
+                    Id = i.Id,
+                    Extension = i.Extension,
+                    RemoteImageUrl = i.RemoteImageUrl,
+                })
+            };
+
+            try
+            {
+                await messageService.PublishAsync(message);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePublishingMessageErrorMessage);
             }
 
             var outputModel = mapper.Map<BaseAutopartOutputModel>(autopartEntity);
@@ -76,7 +106,7 @@ namespace Autoplace.Autoparts.Services
             return OperationResult<BaseAutopartOutputModel>.Success(outputModel);
         }
 
-        public async Task<AutopartOutputModel> GetByIdAsync(int id)
+        public async Task<AutopartOutputModel> GetAsync(int id)
         {
             var autopartEntity = await GetDetailedAutopartRecords()
                 .FirstOrDefaultAsync(a => a.Id == id);
@@ -91,27 +121,17 @@ namespace Autoplace.Autoparts.Services
             return outputModel;
         }
 
-        public async Task<IEnumerable<AutopartOutputModel>> GetAllAsync(Expression<Func<Autopart, bool>> filteringPredicate, int itemsPerPage = SystemConstants.DefaultMaxItemsConstraint, int page = 1)
+        public async Task<IEnumerable<AutopartOutputModel>> GetAllAsync(Expression<Func<Autopart, bool>> filteringPredicate, int pageSize = SystemConstants.DefaultMaxItemsConstraint, int page = 1)
         {
             var autoparts = await GetDetailedAutopartRecords()
                 .Where(filteringPredicate)
-                .Skip((page - 1) * itemsPerPage)
-                .Take(itemsPerPage)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
             var output = autoparts.Select(a => mapper.Map<AutopartOutputModel>(a));
 
             return output;
-        }
-
-        public async Task<IEnumerable<AutopartOutputModel>> GetAllForApprovalAsync(int? itemsPerPage, int? page)
-        {
-            if (page == null || itemsPerPage == null)
-            {
-                return await GetAllAsync(a => !a.IsApproved);
-            }
-
-            return await GetAllAsync(a => !a.IsApproved, itemsPerPage.Value, page.Value);
         }
 
         public async Task<IEnumerable<AutopartOutputModel>> SearchAsync(SearchFiltersInputModel searchFilters = null)
@@ -131,7 +151,7 @@ namespace Autoplace.Autoparts.Services
             return await GetAllAsync(specification, searchFilters.PageSize.Value, searchFilters.Page.Value);
         }
 
-        public async Task<OperationResult<BaseAutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string imagePath)
+        public async Task<OperationResult<BaseAutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string directory)
         {
             if (editAutopartInputModel == null)
             {
@@ -152,11 +172,11 @@ namespace Autoplace.Autoparts.Services
 
             try
             {
-                await SaveImagesAsync(editAutopartInputModel.Images, imagePath, autopartEntity);
+                await SaveImagesAsync(editAutopartInputModel.Images, directory, autopartEntity);
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(e, ErrorMessages.ErrorWhileSavingImagesErrorMessage);
                 return OperationResult<BaseAutopartOutputModel>.Failure(ErrorMessages.ErrorWhileSavingImagesErrorMessage);
             }
 
@@ -166,8 +186,8 @@ namespace Autoplace.Autoparts.Services
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
             }
 
             var outputModel = mapper.Map<BaseAutopartOutputModel>(autopartEntity);
@@ -211,8 +231,8 @@ namespace Autoplace.Autoparts.Services
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
             }
 
             var outputModel = mapper.Map<BaseAutopartOutputModel>(autopartEntity);
@@ -220,7 +240,7 @@ namespace Autoplace.Autoparts.Services
             return OperationResult<BaseAutopartOutputModel>.Success(outputModel);
         }
 
-        public int GetCount() => GetAllRecords().Count();
+        public async Task<int> GetCountAsync() => await GetAllRecords().Where(a => a.Status == AutopartStatus.Approved).CountAsync();
 
         public async Task<OperationResult> IncreaseViewsCountAsync(int id)
         {
@@ -239,23 +259,23 @@ namespace Autoplace.Autoparts.Services
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
             }
 
             return OperationResult.Success();
         }
 
-        public async Task<OperationResult<BaseAutopartOutputModel>> MarkAsApprovedAsync(int id)
+        public async Task<OperationResult> ChangeStatus(int autopartId, AutopartStatus newStatus)
         {
-            var autopartEntity = await GetAllRecords().FirstOrDefaultAsync(a => a.Id == id);
+            var autopartEntity = await GetAllRecords().FirstOrDefaultAsync(a => a.Id == autopartId);
 
             if (autopartEntity == null)
             {
-                return OperationResult<BaseAutopartOutputModel>.Failure(ErrorMessages.AutopartNotFoundErrorMessage);
+                return OperationResult.Failure(ErrorMessages.AutopartNotFoundErrorMessage);
             }
 
-            autopartEntity.IsApproved = true;
+            autopartEntity.Status = newStatus;
 
             try
             {
@@ -263,16 +283,14 @@ namespace Autoplace.Autoparts.Services
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.ErrorDuringOperationErrorMessage);
+                logger.LogError(e, ErrorMessages.AutopartNotFoundErrorMessage);
+                return OperationResult.Failure(ErrorMessages.AutopartNotFoundErrorMessage);
             }
 
-            var outputModel = mapper.Map<BaseAutopartOutputModel>(autopartEntity);
-
-            return OperationResult<BaseAutopartOutputModel>.Success(outputModel);
+            return OperationResult.Success();
         }
 
-        private async Task SaveImagesAsync(IEnumerable<IFormFile> images, string imagePath, Autopart autopartEntity)
+        private async Task SaveImagesAsync(IEnumerable<IFormFile> images, string directory, Autopart autopartEntity)
         {
             if (images == null || images.Count() == 0)
             {
@@ -281,18 +299,20 @@ namespace Autoplace.Autoparts.Services
 
             foreach (var image in images)
             {
-                var extension = imageService.GetExtension(image.FileName);
-                var imageEntity = new Image
-                {
-                    Extension = extension
-                };
+                var imageEntity = new Image();
 
-                var operationResult = await imageService.Save(image, imagePath, imageEntity.Id);
+                using var memoryStream = new MemoryStream();
+                image.CopyTo(memoryStream);
+                var imageBytes = memoryStream.ToArray();
+
+                var operationResult = await imageService.SaveAsync(imageBytes, image.FileName, directory, imageEntity.Id);
                 if (!operationResult.IsSuccessful)
                 {
                     throw new Exception(string.Join(Environment.NewLine, operationResult.ErrorMessages));
                 }
 
+                imageEntity.RemoteImageUrl = operationResult.Model.PhysicalPath;
+                imageEntity.Extension = operationResult.Model.Extension;
                 autopartEntity.Images.Add(imageEntity);
             }
         }
@@ -313,6 +333,7 @@ namespace Autoplace.Autoparts.Services
         private IQueryable<Autopart> GetDetailedAutopartRecords()
         {
             var autoparts = GetAllRecords()
+                .Where(a => a.Status == AutopartStatus.Approved)
                 .Include(a => a.Condition)
                 .Include(a => a.Category)
                 .Include(a => a.Car)

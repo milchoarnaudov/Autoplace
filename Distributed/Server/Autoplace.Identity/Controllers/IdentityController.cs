@@ -29,13 +29,7 @@ namespace Autoplace.Identity.Controllers
                 return BadRequest(result.ErrorMessages);
             }
 
-            var registeredUser = new RegisteredUserOutputModel
-            {
-                Email = result.Model.Email,
-                Username = result.Model.UserName,
-            };
-
-            return Ok(registeredUser);
+            return Ok(result.Model);
         }
 
         [HttpPost("login")]
@@ -61,7 +55,7 @@ namespace Autoplace.Identity.Controllers
                 return BadRequest(result.ErrorMessages);
             }
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPost("forgottenPassword")]
@@ -74,7 +68,7 @@ namespace Autoplace.Identity.Controllers
                 return BadRequest(result.ErrorMessages);
             }
 
-            return Ok();
+            return NoContent();
         }
 
         [Authorize]
@@ -89,7 +83,7 @@ namespace Autoplace.Identity.Controllers
                 return BadRequest(result.ErrorMessages);
             }
 
-            return Ok();
+            return NoContent();
         }
     }
 }

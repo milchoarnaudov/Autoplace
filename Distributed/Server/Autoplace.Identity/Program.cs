@@ -14,6 +14,8 @@ builder.Services
     .AddScoped<IIdentityService, IdentityService>()
     .AddScoped<ITokenProviderService, TokenProviderService>()
     .AddScoped<IDataSeeder, DataSeeder>()
+    .AddLogging(config => config.AddConsole())
+    .AddSingleton(typeof(ILogger), typeof(Logger<Program>))
     .AddIdentity<User, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;

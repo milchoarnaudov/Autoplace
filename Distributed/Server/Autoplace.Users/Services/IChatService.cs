@@ -8,10 +8,10 @@ namespace Autoplace.Members.Services
     {
         Task<OperationResult<ChatOutputModel>> CreateAsync(string receiverUsername, string senderUsername);
 
-        Task<OperationResult<ChatMessageOutputModel>> SendMessageAsync(ChatMessageInputModel message, string senderUsername);
+        Task<IEnumerable<ChatForUserOutputModel>> GetAllForMemberAsync(string username);
 
         Task<ChatWithMessagesOutputModel> GetAsync(int chatId, string username);
 
-        Task<IEnumerable<ChatForUserOutputModel>> GetAllForMemberAsync(string username);
+        Task<OperationResult<ChatMessageOutputModel>> SendMessageAsync(ChatMessageInputModel message, string senderUsername);
     }
 }

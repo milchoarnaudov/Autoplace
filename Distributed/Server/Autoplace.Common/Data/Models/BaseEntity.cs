@@ -2,7 +2,7 @@
 
 namespace Autoplace.Common.Data.Models
 {
-    public abstract class BaseModel<TKey> : IAuditInfo
+    public abstract class BaseEntity<TKey> : IAuditInfo
     {
         [Key]
         public TKey Id { get; set; }

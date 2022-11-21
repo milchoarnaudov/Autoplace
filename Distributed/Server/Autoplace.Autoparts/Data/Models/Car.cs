@@ -2,7 +2,7 @@
 
 namespace Autoplace.Autoparts.Data.Models
 {
-    public class Car : BaseDeletableModel<int>
+    public class Car : BaseDeletableEntity<int>
     {
         public int ModelId { get; set; }
 

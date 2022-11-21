@@ -1,8 +1,11 @@
-﻿using Autoplace.Common.Messaging;
+﻿using AutoMapper;
+using Autoplace.Common.Errors;
+using Autoplace.Common.Messaging;
 using Autoplace.Common.Messaging.Users;
 using Autoplace.Common.Models;
 using Autoplace.Common.Services.Data;
 using Autoplace.Common.Services.Messaging;
+using Autoplace.Identity.Common;
 using Autoplace.Identity.Data.Models;
 using Autoplace.Identity.Models.InputModels;
 using Autoplace.Identity.Models.OutputModels;
@@ -13,25 +16,29 @@ namespace Autoplace.Identity.Services
 {
     public class IdentityService : BaseDataService<User>, IIdentityService
     {
-        private const string InvalidCredentials = "Invalid credentials";
-
         private readonly ITokenProviderService tokenProviderService;
         private readonly UserManager<User> userManager;
         private readonly IPublisher publisher;
+        private readonly ILogger logger;
+        private readonly IMapper mapper;
 
         public IdentityService(
             DbContext dbContext,
-            ITokenProviderService tokenProviderService, 
+            ITokenProviderService tokenProviderService,
             UserManager<User> userManager,
-            IPublisher publisher)
+            IPublisher publisher,
+            ILogger logger,
+            IMapper mapper)
             : base(dbContext)
         {
             this.tokenProviderService = tokenProviderService;
             this.userManager = userManager;
             this.publisher = publisher;
+            this.logger = logger;
+            this.mapper = mapper;
         }
 
-        public async Task<OperationResult<User>> Register(UserInputModel userInputModel)
+        public async Task<OperationResult<RegisteredUserOutputModel>> Register(UserInputModel userInputModel)
         {
             var user = new User()
             {
@@ -44,40 +51,49 @@ namespace Autoplace.Identity.Services
 
             if (!operationResult.Succeeded)
             {
-                return OperationResult<User>.Failure(errors);
+                return OperationResult<RegisteredUserOutputModel>.Failure(errors);
             }
-           
-            await SendMessageAsync(user.Id, user.Email, user.UserName);
 
-            return OperationResult<User>.Success(user);
+            try
+            {
+                await SendMessageAsync(user.Id, user.Email, user.UserName);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePublishingMessageErrorMessage);
+            }
+
+            var outputModel = mapper.Map<RegisteredUserOutputModel>(user);
+
+            return OperationResult<RegisteredUserOutputModel>.Success(outputModel);
         }
 
-      
-        public async Task<OperationResult<UserOutputModel>> Login(LoginInputModel loginInputModel)
+
+        public async Task<OperationResult<LoggedInUserOutputModel>> Login(LoginInputModel loginInputModel)
         {
             var user = await userManager.FindByEmailAsync(loginInputModel.Email);
 
             if (user == null)
             {
-                return OperationResult<UserOutputModel>.Failure(InvalidCredentials);
+                return OperationResult<LoggedInUserOutputModel>.Failure(ErrorMessages.InvalidCredentials);
             }
 
             var isPasswordValid = await userManager.CheckPasswordAsync(user, loginInputModel.Password);
 
             if (!isPasswordValid)
             {
-                return OperationResult<UserOutputModel>.Failure(InvalidCredentials);
+                return OperationResult<LoggedInUserOutputModel>.Failure(ErrorMessages.InvalidCredentials);
             }
 
             var roles = await userManager.GetRolesAsync(user);
             var token = tokenProviderService.GenerateToken(user, roles);
 
-            var result = new UserOutputModel()
+            var result = new LoggedInUserOutputModel()
             {
                 Token = token,
             };
 
-            return OperationResult<UserOutputModel>.Success(result);
+            return OperationResult<LoggedInUserOutputModel>.Success(result);
         }
 
         public async Task<OperationResult> ChangePassword(ChangePasswordInputModel changePasswordInputModel, string userId)
@@ -86,7 +102,7 @@ namespace Autoplace.Identity.Services
 
             if (user == null)
             {
-                return OperationResult.Failure(InvalidCredentials);
+                return OperationResult.Failure(ErrorMessages.InvalidCredentials);
             }
 
             var operationResult = await userManager.ChangePasswordAsync(
@@ -107,7 +123,7 @@ namespace Autoplace.Identity.Services
 
             if (user == null)
             {
-                return OperationResult.Failure(InvalidCredentials);
+                return OperationResult.Failure(ErrorMessages.InvalidCredentials);
             }
 
             var operationResult = await userManager.ResetPasswordAsync(user, resetPasswordInputModel.Token, resetPasswordInputModel.Password);
@@ -124,7 +140,7 @@ namespace Autoplace.Identity.Services
 
             if (user == null)
             {
-                return OperationResult.Failure(InvalidCredentials);
+                return OperationResult.Failure(ErrorMessages.InvalidCredentials);
             }
 
             var token = await userManager.GeneratePasswordResetTokenAsync(user);

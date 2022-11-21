@@ -31,7 +31,7 @@ namespace Autoplace.Common.Services.Messaging
             return await data
                 .Messages
                 .FromSqlRaw($"SELECT * FROM Messages WHERE Type = '{messageType.AssemblyQualifiedName}' AND JSON_VALUE(serializedData, '$.{propertyFilter}') = '{identifier}'")
-                .AnyAsync();
+                .CountAsync() > 0;
         }
 
         public async Task MarkMessageAsPublished(int id)

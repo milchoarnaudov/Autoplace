@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Autoplace.Members.Data.Models
 {
-    public class Chat : BaseDeletableModel<int>
+    public class Chat : BaseDeletableEntity<int>
     {
         public Chat()
         {

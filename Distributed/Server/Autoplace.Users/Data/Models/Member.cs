@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Autoplace.Members.Data.Models
 {
-    public class Member : BaseDeletableModel<int>
+    public class Member : BaseDeletableEntity<int>
     {
         public Member()
         {

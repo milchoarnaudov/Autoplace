@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Autoplace.Members.Data.Models
 {
-    public class Comment : BaseDeletableModel<int>
+    public class Comment : BaseDeletableEntity<int>
     {
         [MaxLength(Constants.MaxCommentLength)]
         [Required]
