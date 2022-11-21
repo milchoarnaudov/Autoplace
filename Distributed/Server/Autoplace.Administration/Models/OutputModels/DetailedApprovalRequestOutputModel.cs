@@ -6,6 +6,8 @@ namespace Autoplace.Administration.Models.OutputModels
 {
     public class DetailedApprovalRequestOutputModel : ApprovalRequestOutputModel, IMapFrom<ApprovalRequest>
     {
+        public string Username { get; set; }
+
         public string Status { get; set; }
 
         public string Description { get; set; }

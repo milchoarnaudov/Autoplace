@@ -10,7 +10,7 @@ namespace Autoplace.Administration.Services
     public interface IApprovalRequestsService
     {
         Task<OperationResult<ApprovalRequestOutputModel>> CreateAsync(
-            int autopartId, string name, string description, decimal price, IEnumerable<Image> images);
+            int autopartId, string name, string description, decimal price, string username, IEnumerable<Image> images);
 
         Task<IEnumerable<ApprovalRequestOutputModel>> GetAllAsync(Expression<Func<ApprovalRequest, bool>> filterPredicate, int pageSize = SystemConstants.DefaultMaxItemsConstraint, int page = 1);
 

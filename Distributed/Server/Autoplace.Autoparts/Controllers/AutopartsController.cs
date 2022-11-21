@@ -30,9 +30,9 @@ namespace Autoplace.Autoparts.Controllers
         [HttpPost]
         public async Task<ActionResult<AutopartOutputModel>> Create([FromForm] CreateAutopartInputModel input)
         {
-            var currentUserId = currentUserService.UserId;
+            var username = currentUserService.Username;
             var imagePath = $"{env.WebRootPath}/Images";
-            var result = await autopartsService.CreateAsync(input, currentUserId, imagePath);
+            var result = await autopartsService.CreateAsync(input, username, imagePath);
 
             if (!result.IsSuccessful)
             {
@@ -68,10 +68,10 @@ namespace Autoplace.Autoparts.Controllers
         [HttpPut]
         public async Task<ActionResult<BaseAutopartOutputModel>> Edit([FromForm] EditAutopartInputModel input)
         {
-            var userId = currentUserService.UserId;
+            var username = currentUserService.Username;
             var imagePath = $"{env.WebRootPath}/Images";
 
-            if (!(await autopartsService.CheckIfUserIsOwnerAsync(userId, input.Id)))
+            if (!(await autopartsService.CheckIfUserIsOwnerAsync(username, input.Id)))
             {
                 return Forbid();
             }
@@ -89,9 +89,9 @@ namespace Autoplace.Autoparts.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<AutopartOutputModel>> Delete(int id)
         {
-            var userId = currentUserService.UserId;
+            var username = currentUserService.Username;
 
-            if (!(await autopartsService.CheckIfUserIsOwnerAsync(userId, id)))
+            if (!(await autopartsService.CheckIfUserIsOwnerAsync(username, id)))
             {
                 return Forbid();
             }

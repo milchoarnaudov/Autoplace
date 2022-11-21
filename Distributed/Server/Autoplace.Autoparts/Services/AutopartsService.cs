@@ -38,9 +38,9 @@ namespace Autoplace.Autoparts.Services
             this.messageService = messageService;
         }
 
-        public async Task<OperationResult<BaseAutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string userId, string directory)
+        public async Task<OperationResult<BaseAutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string username, string directory)
         {
-            if (createAutopartInputModel == null || String.IsNullOrWhiteSpace(userId) || String.IsNullOrWhiteSpace(directory))
+            if (createAutopartInputModel == null || String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(directory))
             {
                 return OperationResult<BaseAutopartOutputModel>.Failure(GenericErrorMessages.InvalidArgumentsErrorMessage);
             }
@@ -52,7 +52,7 @@ namespace Autoplace.Autoparts.Services
                 Description = createAutopartInputModel.Description,
                 CategoryId = createAutopartInputModel.CategoryId,
                 ConditionId = createAutopartInputModel.ConditionId,
-                UserId = userId,
+                Username = username,
                 CarId = createAutopartInputModel.CarId,
             };
 
@@ -83,6 +83,7 @@ namespace Autoplace.Autoparts.Services
                 AutopartId = autopartEntity.Id,
                 Name = autopartEntity.Name,
                 Description = autopartEntity.Description,
+                Username = autopartEntity.Username,
                 Price = autopartEntity.Price,
                 Images = autopartEntity.Images.Select(i => new ImageMessage
                 {
@@ -195,9 +196,9 @@ namespace Autoplace.Autoparts.Services
             return OperationResult<BaseAutopartOutputModel>.Success(outputModel);
         }
 
-        public async Task<bool> CheckIfUserIsOwnerAsync(string userId, int autopartId)
+        public async Task<bool> CheckIfUserIsOwnerAsync(string username, int autopartId)
         {
-            if (String.IsNullOrWhiteSpace(userId))
+            if (String.IsNullOrWhiteSpace(username))
             {
                 return false;
             }
@@ -205,7 +206,7 @@ namespace Autoplace.Autoparts.Services
             var autopart = await GetAllRecords()
                 .FirstOrDefaultAsync(x => x.Id == autopartId);
 
-            if (autopart == null || autopart.UserId != userId)
+            if (autopart == null || autopart.Username != username)
             {
                 return false;
             }

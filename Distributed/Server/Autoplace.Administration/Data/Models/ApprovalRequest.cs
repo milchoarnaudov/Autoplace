@@ -11,6 +11,9 @@ namespace Autoplace.Administration.Data.Models
         public AutopartStatus Status { get; set; }
 
         [Required]
+        public string Username { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]

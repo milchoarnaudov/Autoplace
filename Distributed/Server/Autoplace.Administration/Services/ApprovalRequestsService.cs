@@ -32,12 +32,13 @@ namespace Autoplace.Administration.Services
             this.messageService = messageService;
         }
 
-        public async Task<OperationResult<ApprovalRequestOutputModel>> CreateAsync(int autopartId, string name, string description, decimal price, IEnumerable<Image> images)
+        public async Task<OperationResult<ApprovalRequestOutputModel>> CreateAsync(int autopartId, string name, string description, decimal price, string username, IEnumerable<Image> images)
         {
             var approvalRequestEntity = new ApprovalRequest
             {
                 AutopartId = autopartId,
                 Name = name,
+                Username = username,
                 Description = description,
                 Price = price,
                 Images = images.ToList()

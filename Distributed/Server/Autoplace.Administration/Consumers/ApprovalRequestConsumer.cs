@@ -37,6 +37,7 @@ namespace Autoplace.Administration.Consumers
                 requestApproval.Name,
                 requestApproval.Description,
                 requestApproval.Price,
+                requestApproval.Username,
                 requestApproval.Images.Select(i =>
                 new Image
                 {

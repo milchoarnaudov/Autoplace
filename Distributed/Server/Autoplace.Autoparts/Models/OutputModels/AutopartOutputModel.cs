@@ -11,6 +11,8 @@ namespace Autoplace.Autoparts.Models.OutputModels
 
         public int ViewsCount { get; set; }
 
+        public string Username { get; set; }
+
         public CategoryOutputModel Category { get; set; }
 
         public ConditionOutputModel Condition { get; set; }
