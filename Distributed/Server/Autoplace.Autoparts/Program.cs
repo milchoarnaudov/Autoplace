@@ -1,4 +1,4 @@
-using Autoplace.Autoparts.Consumer;
+using Autoplace.Autoparts.Consumers;
 using Autoplace.Autoparts.Data;
 using Autoplace.Autoparts.Services;
 using Autoplace.Common.Extensions;

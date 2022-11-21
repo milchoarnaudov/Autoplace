@@ -4,7 +4,7 @@ using Autoplace.Common.Messaging.Autoparts;
 using Autoplace.Common.Services.Messaging;
 using MassTransit;
 
-namespace Autoplace.Autoparts.Consumer
+namespace Autoplace.Autoparts.Consumers
 {
     public class ChangeAutopartStatusConsumer : IConsumer<ChangeAutopartStatusMessage>
     {
