@@ -10,7 +10,7 @@ namespace Autoplace.Autoparts.Services
 {
     public interface IAutopartsService
     {
-        Task<OperationResult<AutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string username, string imagePath);
+        Task<OperationResult<AutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string username, string imageDirectory);
 
         Task<IEnumerable<AutopartOutputModel>> SearchAsync(SearchFiltersInputModel searchFilters = null);
 
@@ -18,7 +18,7 @@ namespace Autoplace.Autoparts.Services
 
         Task<DetailedAutopartOutputModel> GetAsync(int id);
 
-        Task<OperationResult<AutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string imagePath);
+        Task<OperationResult<AutopartOutputModel>> EditAsync(int id, AutopartInputModel editAutopartInputModel, string imageDirectory);
 
         Task<OperationResult<AutopartOutputModel>> DeleteAsync(int id);
 

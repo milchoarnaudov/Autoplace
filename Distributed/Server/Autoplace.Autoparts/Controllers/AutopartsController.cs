@@ -67,18 +67,18 @@ namespace Autoplace.Autoparts.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<ActionResult<AutopartOutputModel>> Edit([FromForm] EditAutopartInputModel input)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<AutopartOutputModel>> Edit([FromForm] AutopartInputModel input, int id)
         {
             var username = currentUserService.Username;
             var imagePath = $"{env.WebRootPath}/Images";
 
-            if (!(await autopartsService.CheckIfUserIsOwnerAsync(username, input.Id)))
+            if (!(await autopartsService.CheckIfUserIsOwnerAsync(username, id)))
             {
                 return BadRequest(ApiResponse.Failure(GenericErrorMessages.OperationNotAllowed));
             }
 
-            var result = await autopartsService.EditAsync(input, imagePath);
+            var result = await autopartsService.EditAsync(id, input, imagePath);
 
             if (!result.IsSuccessful)
             {

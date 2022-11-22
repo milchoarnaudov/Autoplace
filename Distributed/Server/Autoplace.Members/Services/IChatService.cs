@@ -12,6 +12,6 @@ namespace Autoplace.Members.Services
 
         Task<ChatWithMessagesOutputModel> GetAsync(int chatId, string username);
 
-        Task<OperationResult<ChatMessageOutputModel>> SendMessageAsync(ChatMessageInputModel message, string senderUsername);
+        Task<OperationResult<ChatMessageOutputModel>> SendMessageAsync(int chatId, ChatMessageInputModel message, string senderUsername);
     }
 }

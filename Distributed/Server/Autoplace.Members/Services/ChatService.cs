@@ -133,9 +133,9 @@ namespace Autoplace.Members.Services
         }
 
 
-        public async Task<OperationResult<ChatMessageOutputModel>> SendMessageAsync(ChatMessageInputModel message, string senderUsername)
+        public async Task<OperationResult<ChatMessageOutputModel>> SendMessageAsync(int chatId, ChatMessageInputModel message, string senderUsername)
         {
-            if (message == null || message.ChatId == null || string.IsNullOrWhiteSpace(senderUsername))
+            if (message == null || string.IsNullOrWhiteSpace(senderUsername))
             {
                 return OperationResult<ChatMessageOutputModel>.Failure(GenericErrorMessages.InvalidArgumentsErrorMessage);
             }
@@ -143,7 +143,7 @@ namespace Autoplace.Members.Services
             var chatEntity = GetAllRecords()
                 .Include(c => c.ChatMessages)
                 .Include(c => c.Members)
-                .FirstOrDefault(c => c.Id == message.ChatId);
+                .FirstOrDefault(c => c.Id == chatId);
 
             if (chatEntity == null)
             {

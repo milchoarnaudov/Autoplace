@@ -38,9 +38,9 @@ namespace Autoplace.Autoparts.Services
             this.messageService = messageService;
         }
 
-        public async Task<OperationResult<AutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string username, string directory)
+        public async Task<OperationResult<AutopartOutputModel>> CreateAsync(CreateAutopartInputModel createAutopartInputModel, string username, string imageDirectory)
         {
-            if (createAutopartInputModel == null || String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(directory))
+            if (createAutopartInputModel == null || String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(imageDirectory))
             {
                 return OperationResult<AutopartOutputModel>.Failure(GenericErrorMessages.InvalidArgumentsErrorMessage);
             }
@@ -58,7 +58,7 @@ namespace Autoplace.Autoparts.Services
 
             try
             {
-                await SaveImagesAsync(createAutopartInputModel.Images, directory, autopartEntity);
+                await SaveImagesAsync(createAutopartInputModel.Images, imageDirectory, autopartEntity);
             }
             catch (Exception e)
             {
@@ -80,6 +80,7 @@ namespace Autoplace.Autoparts.Services
 
             var message = new ApprovalRequestMessage
             {
+                MessageId = Guid.NewGuid().ToString(),
                 AutopartId = autopartEntity.Id,
                 Name = autopartEntity.Name,
                 Description = autopartEntity.Description,
@@ -152,7 +153,7 @@ namespace Autoplace.Autoparts.Services
             return await GetAllAsync(specification, searchFilters.PageSize.Value, searchFilters.Page.Value);
         }
 
-        public async Task<OperationResult<AutopartOutputModel>> EditAsync(EditAutopartInputModel editAutopartInputModel, string directory)
+        public async Task<OperationResult<AutopartOutputModel>> EditAsync(int id, AutopartInputModel editAutopartInputModel, string imageDirectory)
         {
             if (editAutopartInputModel == null)
             {
@@ -160,7 +161,7 @@ namespace Autoplace.Autoparts.Services
             }
 
             var autopartEntity = await GetDetailedAutopartRecords()
-                .FirstOrDefaultAsync(a => a.Id == editAutopartInputModel.Id);
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             if (autopartEntity == null)
             {
@@ -170,10 +171,11 @@ namespace Autoplace.Autoparts.Services
             autopartEntity.Name = editAutopartInputModel.Name;
             autopartEntity.Price = editAutopartInputModel.Price;
             autopartEntity.Description = editAutopartInputModel.Description;
+            autopartEntity.Status = AutopartStatus.WaitingForApproval;
 
             try
             {
-                await SaveImagesAsync(editAutopartInputModel.Images, directory, autopartEntity);
+                await SaveImagesAsync(editAutopartInputModel.Images, imageDirectory, autopartEntity);
             }
             catch (Exception e)
             {
@@ -190,6 +192,33 @@ namespace Autoplace.Autoparts.Services
                 logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
                 return OperationResult<AutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
             }
+
+
+            var message = new ApprovalRequestMessage
+            {
+                MessageId = Guid.NewGuid().ToString(),
+                AutopartId = autopartEntity.Id,
+                Name = autopartEntity.Name,
+                Description = autopartEntity.Description,
+                Username = autopartEntity.Username,
+                Price = autopartEntity.Price,
+                Images = autopartEntity.Images.Select(i => new ImageMessage
+                {
+                    Id = i.Id,
+                    Extension = i.Extension,
+                    RemoteImageUrl = i.RemoteImageUrl,
+                })
+            };
+
+            try
+            {
+                await messageService.PublishAsync(message);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePublishingMessageErrorMessage);
+            }
+
 
             var outputModel = mapper.Map<AutopartOutputModel>(autopartEntity);
 

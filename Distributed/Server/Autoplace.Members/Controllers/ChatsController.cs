@@ -22,12 +22,12 @@ namespace Autoplace.Members.Controllers
             this.currentUserService = currentUserService;
         }
 
-        [HttpPost("{receiverUsername}")]
-        public async Task<ActionResult<ChatOutputModel>> Create(string receiverUsername)
+        [HttpPost]
+        public async Task<ActionResult<ChatOutputModel>> Create(CreateChatInputModel inputModel)
         {
             var senderUsername = currentUserService.Username;
 
-            var result = await chatService.CreateAsync(receiverUsername, senderUsername);
+            var result = await chatService.CreateAsync(inputModel.ReceiverUsername, senderUsername);
 
             if (!result.IsSuccessful)
             {
@@ -61,11 +61,11 @@ namespace Autoplace.Members.Controllers
             return Ok(chat);
         }
 
-        [HttpPost("messages")]
-        public async Task<ActionResult<ChatMessageOutputModel>> SendMessage(ChatMessageInputModel input)
+        [HttpPost("{id}/messages")]
+        public async Task<ActionResult<ChatMessageOutputModel>> SendMessage(int id, ChatMessageInputModel input)
         {
             var currentUser = currentUserService.Username;
-            var result = await chatService.SendMessageAsync(input, currentUser);
+            var result = await chatService.SendMessageAsync(id, input, currentUser);
 
             if (!result.IsSuccessful)
             {

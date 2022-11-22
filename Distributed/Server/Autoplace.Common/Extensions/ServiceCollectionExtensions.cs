@@ -38,7 +38,11 @@ namespace Autoplace.Common.Extensions
                 .AddHealth(configuration)
                 .AddAutoMapperProfile(Assembly.GetCallingAssembly())
                 .Configure<RouteOptions>(options => options.LowercaseUrls = true)
-                .AddControllers();
+                .AddControllers()
+                .AddNewtonsoftJson(opt =>
+                {
+                    opt.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+                });
 
             return services;
         }

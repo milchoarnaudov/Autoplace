@@ -23,8 +23,8 @@ namespace Autoplace.Administration.Consumers
             var message = context.Message;
             var isDuplicated = await messageService.IsDuplicated(
                message,
-               nameof(ApprovalRequestMessage.AutopartId),
-               message.AutopartId);
+               nameof(ApprovalRequestMessage.MessageId),
+               message.MessageId);
 
             if (isDuplicated)
             {

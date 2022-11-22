@@ -2,6 +2,8 @@
 {
     public class ApprovalRequestMessage
     {
+        public string MessageId { get; set; }
+
         public int AutopartId { get; set; }
 
         public string Name { get; set; }

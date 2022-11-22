@@ -7,7 +7,7 @@ namespace Autoplace.Administration.Models.OutputModels
     {
         public int Id { get; set; }
 
-        public string AutopartId { get; set; }
+        public int AutopartId { get; set; }
 
         public string Name { get; set; }
     }
