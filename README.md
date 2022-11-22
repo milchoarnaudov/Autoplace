@@ -4,10 +4,10 @@ The idea behind the app is to facilitate the sale and purchase of autoparts and 
 
 ## Distributed
 
-The newer version of the app is with a distributed (microservice-based) architecture. I'm using the Eventual Consistency model and the Outbox pattern to keep data consistent with the help of RabbitMQ and Hangfire.
+The newer version of the app is with a distributed (microservice-based) architecture. I'm using the eventual consistency model and the outbox pattern to keep data consistent with the help of RabbitMQ and Hangfire.
 
 ![HighLevelArchitectureDiagram](ap-high-level-architecture.png)
 
 ## Monolithic
 
-The monolithic version of this app is quite old. I used the Data-Centric N-Layer architecture. I'm currently migrating it to the distributed architecture.
+The monolithic version of this app is quite old. I used the data-centric N-layer architecture. I'm currently migrating it to the distributed architecture.
