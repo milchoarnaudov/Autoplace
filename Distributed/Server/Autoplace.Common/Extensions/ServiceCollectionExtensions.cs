@@ -59,7 +59,7 @@ namespace Autoplace.Common.Extensions
                         sqlOptions => sqlOptions
                             .EnableRetryOnFailure(
                                 maxRetryCount: 10,
-                                maxRetryDelay: TimeSpan.FromSeconds(30),
+                                maxRetryDelay: TimeSpan.FromSeconds(15),
                                 errorNumbersToAdd: null)));
 
         public static IServiceCollection AddTokenAuthentication(
@@ -161,7 +161,7 @@ namespace Autoplace.Common.Extensions
                             rmq.ReceiveEndpoint(consumer.FullName, endpoint =>
                             {
                                 endpoint.PrefetchCount = 6;
-                                endpoint.UseMessageRetry(retry => retry.Interval(5, 10000));
+                                endpoint.UseMessageRetry(retry => retry.Interval(5, 500));
 
                                 endpoint.ConfigureConsumer(context, consumer);
                             });
