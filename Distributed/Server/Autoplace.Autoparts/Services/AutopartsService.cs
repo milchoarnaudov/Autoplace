@@ -7,6 +7,7 @@ using Autoplace.Autoparts.Specifications.Autoparts;
 using Autoplace.Common;
 using Autoplace.Common.Enums;
 using Autoplace.Common.Errors;
+using Autoplace.Common.Messaging;
 using Autoplace.Common.Messaging.Autoparts;
 using Autoplace.Common.Models;
 using Autoplace.Common.Services.Data;
@@ -68,19 +69,9 @@ namespace Autoplace.Autoparts.Services
 
             await Data.AddAsync(autopartEntity);
 
-            try
+            var messageData = new ApprovalRequestMessage
             {
-                await Data.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
-                return OperationResult<AutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
-            }
-
-            var message = new ApprovalRequestMessage
-            {
-                MessageId = Guid.NewGuid().ToString(),
+                MessageDataId = Guid.NewGuid().ToString(),
                 AutopartId = autopartEntity.Id,
                 Name = autopartEntity.Name,
                 Description = autopartEntity.Description,
@@ -93,6 +84,19 @@ namespace Autoplace.Autoparts.Services
                     RemoteImageUrl = i.RemoteImageUrl,
                 })
             };
+            var message = new Message(messageData);
+
+            await messageService.AddMessageAsync(message);
+
+            try
+            {
+                await Data.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<AutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+            }
 
             try
             {
@@ -108,7 +112,7 @@ namespace Autoplace.Autoparts.Services
             return OperationResult<AutopartOutputModel>.Success(outputModel);
         }
 
-        public async Task<DetailedAutopartOutputModel> GetAsync(int id)
+        public async Task<DetailedAutopartOutputModel> GetAsync(string id)
         {
             var autopartEntity = await GetDetailedAutopartRecords()
                 .FirstOrDefaultAsync(a => a.Id == id);
@@ -153,7 +157,7 @@ namespace Autoplace.Autoparts.Services
             return await GetAllAsync(specification, searchFilters.PageSize.Value, searchFilters.Page.Value);
         }
 
-        public async Task<OperationResult<AutopartOutputModel>> EditAsync(int id, AutopartInputModel editAutopartInputModel, string imageDirectory)
+        public async Task<OperationResult<AutopartOutputModel>> EditAsync(string id, AutopartInputModel editAutopartInputModel, string imageDirectory)
         {
             if (editAutopartInputModel == null)
             {
@@ -183,20 +187,9 @@ namespace Autoplace.Autoparts.Services
                 return OperationResult<AutopartOutputModel>.Failure(ErrorMessages.ErrorWhileSavingImagesErrorMessage);
             }
 
-            try
+            var messageData = new ApprovalRequestMessage
             {
-                await Data.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
-                return OperationResult<AutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
-            }
-
-
-            var message = new ApprovalRequestMessage
-            {
-                MessageId = Guid.NewGuid().ToString(),
+                MessageDataId = Guid.NewGuid().ToString(),
                 AutopartId = autopartEntity.Id,
                 Name = autopartEntity.Name,
                 Description = autopartEntity.Description,
@@ -209,6 +202,19 @@ namespace Autoplace.Autoparts.Services
                     RemoteImageUrl = i.RemoteImageUrl,
                 })
             };
+            var message = new Message(messageData);
+
+            await messageService.AddMessageAsync(message);
+
+            try
+            {
+                await Data.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+                return OperationResult<AutopartOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
+            }
 
             try
             {
@@ -219,13 +225,12 @@ namespace Autoplace.Autoparts.Services
                 logger.LogError(e, GenericErrorMessages.ErrorWhilePublishingMessageErrorMessage);
             }
 
-
             var outputModel = mapper.Map<AutopartOutputModel>(autopartEntity);
 
             return OperationResult<AutopartOutputModel>.Success(outputModel);
         }
 
-        public async Task<bool> CheckIfUserIsOwnerAsync(string username, int autopartId)
+        public async Task<bool> CheckIfUserIsOwnerAsync(string username, string autopartId)
         {
             if (String.IsNullOrWhiteSpace(username))
             {
@@ -243,7 +248,7 @@ namespace Autoplace.Autoparts.Services
             return true;
         }
 
-        public async Task<OperationResult<AutopartOutputModel>> DeleteAsync(int id)
+        public async Task<OperationResult<AutopartOutputModel>> DeleteAsync(string id)
         {
             var autopartEntity = GetAllRecords()
                .FirstOrDefault(x => x.Id == id);
@@ -272,7 +277,7 @@ namespace Autoplace.Autoparts.Services
 
         public async Task<int> GetCountAsync() => await GetAllRecords().Where(a => a.Status == AutopartStatus.Approved).CountAsync();
 
-        public async Task<OperationResult> IncreaseViewsCountAsync(int id)
+        public async Task<OperationResult> IncreaseViewsCountAsync(string id)
         {
             var autopartEntity = await GetAllRecords().FirstOrDefaultAsync(a => a.Id == id);
 
@@ -296,9 +301,10 @@ namespace Autoplace.Autoparts.Services
             return OperationResult.Success();
         }
 
-        public async Task<OperationResult> ChangeStatus(int autopartId, AutopartStatus newStatus)
+        public async Task<OperationResult> ChangeStatus(string id, AutopartStatus newStatus)
         {
-            var autopartEntity = await GetAllRecords().FirstOrDefaultAsync(a => a.Id == autopartId);
+            var autopartEntity = await GetAllRecords()
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             if (autopartEntity == null)
             {

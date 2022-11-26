@@ -45,7 +45,7 @@ namespace Autoplace.Autoparts.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DetailedAutopartOutputModel>> Get(int id)
+        public async Task<ActionResult<DetailedAutopartOutputModel>> Get(string id)
         {
             var autopart = await autopartsService.GetAsync(id);
 
@@ -68,7 +68,7 @@ namespace Autoplace.Autoparts.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<AutopartOutputModel>> Edit([FromForm] AutopartInputModel input, int id)
+        public async Task<ActionResult<AutopartOutputModel>> Edit([FromForm] AutopartInputModel input, string id)
         {
             var username = currentUserService.Username;
             var imagePath = $"{env.WebRootPath}/Images";
@@ -89,7 +89,7 @@ namespace Autoplace.Autoparts.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AutopartOutputModel>> Delete(int id)
+        public async Task<ActionResult<AutopartOutputModel>> Delete(string id)
         {
             var username = currentUserService.Username;
 

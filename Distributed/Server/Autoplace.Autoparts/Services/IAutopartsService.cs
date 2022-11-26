@@ -16,18 +16,18 @@ namespace Autoplace.Autoparts.Services
 
         Task<IEnumerable<AutopartOutputModel>> GetAllAsync(Expression<Func<Autopart, bool>> filteringPredicate, int pageSize = SystemConstants.DefaultMaxItemsConstraint, int page = 1);
 
-        Task<DetailedAutopartOutputModel> GetAsync(int id);
+        Task<DetailedAutopartOutputModel> GetAsync(string id);
 
-        Task<OperationResult<AutopartOutputModel>> EditAsync(int id, AutopartInputModel editAutopartInputModel, string imageDirectory);
+        Task<OperationResult<AutopartOutputModel>> EditAsync(string id, AutopartInputModel editAutopartInputModel, string imageDirectory);
 
-        Task<OperationResult<AutopartOutputModel>> DeleteAsync(int id);
+        Task<OperationResult<AutopartOutputModel>> DeleteAsync(string id);
 
         Task<int> GetCountAsync();
 
-        Task<OperationResult> IncreaseViewsCountAsync(int id);
+        Task<OperationResult> IncreaseViewsCountAsync(string id);
 
-        Task<bool> CheckIfUserIsOwnerAsync(string username, int autopartId);
+        Task<bool> CheckIfUserIsOwnerAsync(string username, string autopartId);
 
-        Task<OperationResult> ChangeStatus(int autopartId, AutopartStatus newStatus);
+        Task<OperationResult> ChangeStatus(string id, AutopartStatus newStatus);
     }
 }

@@ -20,10 +20,10 @@ namespace Autoplace.Autoparts.Consumers
         public async Task Consume(ConsumeContext<ChangeAutopartStatusMessage> context)
         {
             var message = context.Message;
-            var isDuplicated = await messageService.IsDuplicated(
+            var isDuplicated = await messageService.IsDuplicatedAsync(
                message,
-               nameof(ChangeAutopartStatusMessage.MessageId),
-               message.MessageId);
+               nameof(ChangeAutopartStatusMessage.MessageDataId),
+               message.MessageDataId);
 
             if (isDuplicated)
             {
@@ -38,7 +38,7 @@ namespace Autoplace.Autoparts.Consumers
                 throw new Exception(string.Join(Environment.NewLine, result.ErrorMessages));
             }
 
-            await messageService.SaveMessageAsync(new Message(message, true));
+            await messageService.AddMessageAsync(new Message(message, true), true);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Autoplace.Autoparts.Data.Models
 
         public string RemoteImageUrl { get; set; }
 
-        public int AutopartId { get; set; }
+        public string AutopartId { get; set; }
 
         public virtual Autopart Autopart { get; set; }
     }

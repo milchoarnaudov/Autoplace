@@ -161,7 +161,7 @@ namespace Autoplace.Common.Extensions
                             rmq.ReceiveEndpoint(consumer.FullName, endpoint =>
                             {
                                 endpoint.PrefetchCount = 6;
-                                endpoint.UseMessageRetry(retry => retry.Interval(5, 500));
+                                endpoint.UseMessageRetry(retry => retry.Interval(5, 2000));
 
                                 endpoint.ConfigureConsumer(context, consumer);
                             });

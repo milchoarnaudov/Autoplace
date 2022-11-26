@@ -1,11 +1,7 @@
 ﻿using Autoplace.Common.Data;
 using Autoplace.Common.Messaging;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Autoplace.Common.Services.Messaging
 {
@@ -21,7 +17,7 @@ namespace Autoplace.Common.Services.Messaging
             this.publisher = publisher;
         }
 
-        public async Task<bool> IsDuplicated(
+        public async Task<bool> IsDuplicatedAsync(
             object messageData,
             string propertyFilter,
             object identifier)
@@ -34,30 +30,29 @@ namespace Autoplace.Common.Services.Messaging
                 .CountAsync() > 0;
         }
 
-        public async Task MarkMessageAsPublished(int id)
+        public async Task AddMessageAsync(Message message, bool saveChanges = false)
+        {
+            await data.Messages.AddAsync(message);
+
+            if (saveChanges)
+            {
+                await data.SaveChangesAsync();
+            }
+        }
+
+        public async Task PublishAsync(Message message)
+        {
+            await publisher.PublishAsync(message.Data);
+            await MarkMessageAsPublishedAsync(message.Id);
+        }
+
+        private async Task MarkMessageAsPublishedAsync(int id)
         {
             var message = await data.FindAsync<Message>(id);
 
             message.MarkAsPublished();
 
             await data.SaveChangesAsync();
-        }
-
-        public async Task SaveMessageAsync(Message message)
-        {
-            data.Messages.Add(message);
-            await data.SaveChangesAsync();
-        }
-
-        public async Task PublishAsync(object messageData)
-        {
-            var message = new Message(messageData);
-
-            await SaveMessageAsync(message);
-
-            await publisher.PublishAsync(message.Data);
-
-            await MarkMessageAsPublished(message.Id);
         }
     }
 }

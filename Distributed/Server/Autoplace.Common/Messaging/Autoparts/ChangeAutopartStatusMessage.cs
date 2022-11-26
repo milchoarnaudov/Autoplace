@@ -4,9 +4,9 @@ namespace Autoplace.Common.Messaging.Autoparts
 {
     public class ChangeAutopartStatusMessage
     {
-        public string MessageId { get; set; }
+        public string MessageDataId { get; set; }
 
-        public int AutopartId { get; set; }
+        public string AutopartId { get; set; }
 
         public AutopartStatus NewStatus { get; set; }
 

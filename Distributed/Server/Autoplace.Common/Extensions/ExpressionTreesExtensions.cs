@@ -2,7 +2,7 @@
 
 namespace Autoplace.Common.Extensions
 {
-    public static class PredicateBuilder
+    public static class ExpressionTreesExtensions
     {
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> expr1,
                                                             Expression<Func<T, bool>> expr2)

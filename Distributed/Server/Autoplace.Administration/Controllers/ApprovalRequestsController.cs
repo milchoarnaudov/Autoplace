@@ -18,7 +18,7 @@ namespace Autoplace.Administration.Controllers
             this.approvalRequestsService = approvalRequestsService;
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<ApprovalRequestOutputModel>> Approve(int id, RequestApprovalInputModel input)
         {
             var result = await approvalRequestsService.ChangeStatusAsync(id, input);

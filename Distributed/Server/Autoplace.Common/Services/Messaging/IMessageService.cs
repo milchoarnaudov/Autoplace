@@ -5,16 +5,13 @@
 
     public interface IMessageService
     {
-        Task<bool> IsDuplicated(
+        Task<bool> IsDuplicatedAsync(
             object messageData,
             string propertyFilter,
             object identifier);
 
-        Task PublishAsync(object messageData);
+        Task PublishAsync(Message message);
 
-        Task SaveMessageAsync(Message message);
-
-        Task MarkMessageAsPublished(int id);
-
+        Task AddMessageAsync(Message message, bool saveChanges = false);
     }
 }

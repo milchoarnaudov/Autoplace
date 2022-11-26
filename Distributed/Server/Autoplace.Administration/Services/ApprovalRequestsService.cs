@@ -5,6 +5,7 @@ using Autoplace.Administration.Models.OutputModels;
 using Autoplace.Common;
 using Autoplace.Common.Enums;
 using Autoplace.Common.Errors;
+using Autoplace.Common.Messaging;
 using Autoplace.Common.Messaging.Autoparts;
 using Autoplace.Common.Models;
 using Autoplace.Common.Services.Data;
@@ -32,7 +33,7 @@ namespace Autoplace.Administration.Services
             this.messageService = messageService;
         }
 
-        public async Task<OperationResult<ApprovalRequestOutputModel>> CreateAsync(int autopartId, string name, string description, decimal price, string username, IEnumerable<Image> images)
+        public async Task<OperationResult<ApprovalRequestOutputModel>> CreateAsync(string autopartId, string name, string description, decimal price, string username, IEnumerable<Image> images)
         {
             var approvalRequestEntity = new ApprovalRequest
             {
@@ -69,7 +70,7 @@ namespace Autoplace.Administration.Services
             }
 
             var approvalRequestEntity = await GetAllRecords()
-                .FirstOrDefaultAsync(ar => ar.Id == approvalRequestId);
+                .FirstOrDefaultAsync(ar => ar.Id == approvalRequestId && ar.Status == AutopartStatus.WaitingForApproval);
 
             if (approvalRequestEntity == null)
             {
@@ -77,6 +78,17 @@ namespace Autoplace.Administration.Services
             }
 
             approvalRequestEntity.Status = requestApprovalInputModel.IsApproved ? AutopartStatus.Approved : AutopartStatus.Rejected;
+
+            var messageData = new ChangeAutopartStatusMessage
+            {
+                MessageDataId = Guid.NewGuid().ToString(),
+                AutopartId = approvalRequestEntity.AutopartId,
+                NewStatus = approvalRequestEntity.Status,
+                DateTimeOfApproval = DateTime.UtcNow,
+            };
+            var message = new Message(messageData);
+
+            await messageService.AddMessageAsync(message);
 
             try
             {
@@ -88,17 +100,9 @@ namespace Autoplace.Administration.Services
                 return OperationResult<ApprovalRequestOutputModel>.Failure(GenericErrorMessages.ErrorWhilePerformingOperationErrorMessage);
             }
 
-            var messageDate = new ChangeAutopartStatusMessage
-            {
-                MessageId = Guid.NewGuid().ToString(),
-                AutopartId = approvalRequestEntity.AutopartId,
-                NewStatus = approvalRequestEntity.Status,
-                DateTimeOfApproval = DateTime.UtcNow,
-            };
-
             try
             {
-                await messageService.PublishAsync(messageDate);
+                await messageService.PublishAsync(message);
             }
             catch (Exception e)
             {

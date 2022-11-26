@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autoplace.Autoparts.Migrations
 {
     [DbContext(typeof(AutopartsDbContext))]
-    [Migration("20221121195456_Initial")]
+    [Migration("20221125213530_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,8 @@ namespace Autoplace.Autoparts.Migrations
 
             modelBuilder.Entity("Autoplace.Autoparts.Data.Models.Autopart", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
@@ -281,8 +278,8 @@ namespace Autoplace.Autoparts.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AutopartId")
-                        .HasColumnType("int");
+                    b.Property<string>("AutopartId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -388,9 +385,7 @@ namespace Autoplace.Autoparts.Migrations
                 {
                     b.HasOne("Autoplace.Autoparts.Data.Models.Autopart", "Autopart")
                         .WithMany("Images")
-                        .HasForeignKey("AutopartId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("AutopartId");
 
                     b.Navigation("Autopart");
                 });

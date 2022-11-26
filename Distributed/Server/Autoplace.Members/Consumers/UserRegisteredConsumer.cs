@@ -21,7 +21,7 @@ namespace Autoplace.Members.Consumers
         public async Task Consume(ConsumeContext<UserRegisteredMessage> context)
         {
             var message = context.Message;
-            var isDuplicated = await messageService.IsDuplicated(
+            var isDuplicated = await messageService.IsDuplicatedAsync(
                message,
                nameof(UserRegisteredMessage.UserId),
                message.UserId);
@@ -38,7 +38,7 @@ namespace Autoplace.Members.Consumers
                 throw new Exception(string.Join(Environment.NewLine, result.ErrorMessages));
             }
 
-            await messageService.SaveMessageAsync(new Message(message, true));
+            await messageService.AddMessageAsync(new Message(message, true), true);
         }
     }
 }

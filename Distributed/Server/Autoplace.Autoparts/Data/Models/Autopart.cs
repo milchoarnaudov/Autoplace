@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Autoplace.Autoparts.Data.Models;
+﻿using System.ComponentModel.DataAnnotations;
 using Autoplace.Autoparts.Common;
 using Autoplace.Common.Data.Models;
 using Autoplace.Common.Enums;
@@ -8,10 +6,11 @@ using Autoplace.Common.Enums;
 namespace Autoplace.Autoparts.Data.Models
 {
 
-    public class Autopart : BaseDeletableEntity<int>
+    public class Autopart : BaseDeletableEntity<string>
     {
         public Autopart()
         {
+            Id = Guid.NewGuid().ToString();
             Images = new HashSet<Image>();
         }
 

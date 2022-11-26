@@ -21,10 +21,10 @@ namespace Autoplace.Administration.Consumers
         public async Task Consume(ConsumeContext<ApprovalRequestMessage> context)
         {
             var message = context.Message;
-            var isDuplicated = await messageService.IsDuplicated(
+            var isDuplicated = await messageService.IsDuplicatedAsync(
                message,
-               nameof(ApprovalRequestMessage.MessageId),
-               message.MessageId);
+               nameof(ApprovalRequestMessage.MessageDataId),
+               message.MessageDataId);
 
             if (isDuplicated)
             {
@@ -51,7 +51,7 @@ namespace Autoplace.Administration.Consumers
                 throw new Exception(string.Join(Environment.NewLine, result.ErrorMessages));
             }
 
-            await messageService.SaveMessageAsync(new Message(message, true));
+            await messageService.AddMessageAsync(new Message(message, true), true);
          }
     }
 }

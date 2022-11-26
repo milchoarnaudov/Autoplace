@@ -6,7 +6,7 @@ namespace Autoplace.Administration.Data.Models
 {
     public class ApprovalRequest : BaseEntity<int>
     {
-        public int AutopartId { get; set; }
+        public string AutopartId { get; set; }
 
         public AutopartStatus Status { get; set; }
 
