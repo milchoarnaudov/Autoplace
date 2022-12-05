@@ -127,9 +127,17 @@ namespace Autoplace.Autoparts.Services
             return outputModel;
         }
 
+        /// <summary>
+        /// Get all approved autoparts.
+        /// </summary>
+        /// <param name="filteringPredicate"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<AutopartOutputModel>> GetAllAsync(Expression<Func<Autopart, bool>> filteringPredicate, int pageSize = SystemConstants.DefaultMaxItemsConstraint, int page = 1)
         {
             var output = await GetAllRecords()
+                .Where(a => a.Status == AutopartStatus.Approved)
                 .Where(filteringPredicate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
