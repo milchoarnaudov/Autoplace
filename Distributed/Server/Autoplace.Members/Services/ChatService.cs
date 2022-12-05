@@ -87,18 +87,15 @@ namespace Autoplace.Members.Services
                 return Enumerable.Empty<ChatForUserOutputModel>();
             }
 
-            var chatsForUser = await GetAllRecords()
-               .Include(c => c.ChatMessages)
-               .Include(c => c.Members)
+            var output = await GetAllRecords()
                .Where(c => c.Members.Any(m => m.Username == username))
+               .Select(c => new ChatForUserOutputModel
+               {
+                   Id = c.Id,
+                   LastInteractionDateTime = c.UpdatedOn,
+                   WithMember = mapper.Map<MemberOutputModel>(c.Members.FirstOrDefault(m => m.Username != username))
+               })
                .ToListAsync();
-
-            var output = chatsForUser.Select(c => new ChatForUserOutputModel
-            {
-                Id = c.Id,
-                LastInteractionDateTime = c.UpdatedOn,
-                WithMember = mapper.Map<MemberOutputModel>(c.Members.FirstOrDefault(m => m.Username != username))
-            });
 
             return output;
         }

@@ -129,13 +129,18 @@ namespace Autoplace.Autoparts.Services
 
         public async Task<IEnumerable<AutopartOutputModel>> GetAllAsync(Expression<Func<Autopart, bool>> filteringPredicate, int pageSize = SystemConstants.DefaultMaxItemsConstraint, int page = 1)
         {
-            var autoparts = await GetDetailedAutopartRecords()
+            var output = await GetAllRecords()
                 .Where(filteringPredicate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
+                .Select(a => new AutopartOutputModel
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Price = a.Price,
+                    Username = a.Username,
+                })
                 .ToListAsync();
-
-            var output = autoparts.Select(a => mapper.Map<AutopartOutputModel>(a));
 
             return output;
         }

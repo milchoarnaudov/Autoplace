@@ -116,13 +116,18 @@ namespace Autoplace.Administration.Services
 
         public async Task<IEnumerable<ApprovalRequestOutputModel>> GetAllAsync(Expression<Func<ApprovalRequest, bool>> filterPredicate, int pageSize = SystemConstants.DefaultMaxItemsConstraint, int page = 1)
         {
-            var result = await GetAllRecords()
+            var output = await GetAllRecords()
                 .Where(filterPredicate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
+                .Select(ar => new ApprovalRequestOutputModel
+                {
+                    Id = ar.Id,
+                    AutopartId = ar.AutopartId,
+                    Name = ar.Name,
+                    CreatedOn = ar.CreatedOn
+                })
                 .ToListAsync();
-
-            var output = result.Select(ar => mapper.Map<ApprovalRequestOutputModel>(ar));
 
             return output;
         }
