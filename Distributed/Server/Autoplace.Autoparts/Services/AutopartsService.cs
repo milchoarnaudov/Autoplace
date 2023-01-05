@@ -10,6 +10,7 @@ using Autoplace.Common.Errors;
 using Autoplace.Common.Messaging;
 using Autoplace.Common.Messaging.Autoparts;
 using Autoplace.Common.Models;
+using Autoplace.Common.Services;
 using Autoplace.Common.Services.Data;
 using Autoplace.Common.Services.Files;
 using Autoplace.Common.Services.Messaging;

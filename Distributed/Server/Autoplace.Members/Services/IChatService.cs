@@ -1,4 +1,4 @@
-﻿using Autoplace.Common.Models;
+﻿using Autoplace.Common.Services;
 using Autoplace.Members.Models.InputModels;
 using Autoplace.Members.Models.OutputModels;
 

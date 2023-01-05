@@ -1,5 +1,4 @@
 ﻿using Autoplace.Common.Controllers;
-using Autoplace.Common.Models;
 using Autoplace.Common.Services.Identity;
 using Autoplace.Identity.Models.InputModels;
 using Autoplace.Identity.Models.OutputModels;

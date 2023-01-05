@@ -1,6 +1,5 @@
 ﻿using Autoplace.Common.Controllers;
 using Autoplace.Common.Errors;
-using Autoplace.Common.Models;
 using Autoplace.Common.Services.Identity;
 using Autoplace.Members.Models.InputModels;
 using Autoplace.Members.Models.OutputModels;

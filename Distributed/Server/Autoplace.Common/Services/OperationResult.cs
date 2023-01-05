@@ -1,4 +1,4 @@
-﻿namespace Autoplace.Common.Models
+﻿namespace Autoplace.Common.Services
 {
     public class OperationResult
     {

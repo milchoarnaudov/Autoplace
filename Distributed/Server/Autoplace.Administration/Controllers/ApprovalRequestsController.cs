@@ -4,7 +4,6 @@ using Autoplace.Administration.Models.OutputModels;
 using Autoplace.Administration.Services;
 using Autoplace.Common.Controllers;
 using Autoplace.Common.Enums;
-using Autoplace.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Autoplace.Administration.Controllers

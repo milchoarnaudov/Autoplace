@@ -1,5 +1,4 @@
-﻿using Autoplace.Common.Models;
-using Autoplace.Common.Models.Files;
+﻿using Autoplace.Common.Models.Files;
 
 namespace Autoplace.Common.Services.Files
 {

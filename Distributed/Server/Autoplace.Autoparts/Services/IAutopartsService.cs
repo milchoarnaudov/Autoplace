@@ -3,7 +3,7 @@ using Autoplace.Autoparts.Models.InputModels;
 using Autoplace.Autoparts.Models.OutputModels;
 using Autoplace.Common;
 using Autoplace.Common.Enums;
-using Autoplace.Common.Models;
+using Autoplace.Common.Services;
 using System.Linq.Expressions;
 
 namespace Autoplace.Autoparts.Services

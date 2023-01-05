@@ -2,7 +2,7 @@
 using Autoplace.Administration.Models.InputModels;
 using Autoplace.Administration.Models.OutputModels;
 using Autoplace.Common;
-using Autoplace.Common.Models;
+using Autoplace.Common.Services;
 using System.Linq.Expressions;
 
 namespace Autoplace.Administration.Services

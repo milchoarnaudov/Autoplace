@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Autoplace.Common.Errors;
-using Autoplace.Common.Models;
+using Autoplace.Common.Services;
 using Autoplace.Common.Services.Data;
 using Autoplace.Members.Common;
 using Autoplace.Members.Data.Models;

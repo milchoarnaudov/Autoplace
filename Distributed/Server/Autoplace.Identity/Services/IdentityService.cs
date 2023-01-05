@@ -2,7 +2,7 @@
 using Autoplace.Common.Errors;
 using Autoplace.Common.Messaging;
 using Autoplace.Common.Messaging.Users;
-using Autoplace.Common.Models;
+using Autoplace.Common.Services;
 using Autoplace.Common.Services.Data;
 using Autoplace.Common.Services.Messaging;
 using Autoplace.Identity.Common;

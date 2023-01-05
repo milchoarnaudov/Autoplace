@@ -1,4 +1,4 @@
-﻿namespace Autoplace.Common.Models
+﻿namespace Autoplace.Common.Controllers
 {
     public class ApiResponse
     {
