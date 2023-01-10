@@ -1,0 +1,62 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.form-container>div {
+    width: 34rem;
+    height: 28rem;
+    margin-top: 5%;
+    position: relative;
+}
+
+.form-container h1 {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 10%;
+    margin: 0 auto;
+}
+
+.form-container a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.form-container form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-container button {
+    width: 8rem;
+    height: 2rem;
+    position: absolute;
+    bottom: 10%;
+    background-color: #fff;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.control {
+    width: 65%;
+    color: #fff;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control input {
+    width: 10rem;
+    height: 1.5rem;
+    border: none;
+    border-radius: 5px;
+}
